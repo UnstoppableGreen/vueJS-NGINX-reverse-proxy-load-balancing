@@ -63,7 +63,7 @@ export default {
        
        const searchedList = computed(() => {
             return EntireUserList.value.filter(user =>
-                `${user.first_name} ${user.last_name}`.toLowerCase().includes(search.value.toLowerCase())
+                `${user.name}`.toLowerCase().includes(search.value.toLowerCase())
             )
         })
 
