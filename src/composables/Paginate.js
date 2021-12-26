@@ -9,6 +9,8 @@ export default function paginateUserList(data){
     const pages=ref([]);
 
     const setPages=()=>{
+		//data.value.total_pages = 2;
+		//data.value.total_pages = 2;
         for(let i=1 ; i<= data.value.total_pages ; i++){
             pages.value.push(i)
         }

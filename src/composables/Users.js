@@ -9,28 +9,31 @@ export default function useUser(){
     const router = useRouter()
     const EntireUserList = ref([])
 	
- //   const getAllData = async (params) => {
-  //      let response = await User.get('users',{params:params})
-  //      data.value = response.data;
-  //      usersdata.value=response.data.data
-  //  }
-	
-    const getAllData = async () => {
-        let response = await User.get('/client/getClients')
+    const getAllData = async (params) => {
+		let response = await User.get('/client/getClientsPage',{params:params})
+        data.value = response.data;
+        usersdata.value=response.data.data;
 		
-        //data.value = response.data;
-		// usersdata.value=response.data.data;
-		usersdata.value=response.data;
-		console.log('Клиенты'+response.data );
-
+		/*let response = await User.get('/client/getClients')
+		usersdata.value=response.data;*/    
+		
+		//data.value = response.data;
+		//usersdata.value=response.data.data;
+		//console.log('Клиенты'+response.data );
+		/*for(var property in response.data) {
+			for(var prop in response.data[property]) 
+			console.log(prop + "=" + response.data[property][prop]);
+		}*/
     }
     
     const getPageData = async(params)=>{
-        let response = await User.get('users',{params:params})
-        return response.data.data
+		let response = await User.get('/client/getClientsPage',{params:params})
+		return response.data
+        //let response = await User.get('/client/getClients',{params:params})
+        //return response.data.data
     }
     
-    //Get all user's data from Paginated Api with recursion     
+    //Получить все данные пользователя из разбитого на страницы Api с помощью рекурсии    
     
     const getEntireUserList = async (pageNo=1)=>{
         let res = await getPageData({page:pageNo});
@@ -43,24 +46,27 @@ export default function useUser(){
         }
         return res
       }
-
+	
+	//получение данных об одном клиенте
     const getUser = async (clientID) => {
-        let response = await User.get(`client/getClientById?clientID=${clientID}`) //ПРОВЕРИТЬ
-        user.value = response.data.data;
+        let response = await User.get(`client/getClientById?clientID=${clientID}`) 
+        user.value = response.data;		
     }
     
+	//добавление клиента
     const storeUser = async (data) => {
           await User.post(`client/insertClient?${data}`,data)
           await router.push({name: 'user.index'})
           
     }
 
+	//обновление информации о клиенте
     const updateUser = async (data) => {
-          //await User.put(`users/${clientID}` , user.value)
-		await User.post(`client/updateClient?${data}`,data)
-          await router.push({name:'user.index'})
-        }
+		await User.post(`client/updateClient?${data}`, data['_value'])
+        await router.push({name:'user.index'})
+    }
     
+	//удаление клиента
     const deleteUser = async (clientID) => {
         let confirm=window.confirm('Уверены в удалении пользователя с id: '+clientID+'?')
         if(confirm) {    

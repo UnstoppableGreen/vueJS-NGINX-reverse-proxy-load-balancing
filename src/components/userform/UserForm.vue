@@ -13,7 +13,7 @@
 						<div class="md:flex flex-row md:space-x-4 w-full text-xs">
 							<div class="mb-3 space-y-2 w-full text-xs">
 								<label  class="font-semibold text-gray-600 py-2">ФИО <abbr title="required">*</abbr></label>
-								<input v-model="userdata.name" placeholder="Иванов Иван Иванович" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" required="required" type="text" name="integration[shop_name]" id="integration_shop_name">
+								<input v-model="userdata.name" placeholder="Иванов Иван Иванович" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" required="required" type="text">
 								<p class="text-red text-xs hidden">Пожалуйста, заполните это поле.</p>
 							</div>
 						</div>
@@ -68,6 +68,7 @@ export default {
 	},
 	setup(props){
 		let userdata=reactive({
+			'clientID':'',
 			'name':'',
 			'contacts':'',
 			'address':'',
@@ -76,16 +77,14 @@ export default {
 
 		const {user,getUser,storeUser,updateUser} = useUser()
 
-
 		if(props.clientID){
 			onMounted(getUser(props.clientID))
 			userdata = user
 		}
 
-
 		const saveUser=async()=>{
-			props.userId ?
-			await updateUser(props.userId)
+			props.clientID ?
+			await updateUser({...userdata})
 			:await storeUser({...userdata})
 		}
 	

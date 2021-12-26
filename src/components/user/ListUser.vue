@@ -124,7 +124,7 @@ export default {
         
         const retrieveList = (page)=>{
             const params=setParam(page)
-                getAllData(params)
+				getAllData(params)
             }
 
         const filterData=(data)=>{
@@ -160,7 +160,7 @@ export default {
         
         
         onMounted(async ()=>{
-            await getAllData({page:page.value})
+			await getAllData({page:page.value})
             setPages(data)
             getEntireUserList()
         })

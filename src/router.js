@@ -5,7 +5,7 @@ import UserEdit from './components/userform/UserEdit'
 
 const routes = [
 	{
-		path: '/',
+		path: '',
 		name: 'user.index',
         component: UserIndex,
     },
