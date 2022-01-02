@@ -15,16 +15,16 @@
             </div>
         </td>
 
-          <td class=" py-5  bg-white text-sm">
+        <td class=" py-5  bg-white text-sm">
             <p class=" md:text-base text-gray-900 whitespace-no-wrap">
                 {{userdata.contacts}}
             </p>
-          </td>
+        </td>
 		<td class=" py-5  bg-white text-sm">
             <p class=" md:text-base text-gray-900 whitespace-no-wrap">
                 {{userdata.address}}
             </p>
-          </td>
+        </td>
 		<td class=" py-5  bg-white text-sm">
             <p class=" md:text-base text-gray-900 whitespace-no-wrap">
                 {{userdata.date}}

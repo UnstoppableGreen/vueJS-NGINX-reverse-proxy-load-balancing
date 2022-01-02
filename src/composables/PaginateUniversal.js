@@ -2,7 +2,7 @@
 import { computed,ref } from '@vue/reactivity';
 
 
-export default function paginateUserList(data){
+export default function paginateList(data){
 
     const page=ref(1)
    
@@ -30,8 +30,7 @@ export default function paginateUserList(data){
     })
 
     const totalEntries=computed(()=>
-		data.value.total
-       // data.value.per_page * data.value.total_pages
+        data.value.per_page * data.value.total_pages
     ) 
 
     return{

@@ -15,13 +15,8 @@
             <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-6 overflow-x-auto ">
                 <div class="flex  justify-between ">
                     <div >
-                        <p class="text-3xl font-bold">Клиенты 
-                            <span class="material-icons">
-                                    people
-                            </span>
-                         </p>
-                         <!--<p class="text-gray-400 mt-2 mb-5">{{data.total}} users</p>-->
-                       
+                        <p class="text-3xl font-bold">Клиенты </p>                        
+                        <p class="text-gray-400 mt-2 mb-5">{{data.total}} клиентов</p>                      
                     </div>
                     <filter-user @setFilter="filterData" ></filter-user>
                 

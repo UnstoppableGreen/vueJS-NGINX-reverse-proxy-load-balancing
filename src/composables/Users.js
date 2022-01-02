@@ -1,4 +1,4 @@
-import  User  from '../api/UserApi';
+import  API  from '../api/API';
 import { useRouter} from 'vue-router'
 import { ref } from '@vue/reactivity';
 
@@ -10,11 +10,11 @@ export default function useUser(){
     const EntireUserList = ref([])
 	
     const getAllData = async (params) => {
-		let response = await User.get('/client/getClientsPage',{params:params})
+		let response = await API.get('/clients/getClientsPage',{params:params})
         data.value = response.data;
         usersdata.value=response.data.data;
 		
-		/*let response = await User.get('/client/getClients')
+		/*let response = await API.get('/client/getClients')
 		usersdata.value=response.data;*/    
 		
 		//data.value = response.data;
@@ -27,9 +27,9 @@ export default function useUser(){
     }
     
     const getPageData = async(params)=>{
-		let response = await User.get('/client/getClientsPage',{params:params})
+		let response = await API.get('/clients/getClientsPage',{params:params})
 		return response.data
-        //let response = await User.get('/client/getClients',{params:params})
+        //let response = await API.get('/client/getClients',{params:params})
         //return response.data.data
     }
     
@@ -49,28 +49,28 @@ export default function useUser(){
 	
 	//получение данных об одном клиенте
     const getUser = async (clientID) => {
-        let response = await User.get(`client/getClientById?clientID=${clientID}`) 
+        let response = await API.get(`/clients/getClientById?clientID=${clientID}`) 
         user.value = response.data;		
     }
     
 	//добавление клиента
     const storeUser = async (data) => {
-          await User.post(`client/insertClient?${data}`,data)
+          await API.post(`/clients/insertClient?${data}`,data)
           await router.push({name: 'user.index'})
           
     }
 
 	//обновление информации о клиенте
     const updateUser = async (data) => {
-		await User.post(`client/updateClient?${data}`, data['_value'])
+		await API.post(`/clients/updateClient?${data}`, data['_value'])
         await router.push({name:'user.index'})
     }
     
 	//удаление клиента
     const deleteUser = async (clientID) => {
-        let confirm=window.confirm('Уверены в удалении пользователя с id: '+clientID+'?')
+        let confirm=window.confirm('Вы действительно хотите удалить пользователя с id: '+clientID+'?')
         if(confirm) {    
-            await User.post(`client/deleteClient?clientID=${clientID}`)
+            await API.post(`/clients/deleteClient?clientID=${clientID}`)
         }
    }
     
