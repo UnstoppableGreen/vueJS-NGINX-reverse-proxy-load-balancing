@@ -6,6 +6,7 @@ export default function useOrder(){
     const data= ref([])
     const ordersdata=ref([])
     const order= ref([])
+    const orderInfo= ref([])
     const router = useRouter() //для операций UPDATE и STORE
     const EntireOrdersList = ref([])
 	
@@ -37,9 +38,16 @@ export default function useOrder(){
 	
 	//получение данных об одном клиенте
     const getOrderById = async (orderID) => {
-        let response = await API.get(`orders/getOrderById=${orderID}`) 
-        order.value = response.data;		
+        let response = await API.get(`orders/getOrderById?orderID=${orderID}`) 
+        order.value = response.data;
+        console.log(order);		
     }
+
+    //получение данных об одном клиенте
+     const getOrderInfo = async (orderID) => {
+            let response = await API.get(`orders/getOrderInfo?orderID=${orderID}`) 
+            orderInfo.value = response.data;	
+        }
     
 	//добавление клиента
     const storeOrder = async (data) => {
@@ -66,6 +74,8 @@ export default function useOrder(){
             data,
             order,
             ordersdata,
+            orderInfo,
+            getOrderInfo,
             EntireOrdersList,
             getAllData,
             getOrderById,

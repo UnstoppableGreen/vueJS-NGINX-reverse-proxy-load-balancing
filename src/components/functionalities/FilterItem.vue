@@ -26,7 +26,7 @@ import {
     ref
 } from '@vue/runtime-core'
 export default {
-    name: 'FilterOrder',
+    name: 'FilterItem',
     setup(props, {emit}) {
         const isfilter = ref(false)
         const filtertype = ref('')

@@ -28,8 +28,14 @@
         <span class="material-icons-outlined">
             add_box
         </span>
-    </router-link>
-	
+    </router-link> 
+	<!-- итемы-->
+	<router-link to="/items" class="hover:shadow-md p-3   md:p-2 rounded-full duration-1000 ease-in-out transform hover:scale-125 delay-200  hover:bg-blue-300 hover:text-3xl font-bold text-center cursor-pointer ">
+        <span class="material-icons-outlined">
+           category 
+        </span>
+    </router-link> 
+
 	<!--запросы к поставщикам-->
 	<router-link to="/create" class="hover:shadow-md p-3   md:p-2 rounded-full duration-1000 ease-in-out transform hover:scale-125 delay-200  hover:bg-blue-300 hover:text-3xl font-bold text-center cursor-pointer ">
         <span class="material-icons-outlined">
@@ -38,7 +44,7 @@
     </router-link>
 	
 	<!--поставщики-->
-	<router-link to="/create" class="hover:shadow-md p-3   md:p-2 rounded-full duration-1000 ease-in-out transform hover:scale-125 delay-200  hover:bg-blue-300 hover:text-3xl font-bold text-center cursor-pointer ">
+	<router-link to="/requests" class="hover:shadow-md p-3   md:p-2 rounded-full duration-1000 ease-in-out transform hover:scale-125 delay-200  hover:bg-blue-300 hover:text-3xl font-bold text-center cursor-pointer ">
 		<span class="material-icons-outlined">
             work
         </span>

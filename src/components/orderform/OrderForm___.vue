@@ -23,7 +23,7 @@
                   <label for="ajax">Выберите статус: </label>
                   <p>
                     <input
-                      v-model="orderdata.statusID"
+					v-model="statusID"
                       type="text"
                       id="ajax"
                       list="json-datalist"
@@ -39,7 +39,7 @@
                   <label for="ajax">Выберите клиента: </label>
                   <p>
                     <input
-                      v-model="orderdata.clientID"
+                      v-model="clientID"
                       id="ajax-clients"
                       list="json-datalist-clients"
                       placeholder="выберите клиента"
@@ -51,33 +51,66 @@
               <div
                 class="inline-block min-w-full shadow md:shadow-xl md:pl-4 pt-6 rounded-lg overflow-hidden"
               >
+              <form @submit.prevent="addDetail" class="mt-5">
                 <tbody>
-                  <tr>
-                    <td class="py-5 bg-white text-sm">
-                      <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                        ID детали
-                      </p>
-                    </td>
+                  <label class="font-semibold text-gray-600 py-2">
+                    Состав заказа</label
+                  >
+                  <div class="mb-3 space-y-2 w-full text-xs">
+                    <div class="md:flex flex-row md:space-x-4 w-full text-xs">
+                      <div class="mb-3 space-y-2 w-full text-xs">
+                        <label for="ajax-item">Выберите итем: </label>
+                        <p>
+                          <input
+                            v-model="itemID"
+                            type="text"
+                            id="ajax-item"
+                            list="json-datalist-item"
+                            placeholder="выберите итем"
+                          />
+                          <datalist id="json-datalist-item"></datalist>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
-                    <td class="py-5 bg-white text-sm">
-                      <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                        QTY
-                      </p>
-                    </td>
-                    <td class="py-5 bg-white text-sm">
-                      <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                        Комментарий
-                      </p>
-                    </td>
-                  </tr>
-                  <transition-group name="list">
-                    <detail
-                      v-for="detail in orderdata['orderDetails']"
-                      :key="detail.id"
-                      :orderdetail="detail"
-                    ></detail>
-                  </transition-group>
+                  <div class="mb-3 space-y-2 w-full text-xs">
+                    <div class="md:flex flex-row md:space-x-4 w-full text-xs">
+                      <div class="mb-3 space-y-2 w-full text-xs">
+                        <label for="ajax">Впишите количество: </label>
+                        <input
+                          v-model="qty"
+                          placeholder="Количество"
+                          class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
+                          type="number"
+                          name="integration[street_address]"
+                          id="integration_street_address"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-3 space-y-2 w-full text-xs">
+                    <div class="md:flex flex-row md:space-x-4 w-full text-xs">
+                      <div class="mb-3 space-y-2 w-full text-xs">
+                        <label for="ajax">: </label>
+                        <input
+                          v-model="comments"
+                          placeholder="Напишите комментарий"
+                          class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
+                          type="text"
+                          name="integration[street_address]"
+                          id="integration_street_address"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </tbody>
+              </form>  
+                <button id="addDetail"
+                  class="transition duration-200 ease-in-out mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600"
+                >
+                  Добавить в заказа
+                </button>  
               </div>
               <div
                 class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse"
@@ -96,8 +129,11 @@
                   Обновить
                 </button>
               </div>
+              <div>{{JSON.stringify(orderdata)}}</div>
             </div>
+					
           </form>
+
         </div>
       </div>
     </div>
@@ -109,13 +145,14 @@
 import { reactive } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 import useOrder from "../../composables/Orders";
-import Detail from "../orders/Detail.vue";
 //import axios from 'axios'
 export default {
   name: "OrderForm",
-  components: {
-    Detail,
+  
+  addDetail () {
+    console.log(orderdetail.itemID);
   },
+
   props: {
     orderID: {
       required: true,
@@ -123,10 +160,24 @@ export default {
     },
   },
   setup(props) {
+    // eslint-disable-next-line no-unused-vars
+    let orderdata = reactive({
+      'clientID': '',
+      'statusID': '',
+      'orderdetails': [],
+    });
+	// eslint-disable-next-line no-unused-vars	  
+	let orderdetail=reactive({
+        'itemID': '',
+        'qty': '',
+        'comments': '',
+		})
     const { order, getOrderById, storeOrder, updateOrder } = useOrder();
+    let orderdataString;
     if (props.orderID) {
       onMounted(getOrderById(props.orderID));
       orderdata = order;
+      orderdataString = JSON.stringify(orderdata).replace(',','\n');
     }
 
     const saveOrder = async () => {
@@ -137,16 +188,23 @@ export default {
 
     return {
       orderdata,
+      orderdataString,
       saveOrder,
     };
   },
 };
-// eslint-disable-next-line no-unused-vars
-let orderdata = reactive({
-  clientID: "",
-  statusID: "",
-  orderdetails: [],
-});
+  // eslint-disable-next-line no-unused-vars
+  let orderdata = reactive({
+      'clientID': '',
+      'statusID': '',
+      'orderdetails': [],
+    });
+  // eslint-disable-next-line no-unused-vars
+	let orderdetail=reactive({
+        'itemID': '',
+        'qty': '',
+        'comments': '',
+		}) 
 
 
 document.addEventListener("DOMContentLoaded", () => {

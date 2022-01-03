@@ -6,6 +6,13 @@ import UserEdit from './components/userform/UserEdit'
 
 import OrderCreate from './components/orderform/OrderCreate'
 import OrderEdit from './components/orderform/OrderEdit'
+import OrderInfo from './components/orderform/OrderInfo'
+
+import RequestsIndex from './components/RequestsIndex'
+//import ShipmentsIndex from './components/ShipmentsIndex'
+
+import ItemsIndex from './components/ItemsIndex'
+import ItemEdit from './components/itemform/ItemEdit'
 
 const routes = [
 	{
@@ -19,7 +26,7 @@ const routes = [
         component: UserCreate
     },
     {
-        path:'/edit/:clientID',
+        path:'/clients/edit/:clientID',
         name:'user.edit',
         component:UserEdit,
         props:true
@@ -37,9 +44,40 @@ const routes = [
         component: OrderCreate
     },
     {
-        path:'/edit/:orderID',
+        path:'/orders/edit/:orderID',
         name:'order.edit',
         component:OrderEdit,
+        props:true
+
+    },
+    {
+        path:'/orders/info/:orderID',
+        name:'order.info',
+        component:OrderInfo,
+        props:true
+
+    },
+		//маршруты для запросов и поставок
+	{
+		path: '/requests',
+		name: 'requests.index',
+        component: RequestsIndex,
+    },
+    /*{
+        path:'/shipments',
+        name:'shipments.index',
+        component: ShipmentsIndex
+    },*/
+   //маршруты для итемов
+	{
+		path: '/items',
+		name: 'items.index',
+        component: ItemsIndex,
+    },
+    {
+        path:'/items/edit/:itemID',
+        name:'item.edit',
+        component:ItemEdit,
         props:true
 
     },

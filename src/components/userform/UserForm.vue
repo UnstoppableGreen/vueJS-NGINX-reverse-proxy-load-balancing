@@ -48,6 +48,8 @@
 								</div>
 							</div>
 						</form>
+						<textarea wrap="soft" v-model="userdataString" placeholder=""></textarea>
+						<div>{{JSON.stringify(userdata)}}</div>
 					</div>
 				</div>
 			</div>
@@ -74,12 +76,13 @@ export default {
 			'address':'',
 			'date':'',
 		})
-
+		// eslint-disable-next-line no-unused-vars
 		const {user,getUser,storeUser,updateUser} = useUser()
-
+		let userdataString;
 		if(props.clientID){
 			onMounted(getUser(props.clientID))
-			userdata = user
+			userdata = user			
+			userdataString = JSON.stringify(userdata).replace(',','\n');
 		}
 
 		const saveUser=async()=>{
@@ -90,6 +93,7 @@ export default {
 	
 		return{
 			userdata,
+			userdataString,
 			saveUser
 		}
 	

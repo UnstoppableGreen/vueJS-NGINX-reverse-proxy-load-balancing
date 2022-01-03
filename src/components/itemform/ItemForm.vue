@@ -8,46 +8,16 @@
       <div class="grid gap-8 grid-cols-1">
         <div class="flex flex-col">
           <div class="flex flex-col sm:flex-row items-center">
-            <h2 v-if="!clientID" class="font-semibold text-lg mr-auto">
-              Создание заказа
+            <h2 v-if="!itemID" class="font-semibold text-lg mr-auto">
+              Создание детали
             </h2>
             <h2 v-else class="font-semibold text-lg mr-auto">
-              Изменение заказа
+              Изменение детали
             </h2>
             <div class="w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0"></div>
           </div>
           <form @submit.prevent="saveOrder" class="mt-5">
             <div class="form">
-              <div class="md:flex flex-row md:space-x-4 w-full text-xs">
-                <div class="mb-3 space-y-2 w-full text-xs">
-                  <label for="ajax">Выберите статус: </label>
-                  <p>
-                    <input
-                      v-model="orderdata.statusID"
-                      type="text"
-                      id="ajax"
-                      list="json-datalist"
-                      placeholder="выберите статус"
-                    />
-                    <datalist id="json-datalist"></datalist>
-                  </p>
-                </div>
-              </div>
-
-              <div class="md:flex flex-row md:space-x-4 w-full text-xs">
-                <div class="mb-3 space-y-2 w-full text-xs">
-                  <label for="ajax">Выберите клиента: </label>
-                  <p>
-                    <input
-                      v-model="orderdata.clientID"
-                      id="ajax-clients"
-                      list="json-datalist-clients"
-                      placeholder="выберите клиента"
-                    />
-                    <datalist id="json-datalist-clients"></datalist>
-                  </p>
-                </div>
-              </div>
               <div
                 class="inline-block min-w-full shadow md:shadow-xl md:pl-4 pt-6 rounded-lg overflow-hidden"
               >
@@ -64,17 +34,12 @@
                         QTY
                       </p>
                     </td>
-                    <td class="py-5 bg-white text-sm">
-                      <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                        Комментарий
-                      </p>
-                    </td>
                   </tr>
                   <transition-group name="list">
                     <detail
-                      v-for="detail in orderdata['orderDetails']"
+                      v-for="detail in itemdata['itemDetails']"
                       :key="detail.id"
-                      :orderdetail="detail"
+                      :itemdetail="detail"
                     ></detail>
                   </transition-group>
                 </tbody>
@@ -84,7 +49,7 @@
               >
                 <button
                   type="submit"
-                  v-if="!clientID"
+                  v-if="!itemID"
                   class="transition duration-200 ease-in-out mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600"
                 >
                   Создать
@@ -108,44 +73,45 @@
 //import  useStatuses  from '../../composables/Statuses'
 import { reactive } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
-import useOrder from "../../composables/Orders";
-import Detail from "../orders/Detail.vue";
+import useItem from "../../composables/Items";
+import Detail from "../items/Detail.vue";
 //import axios from 'axios'
 export default {
-  name: "OrderForm",
+  name: "ItemForm",
   components: {
     Detail,
   },
   props: {
-    orderID: {
+    itemID: {
       required: true,
       type: String,
     },
   },
   setup(props) {
-    const { order, getOrderById, storeOrder, updateOrder } = useOrder();
-    if (props.orderID) {
-      onMounted(getOrderById(props.orderID));
-      orderdata = order;
+    const {item, getItemById, storeItem, updateItem } = useItem();
+    if (props.itemID) {
+      onMounted(getItemById(props.itemID));
+      itemdata = item;
     }
 
-    const saveOrder = async () => {
-      props.orderID
-        ? await updateOrder({ ...orderdata })
-        : await storeOrder({ ...orderdata });
+    const saveItem = async () => {
+      props.itemID
+        ? await updateItem({ ...itemdata })
+        : await storeItem({ ...itemdata });
     };
 
     return {
-      orderdata,
-      saveOrder,
+      itemdata,
+      saveItem,
     };
   },
 };
 // eslint-disable-next-line no-unused-vars
-let orderdata = reactive({
-  clientID: "",
-  statusID: "",
-  orderdetails: [],
+let itemdata = reactive({
+  'id': "",
+  'name': "",
+  'defaultSupplierID': "",
+  'orderdetails': [],
 });
 
 
