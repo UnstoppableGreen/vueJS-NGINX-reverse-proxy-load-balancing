@@ -20,6 +20,11 @@
                 {{requestsdata.qty}}
             </p>
         </td>
+        <td class=" py-5  bg-white text-sm">
+            <p class=" md:text-base text-gray-900 whitespace-no-wrap">
+                {{requestsdata.statusID}}
+            </p>
+        </td>
 		<td class=" py-5  bg-white text-sm">
             <p class=" md:text-base text-gray-900 whitespace-no-wrap">
                 {{requestsdata.actualSupplierID}}
@@ -37,7 +42,7 @@
         </td>
 		<td class=" py-5  bg-white text-sm">
             <p class=" md:text-base text-gray-900 whitespace-no-wrap">
-                {{requestsdata.delivryDate}}
+                {{requestsdata.deliveryDate}}
             </p>
         </td> 		
           <td class="hidden md:table-cell text-center md:pl-1 md:py-5  bg-white text-sm">

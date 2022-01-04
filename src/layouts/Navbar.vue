@@ -5,11 +5,7 @@
             <path strokeLinecap="round" strokeLinejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
         </svg>
     </router-link>
-    <router-link to="/create" class="hover:shadow-md p-3   md:p-2 rounded-full duration-1000 ease-in-out transform hover:scale-125 delay-200  hover:bg-blue-300 hover:text-3xl font-bold text-center cursor-pointer ">
-        <span class="p-3    xl:mr-7 material-icons-outlined">
-            person_add
-        </span>
-    </router-link>
+
 	
 	<router-link to="/clients" class="hover:shadow-md p-3   md:p-2 rounded-full duration-1000 ease-in-out transform hover:scale-125 delay-200  hover:bg-blue-300 hover:text-3xl font-bold text-center cursor-pointer ">
         <span class="p-3    xl:mr-7 material-icons-outlined">
@@ -24,11 +20,7 @@
         </span>
     </router-link> 
 	
-	<router-link to="/newOrder" class="hover:shadow-md p-3   md:p-2 rounded-full duration-1000 ease-in-out transform hover:scale-125 delay-200  hover:bg-blue-300 hover:text-3xl font-bold text-center cursor-pointer ">
-        <span class="material-icons-outlined">
-            add_box
-        </span>
-    </router-link> 
+
 	<!-- итемы-->
 	<router-link to="/items" class="hover:shadow-md p-3   md:p-2 rounded-full duration-1000 ease-in-out transform hover:scale-125 delay-200  hover:bg-blue-300 hover:text-3xl font-bold text-center cursor-pointer ">
         <span class="material-icons-outlined">
@@ -37,7 +29,7 @@
     </router-link> 
 
 	<!--запросы к поставщикам-->
-	<router-link to="/create" class="hover:shadow-md p-3   md:p-2 rounded-full duration-1000 ease-in-out transform hover:scale-125 delay-200  hover:bg-blue-300 hover:text-3xl font-bold text-center cursor-pointer ">
+	<router-link to="/shipments" class="hover:shadow-md p-3   md:p-2 rounded-full duration-1000 ease-in-out transform hover:scale-125 delay-200  hover:bg-blue-300 hover:text-3xl font-bold text-center cursor-pointer ">
         <span class="material-icons-outlined">
             pending_actions 
         </span>
@@ -49,12 +41,7 @@
             work
         </span>
     </router-link>
-	
-	<router-link to="/create" class="hover:shadow-md p-3   md:p-2 rounded-full duration-1000 ease-in-out transform hover:scale-125 delay-200  hover:bg-blue-300 hover:text-3xl font-bold text-center cursor-pointer ">
-        <span class="p-3    xl:mr-7 material-icons-outlined">
-            person_add
-        </span>
-    </router-link>
+
 	
     <div class="md:p-5 p-5 delay-75 duration-200 ease-in-out transform hover:scale-125 cursor-pointer">
         <span class="material-icons font-md">

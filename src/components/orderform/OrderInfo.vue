@@ -60,11 +60,11 @@ export default {
 			orderdata,
 		};
 	},
-	data: function() {
+	/*data: function() {
 		return {
 			treeDisplayData: orderdata['itemsStructures']
 		}
-	},
+	},*/
 	/*data: function() {
 		return {
 		treeDisplayData: [

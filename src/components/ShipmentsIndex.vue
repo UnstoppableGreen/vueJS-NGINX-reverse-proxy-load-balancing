@@ -1,12 +1,12 @@
 <template>
-<list-deliveries></list-deliveries>
+<list-shipments></list-shipments>
 </template>
 
 <script>
 import ListShipments from '../components/shipments/ListShipments.vue'
 
 export default {
-    name: 'DeliveriesIndex',
+    name: 'ShipmentsIndex',
     components: {
         ListShipments,
 

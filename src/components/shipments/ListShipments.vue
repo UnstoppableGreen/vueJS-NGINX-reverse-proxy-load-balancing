@@ -16,10 +16,10 @@
         <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-6 overflow-x-auto">
           <div class="flex justify-between">
             <div>
-              <p class="text-3xl font-bold">Заказы</p>
-              <p class="text-gray-400 mt-2 mb-5">{{ data.total }} заказов</p>
+              <p class="text-3xl font-bold">Отгрузки клиентам</p>
+              <p class="text-gray-400 mt-2 mb-5">{{ data.total }} отгрузок</p>
             </div>
-            <filter-order @setFilter="filterData"></filter-order>
+            <filter-shipment @setFilter="filterData"></filter-shipment>
           </div>
           <div
             class="inline-block min-w-full shadow md:shadow-xl md:pl-4 pt-6 rounded-lg overflow-hidden"
@@ -28,13 +28,12 @@
               <tr>
                 <td class="py-5 bg-white text-sm">
                   <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    ID заказа
+                    ID запроса
                   </p>
                 </td>
-
                 <td class="py-5 bg-white text-sm">
                   <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    Клиент
+                    ID заказа
                   </p>
                 </td>
                 <td class="py-5 bg-white text-sm">
@@ -44,33 +43,43 @@
                 </td>
                 <td class="py-5 bg-white text-sm">
                   <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    Дата создания
+                    Транспортная компания
                   </p>
                 </td>
                 <td class="py-5 bg-white text-sm">
                   <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    Дата последнего изменения
+                    Дата отправки
+                  </p>
+                </td>
+                <td class="py-5 bg-white text-sm">
+                  <p class="md:text-base text-gray-900 whitespace-no-wrap">
+                    Ориентировочная дата доставки
+                  </p>
+                </td>
+                <td class="py-5 bg-white text-sm">
+                  <p class="md:text-base text-gray-900 whitespace-no-wrap">
+                    Дата доставки
                   </p>
                 </td>
               </tr>
 
               <transition-group name="list">
-                <order
+                <shipment
                   v-show="!isFilter"
-                  v-for="order in ordersdata"
-                  :key="order.id + 122"
-                  :ordersdata="order"
-                  @click="openModal(order)"
-                ></order>
+                  v-for="shipment in shipmentsdata"
+                  :key="shipment.id + 122"
+                  :shipmentsdata="shipment"
+                  @click="openModal(shipment)"
+                ></shipment>
 
-                <order
+                <shipment
                   v-show="isFilter"
-                  v-for="order in filterbyPage"
-                  :key="order.id"
-                  :ordersdata="order"
-                  @click="openModal(order)"
+                  v-for="shipment in shipmentsdata"
+                  :key="shipment.id"
+                  :shipmentsdata="shipment"
+                  @click="openModal(shipment)"
                 >
-                </order>
+                </shipment>
               </transition-group>
             </tbody>
 
@@ -130,35 +139,30 @@
 
 <script>
 import { computed, onMounted, ref } from "@vue/runtime-core";
-import useOrder from "../../composables/Orders";
-import Order from "../orders/Order.vue";
-import paginateOrdersList from "../../composables/PaginateUniversal";
-import FilterOrder from "../../components/functionalities/FilterOrder.vue";
+import useShipments from "../../composables/Shipments";
+import Shipment from "../shipments/Shipment.vue";
+import paginateList from "../../composables/PaginateUniversal";
+import FilterShipment from "../../components/functionalities/FilterShipment.vue";
 import Modal from "../functionalities/Modal.vue";
 export default {
-  name: "ListOrder",
+  name: "ListShipments",
   components: {
-    Order,
-    FilterOrder,
+    Shipment,
+    FilterShipment,
     Modal,
   },
 
   setup() {
-    //Get User data
+    //Get  data
 
     const {
-      ordersdata,
+      shipmentsdata,
       data,
       getAllData,
-      EntireOrdersList,
-      getEntireOrdersList,
-      deleteOrder,
-    } = useOrder();
-    let order = ref([]);
-    for (order in ordersdata.value) {
-      console.log("заказ " + order.id);
-    }
-
+      EntireShipmentsList,
+      getEntireShipmentsList,
+      deleteShipment,
+    } = useShipments();
     //Pagination
 
     const {
@@ -168,7 +172,7 @@ export default {
       totalEntries,
       setPages,
       setParam,
-    } = paginateOrdersList(data);
+    } = paginateList(data);
     const filterbyPage = computed(() => {
       return filteredData.value.slice(
         entries.value,
@@ -190,7 +194,7 @@ export default {
       isFilter.value = true;
       switch (data) {
         case "asc":
-          filteredData.value = Array.from(EntireOrdersList.value).sort(
+          filteredData.value = Array.from(EntireShipmentsList.value).sort(
             (a, b) => {
               if (a.id < b.id) return -1;
               return a.id > b.id ? 1 : 0;
@@ -198,7 +202,7 @@ export default {
           );
           break;
         case "des":
-          filteredData.value = Array.from(EntireOrdersList.value).sort(
+          filteredData.value = Array.from(EntireShipmentsList.value).sort(
             (a, b) => {
               if (a.id > b.id) return -1;
               return a.id < b.id ? 1 : 0;
@@ -223,13 +227,13 @@ export default {
     onMounted(async () => {
       await getAllData({ page: page.value });
       setPages(data);
-      getEntireOrdersList();
+      getEntireShipmentsList();
     });
 
     return {
       data,
-      ordersdata,
-      deleteOrder,
+      shipmentsdata,
+      deleteShipment,
       totalEntries,
       pages,
       page,

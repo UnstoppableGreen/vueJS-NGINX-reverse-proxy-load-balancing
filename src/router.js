@@ -9,7 +9,9 @@ import OrderEdit from './components/orderform/OrderEdit'
 import OrderInfo from './components/orderform/OrderInfo'
 
 import RequestsIndex from './components/RequestsIndex'
-//import ShipmentsIndex from './components/ShipmentsIndex'
+
+import ShipmentsIndex from './components/ShipmentsIndex'
+import ShipmentInfo from './components/shipmentform/ShipmentInfo'
 
 import ItemsIndex from './components/ItemsIndex'
 import ItemEdit from './components/itemform/ItemEdit'
@@ -21,7 +23,7 @@ const routes = [
         component: UserIndex,
     },
     {
-        path:'/create',
+        path:'/clients/create',
         name:'user.create',
         component: UserCreate
     },
@@ -57,17 +59,24 @@ const routes = [
         props:true
 
     },
-		//маршруты для запросов и поставок
+		//маршруты для запросов и отгрузок
 	{
 		path: '/requests',
 		name: 'requests.index',
         component: RequestsIndex,
     },
-    /*{
+    {
         path:'/shipments',
         name:'shipments.index',
         component: ShipmentsIndex
-    },*/
+    },
+    {
+        path:'/shipments/info/:shipmentID',
+        name:'shipment.info',
+        component:ShipmentInfo,
+        props:true
+
+    },
    //маршруты для итемов
 	{
 		path: '/items',

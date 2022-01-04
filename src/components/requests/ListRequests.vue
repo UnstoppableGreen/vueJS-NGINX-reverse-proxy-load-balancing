@@ -38,6 +38,11 @@
                 </td>
                 <td class="py-5 bg-white text-sm">
                   <p class="md:text-base text-gray-900 whitespace-no-wrap">
+                    ID итема
+                  </p>
+                </td>
+                <td class="py-5 bg-white text-sm">
+                  <p class="md:text-base text-gray-900 whitespace-no-wrap">
                     Количество
                   </p>
                 </td>
@@ -201,16 +206,16 @@ export default {
         case "asc":
           filteredData.value = Array.from(EntireRequestsList.value).sort(
             (a, b) => {
-              if (a.name < b.name) return -1;
-              return a.name > b.name ? 1 : 0;
+              if (a.id < b.id) return -1;
+              return a.id > b.id ? 1 : 0;
             }
           );
           break;
         case "des":
           filteredData.value = Array.from(EntireRequestsList.value).sort(
             (a, b) => {
-              if (a.name > b.name) return -1;
-              return a.name < b.name ? 1 : 0;
+              if (a.id > b.id) return -1;
+              return a.id < b.id ? 1 : 0;
             }
           );
           break;
