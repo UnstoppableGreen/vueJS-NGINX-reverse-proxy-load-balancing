@@ -1,14 +1,14 @@
-<template>
+<template style="max-width:768px">
   <div
-    class="z-0 flex items-center justify-center mb-8 py-7 md:py-12 px-4 sm:px-6 lg:px-8 items-center"
+    class="flex w-full z-0 flex items-center justify-center mb-8 py-7 md:py-12 px-4 sm:px-6 lg:px-8 items-center"
   >
-    <div
-      class="max-w-md w-full space-y-8 p-4 bg-gray-100 rounded-xl shadow-lg z-10"
+    <div width = "300"
+      class="space-y-8 p-4 bg-gray-100 rounded-xl shadow-lg z-10" 
     >
       <div class="grid gap-8 grid-cols-1">
         <div class="flex flex-col">
           <div class="flex flex-col sm:flex-row items-center">
-            <h2 v-if="!clientID" class="font-semibold text-lg mr-auto">
+            <h2 v-if="!orderID" class="font-semibold text-lg mr-auto">
               Создание заказа
             </h2>
             <h2 v-else class="font-semibold text-lg mr-auto">
@@ -35,7 +35,7 @@
               </div>
 
               <div class="md:flex flex-row md:space-x-4 w-full text-xs">
-                <div class="mb-3 space-y-2 w-full text-xs">
+                <div class="mb-0 space-y-2 w-full text-xs">
                   <label for="ajax">Выберите клиента: </label>
                   <p>
                     <input
@@ -48,43 +48,60 @@
                   </p>
                 </div>
               </div>
-              <div
-                class="inline-block min-w-full shadow md:shadow-xl md:pl-4 pt-6 rounded-lg overflow-hidden"
-              >
-                <tbody>
-                  <tr>
-                    <td class="py-5 bg-white text-sm">
-                      <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                        ID детали
-                      </p>
-                    </td>
-
-                    <td class="py-5 bg-white text-sm">
-                      <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                        QTY
-                      </p>
-                    </td>
-                    <td class="py-5 bg-white text-sm">
-                      <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                        Комментарий
-                      </p>
-                    </td>
-                  </tr>
-                  <transition-group name="list">
-                    <detail
-                      v-for="detail in orderdata['orderDetails']"
-                      :key="detail.id"
-                      :orderdetail="detail"
-                    ></detail>
-                  </transition-group>
-                </tbody>
-              </div>
+				<label class="font-semibold text-gray-600 py-0">Состав заказа</label>
+				<div class="inline-block min-w-full shadow md:shadow-xl md:pl-2 pt-0 rounded-lg overflow-hidden" >
+				
+				<div class="md:flex md:flex-row md:space-x-4 w-full text-xs">
+					<div class="w-full flex flex-col mb-0">
+						<label class="font-semibold text-gray-600 py-0">itemID</label>
+						<input v-model="itemID"  class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" type="text">
+					</div>
+				
+					<div class="w-full flex flex-col mb-0">
+						<label class="font-semibold text-gray-600 py-0">Количество</label>
+						<input v-model="qty" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" type="number" min="0" max="999999" maxlength="6" title="Введите количество">
+					</div>
+				</div> 
+				<div class="md:flex md:flex-row md:space-x-0 w-full text-xs">
+					<div class="w-full flex flex-col mb-0">
+						<label class="font-semibold text-gray-600 py-0">Комментарий</label>
+						<input v-model="comments"  class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" type="text">
+					</div>
+				</div>
+				
+				
+				</div>
+				<div id="lvTable">
+				<button v-on:click.prevent="fAddNewRow" title="Добавить строку в таблицу">+</button>
+					<table>
+					<thead> <!-- Заголовок таблицы -->
+						<tr> 
+						<th style="text-align:left">№</th>
+						<th style="text-align:left">itemID</th>
+						<th style="text-align:left">Количество</th>
+						<th style="text-align:left">Комментарий</th>
+						<th style="text-align:left">Х</th>
+						</tr>
+					</thead>
+					<tbody> 
+						<tr v-for="(entry, index) in orderdata.orderDetails"
+						:key="index"> 
+						<td style="text-align:left"><b>{{index + 1}}</b></td> 
+						<td> {{entry['itemID']}} </td>
+						<td>{{entry['qty']}}</td> 
+						<td>{{entry['comments']}}</td> 
+						<td><button class="b20" v-on:click.prevent="fDeleteRow(index)" title="Удалить строку">-</button></td> 
+						</tr>
+					</tbody> 
+					</table>
+				</div>
+              <p> ответ {{JSON.stringify(orderdata.orderDetails)}} </p>
               <div
                 class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse"
               >
                 <button
                   type="submit"
-                  v-if="!clientID"
+                  v-if="!orderID"
                   class="transition duration-200 ease-in-out mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600"
                 >
                   Создать
@@ -109,13 +126,16 @@
 import { reactive } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 import useOrder from "../../composables/Orders";
-import Detail from "../orders/Detail.vue";
+//import { ref } from '@vue/reactivity';
+//import Detail from "../orders/Detail.vue";
 //import axios from 'axios'
-export default {
+
+//const tbData= ref([])
+export default {	
   name: "OrderForm",
-  components: {
+  /*components: {
     Detail,
-  },
+  },*/
   props: {
     orderID: {
       required: true,
@@ -125,8 +145,10 @@ export default {
   setup(props) {
     const { order, getOrderById, storeOrder, updateOrder } = useOrder();
     if (props.orderID) {
-      onMounted(getOrderById(props.orderID));
-      orderdata = order;
+		onMounted(getOrderById(props.orderID));
+		orderdata = order;
+		console.log("="+JSON.stringify(orderdata));
+		//this.tbData = orderdata.orderDetails;
     }
 
     const saveOrder = async () => {
@@ -139,13 +161,45 @@ export default {
       orderdata,
       saveOrder,
     };
-  },
+	},
+	data: function() {
+		return {
+			itemID : 0,
+			qty : 1,
+			comments:"string"
+			//[{"id":34,"itemID":9,"qty":10,"comments":"string"},{"id":36,"itemID":11,"qty":10,"comments":"string"}]
+		}
+	},
+  methods: {
+    fAddNewRow: function () { // Добавить новую строку в таблицу
+	//this.tbData.push({"id":34,"itemID":9,"qty":10,"comments":"string"});
+	console.log("12-"+JSON.stringify(orderdata['value']['orderDetails']));
+	orderdata['value']['orderDetails'].push({"id":0,"itemID":this.itemID,"qty":this.qty,"comments":this.comments});
+	console.log("-"+JSON.stringify(orderdata['value']['orderDetails']));
+      //this.tbData.push({ id: 0, itemID: this.itemID, qty: this.qty, comments: this.comments });
+    },
+    fDeleteRow: function (ind) { // Удалить строку с номером index из таблицы
+		console.log("----" + ind);
+		orderdata['value']['orderDetails'].splice(ind, 1);
+		//var key = ind;
+		//delete orderdata['value']['orderDetails'][ind];
+	/*let detail ={
+		id : 0;
+		itemID : 111,
+		qty : 111,
+		comments:"string11"
+		}
+		orderdata.orderDetails.splice(index, 1);*/
+      //this.tbData.splice(index, 1);
+    }
+  }
 };
+
 // eslint-disable-next-line no-unused-vars
 let orderdata = reactive({
   clientID: "",
   statusID: "",
-  orderdetails: [],
+  orderDetails: [],
 });
 
 
@@ -336,7 +390,7 @@ input {
 
 table {
   /* Параметры таблицы */
-  width: 630px;
+  width: 830px;
   margin: auto;
   border: 2px solid #308090;
   border-radius: 3px;
