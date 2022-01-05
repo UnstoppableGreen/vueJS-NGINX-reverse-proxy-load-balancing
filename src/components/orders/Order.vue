@@ -2,35 +2,35 @@
   <tr>
     <td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ ordersdata.id }}
+        {{ ordersdata[0].id }}
       </p>
     </td>
 
     <td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ ordersdata.clientID }}
+        {{ ordersdata[1].name }}
       </p>
     </td>
     <td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ ordersdata.statusID }}
+        {{ ordersdata[2].name }}
       </p>
     </td>
     <td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ ordersdata.creationDate }}
+        {{ ordersdata[0].creationDate }}
       </p>
     </td>
     <td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ ordersdata.lastUpdateOn }}
+        {{ ordersdata[0].lastUpdateOn }}
       </p>
     </td>
     <td
       class="hidden md:table-cell text-center md:pl-1 md:py-5 bg-white text-sm"
     >
       <router-link
-        :to="{ name: 'order.info', params: { orderID: ordersdata.id } }"
+        :to="{ name: 'order.info', params: { orderID: ordersdata[0].id } }"
         class="text-gray-500 hover:text-blue-500 mx-2"
       >
         <i
@@ -39,7 +39,7 @@
         >
       </router-link>
       <router-link
-        :to="{ name: 'order.edit', params: { orderID: ordersdata.id } }"
+        :to="{ name: 'order.edit', params: { orderID: ordersdata[0].id } }"
         class="text-gray-500 hover:text-blue-500 mx-2"
       >
         <i
@@ -48,7 +48,7 @@
         >
       </router-link>
       <a
-        @click="deleteOrder(ordersdata.id)"
+        @click="deleteOrder(ordersdata[0].id)"
         class="text-gray-500 cursor-pointer ml-2"
       >
         <i

@@ -1,6 +1,10 @@
-<template style="max-width:768px">
-   <div class="order-form max-w-screen-sm z-0  flex items-center justify-center  mb-8 py-7 md:py-12 px-4 sm:px-6 lg:px-8  items-center" style="max-width:768px">
-	<div class="max-w-prose  space-y-8 p-4 bg-gray-100 rounded-xl shadow-lg z-10" style="max-width:768px">
+<template>
+  <div
+    class="z-0 flex items-center justify-center mb-8 py-7 md:py-12 px-4 sm:px-6 lg:px-8 items-center"
+  >
+    <div
+      class="max-w-md w-full space-y-8 p-4 bg-gray-100 rounded-xl shadow-lg z-10"
+    >
       <div class="grid gap-8 grid-cols-1">
         <div class="flex flex-col">
           <div class="flex flex-col sm:flex-row items-center">
@@ -47,7 +51,7 @@
               <div
                 class="inline-block min-w-full shadow md:shadow-xl md:pl-4 pt-6 rounded-lg overflow-hidden"
               >
-                <tbody style="max-width:768px">
+                <tbody>
                   <tr>
                     <td class="py-5 bg-white text-sm">
                       <p class="md:text-base text-gray-900 whitespace-no-wrap">
@@ -81,13 +85,13 @@
                 <button
                   type="submit"
                   v-if="!orderID"
-                  class="max-w-xs transition duration-200 ease-in-out mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600"
+                  class="transition duration-200 ease-in-out mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600"
                 >
                   Создать
                 </button>
                 <button
                   v-else
-                  class="max-w-xs transition duration-200 ease-in-out mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600"
+                  class="transition duration-200 ease-in-out mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600"
                 >
                   Обновить
                 </button>
@@ -279,9 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
 h1 {
   margin-top: 0;
 }
-order-form{
-  max-width: 768px;
-}
+
 label {
   display: block;
   margin-top: 2em;

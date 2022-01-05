@@ -5,6 +5,7 @@ import { ref } from '@vue/reactivity';
 export default function useItem(){
     const data= ref([])
     const itemsdata=ref([])
+	const itemsalldata=ref([])
     const item= ref([])
 	const atomics= ref([])
     const router = useRouter()
@@ -14,6 +15,12 @@ export default function useItem(){
 		let response = await API.get('/items/getItems',{params:params})
         data.value = response.data;
         itemsdata.value=response.data.data;
+    }
+	
+	const getAllItemsData = async () => {
+		let response = await API.get('/items/getAllItems')
+        data.value = response.data;
+        itemsalldata.value=response.data;
     }
     
     const getPageData = async(params)=>{
@@ -67,12 +74,14 @@ export default function useItem(){
       return {
             data,
             item,
+			itemsalldata,
 			atomics,
             itemsdata,
             EntireItemsList,
             getAllData,
             getItemById,
             deleteItem,
+			getAllItemsData,
             updateItem,
             storeItem,
             getEntireItemsList

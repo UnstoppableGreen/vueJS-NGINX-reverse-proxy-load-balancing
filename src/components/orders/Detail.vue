@@ -1,5 +1,11 @@
 <template>
   <tr>
+	<td class="py-5 bg-white text-sm">
+      <p class="md:text-base text-gray-900 whitespace-no-wrap">
+        {{ orderdetail.id }}
+      </p>
+    </td>
+  
     <td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
         {{ orderdetail.itemID }}
@@ -16,6 +22,7 @@
         {{ orderdetail.comments }}
       </p>
     </td>
+	<td><button class="b20" v-on:click="fDeleteRow(index)" title="Удалить строку">-</button></td> 
 
     <!-- <td class="hidden md:table-cell text-center md:pl-1 md:py-5  bg-white text-sm">
 			<router-link :to="{name:'order.edit', params: {orderID: ordersdata.id }} " class="text-gray-500  hover:text-blue-500  mx-2">
@@ -38,7 +45,10 @@ export default {
     orderdetail: {
       type: Object,
       require: true,
-    },
+    }
+  },
+  data: function() {
+	return { index : 0 }
   },
   setup() {
     const { deleteOrder } = useOrder();
@@ -46,6 +56,15 @@ export default {
       deleteOrder,
     };
   },
+  methods: {
+    fAddNewRow: function () { // Добавить новую строку в таблицу
+	this.tbData.push({"id":34,"itemID":9,"qty":10,"comments":"string"});
+      //this.tbData.push({ id: 0, itemID: this.itemID, qty: this.qty, comments: this.comments });
+    },
+    fDeleteRow: function (index) { // Удалить строку с номером index из таблицы
+      this.tbData.splice(index, 1);
+    }
+  }
 };
 </script>
 

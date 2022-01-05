@@ -14,6 +14,7 @@ export default function useOrder(){
 		let response = await API.get('/orders/getOrders',{params:params})
         data.value = response.data;
         ordersdata.value=response.data.data;
+		console.log(ordersdata.value);
     }
     
     const getPageData = async(params)=>{

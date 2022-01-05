@@ -25,7 +25,23 @@ export default function useUser(){
 			console.log(prop + "=" + response.data[property][prop]);
 		}*/
     }
-    
+    const getAllClientData = async () => {
+		let response = await API.get('/clients/getClients')
+        data.value = response.data;
+        usersdata.value=response.data;
+		
+		/*let response = await API.get('/client/getClients')
+		usersdata.value=response.data;*/    
+		
+		//data.value = response.data;
+		//usersdata.value=response.data.data;
+		//console.log('Клиенты'+response.data );
+		/*for(var property in response.data) {
+			for(var prop in response.data[property]) 
+			console.log(prop + "=" + response.data[property][prop]);
+		}*/
+    }
+	
     const getPageData = async(params)=>{
 		let response = await API.get('/clients/getClientsPage',{params:params})
 		return response.data
@@ -80,6 +96,7 @@ export default function useUser(){
             usersdata,
             EntireUserList,
             getAllData,
+			getAllClientData,
             getUser,
             deleteUser,
             updateUser,
