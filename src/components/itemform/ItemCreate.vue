@@ -1,12 +1,12 @@
 <template>
-    <order-form> </order-form>
+    <item-form> </item-form>
 </template>
 
 <script>
-import OrderForm from '../orderform/OrderForm.vue'
+import ItemForm from '../itemform/ItemForm.vue'
 export default {
-  name:'OrderCreate',
-  components: { OrderForm },
+  name:'ItemCreate',
+  components: { ItemForm },
 
 }
 </script>

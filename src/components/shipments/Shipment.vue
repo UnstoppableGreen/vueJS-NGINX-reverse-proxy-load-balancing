@@ -55,9 +55,9 @@
         >
       </router-link>
 
-      <!--<router-link :to="{name:'shipment.edit', params: {shipmentID: shipmentsdata.id }} " class="text-gray-500  hover:text-blue-500  mx-2">
+      <router-link :to="{name:'shipment.edit', params: {shipmentID: shipmentsdata.id }} " class="text-gray-500  hover:text-blue-500  mx-2">
 				<i class="font-bold transition duration-200 ease-in-out material-icons-outlined md:text-md">edit</i>
-			</router-link> -->
+			</router-link> 
       <a
         @click="deleteShipment(shipmentsdata.id)"
         class="text-gray-500 cursor-pointer ml-2"

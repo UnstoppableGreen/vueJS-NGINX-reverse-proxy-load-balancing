@@ -141,6 +141,11 @@ import { ref } from '@vue/reactivity';
 let clients=ref([])
 let orderstatuses=ref([])
 let items=ref([])
+let orderdata = reactive({
+  clientID: "",
+  statusID: "",
+  orderDetails: [],
+});
 export default {	
   name: "OrderForm",
   /*components: {
@@ -202,7 +207,10 @@ export default {
 	},*/
   methods: {
     fAddNewRow: function () { // Добавить новую строку в таблицу
-		orderdata['value']['orderDetails'].push({"id":0,"itemID":this.item,"qty":this.qty,"comments":this.comments});
+    if (orderdata['orderDetails']!==undefined) {
+        orderdata['orderDetails'].push({"id":0,"itemID":this.item,"qty":this.qty,"comments":this.comments});
+    }
+    else {orderdata['value']['orderDetails'].push({"id":0,"itemID":this.item,"qty":this.qty,"comments":this.comments});}
     },
     fDeleteRow: function (ind) { // Удалить строку с номером index из таблицы
 		orderdata['value']['orderDetails'].splice(ind, 1);
@@ -211,11 +219,7 @@ export default {
 };
 
 // eslint-disable-next-line no-unused-vars
-let orderdata = reactive({
-  clientID: "",
-  statusID: "",
-  orderDetails: [],
-});
+
 
 </script>
 

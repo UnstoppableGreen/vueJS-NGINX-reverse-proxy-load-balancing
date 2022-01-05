@@ -23,11 +23,6 @@
             <transition-group name='list'>
                 <div class="transition duration-200  ease-in-out cursor-pointer hover:bg-blue-200 p-1 md:p-2 border-t-2 border-gray-100" v-for="user in searchedList" :key="user.clientID">
                     <div class="flex py-2">
-
-                        <div class="flex-shrink-0 w-7 h-7">
-                            <img class="w-full h-full rounded-full" :src="user.avatar" />
-                        </div>
-
                         <div class="px-5">
 							{{`${user.name}`}}
                         </div>
@@ -56,10 +51,7 @@ export default {
 
         const search = ref('')
         const isSearch = ref(false)
-        const {
-            EntireUserList,
-            getEntireUserList
-        } = useUser()
+        const {EntireUserList,getEntireUserList} = useUser()
        
        const searchedList = computed(() => {
             return EntireUserList.value.filter(user =>

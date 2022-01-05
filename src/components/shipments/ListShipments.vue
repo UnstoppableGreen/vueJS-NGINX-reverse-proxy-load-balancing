@@ -28,7 +28,7 @@
               <tr>
                 <td class="py-5 bg-white text-sm">
                   <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    ID запроса
+                    ID отгрузки
                   </p>
                 </td>
                 <td class="py-5 bg-white text-sm">

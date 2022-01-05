@@ -5,6 +5,7 @@ import { ref } from '@vue/reactivity';
 export default function useOrder(){
     const data= ref([])
     const ordersdata=ref([])
+    const allordersdata=ref([])
     const order= ref([])
     const orderInfo= ref([])
     const router = useRouter() //для операций UPDATE и STORE
@@ -15,6 +16,11 @@ export default function useOrder(){
         data.value = response.data;
         ordersdata.value=response.data.data;
 		console.log(ordersdata.value);
+    }
+    const getAllOrders = async () => {
+		let response = await API.get('/orders/getAllOrders')
+        data.value = response.data;
+        allordersdata.value=response.data;
     }
     
     const getPageData = async(params)=>{
@@ -76,6 +82,8 @@ export default function useOrder(){
             order,
             ordersdata,
             orderInfo,
+            allordersdata,
+            getAllOrders,
             getOrderInfo,
             EntireOrdersList,
             getAllData,

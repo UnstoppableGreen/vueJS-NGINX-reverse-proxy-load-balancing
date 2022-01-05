@@ -1,10 +1,6 @@
-<template>
-  <div
-    class="z-0 flex items-center justify-center mb-8 py-7 md:py-12 px-4 sm:px-6 lg:px-8 items-center"
-  >
-    <div
-      class="max-w-md w-full space-y-8 p-4 bg-gray-100 rounded-xl shadow-lg z-10"
-    >
+<template style="max-width:600px">
+   <div style="margin:0 25% 0 25%; width:50%;" class=" z-0 flex items-center justify-center mb-8 py-7 md:py-12 px-4 sm:px-6 lg:px-8 items-center">
+	<div class="flex w-full space-y-8 p-4 bg-gray-100 rounded-xl shadow-lg z-10">
       <div class="grid gap-8 grid-cols-1">
         <div class="flex flex-col">
           <div class="flex flex-col sm:flex-row items-center">
@@ -16,34 +12,68 @@
             </h2>
             <div class="w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0"></div>
           </div>
-          <form @submit.prevent="saveOrder" class="mt-5">
+          <form @submit.prevent="saveItem" class="mt-5">
             <div class="form">
-              <div
-                class="inline-block min-w-full shadow md:shadow-xl md:pl-4 pt-6 rounded-lg overflow-hidden"
-              >
-                <tbody>
-                  <tr>
-                    <td class="py-5 bg-white text-sm">
-                      <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                        ID детали
-                      </p>
-                    </td>
-
-                    <td class="py-5 bg-white text-sm">
-                      <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                        QTY
-                      </p>
-                    </td>
-                  </tr>
-                  <transition-group name="list">
-                    <detail
-                      v-for="detail in itemdata['itemDetails']"
-                      :key="detail.id"
-                      :itemdetail="detail"
-                    ></detail>
-                  </transition-group>
-                </tbody>
+                            <div class="md:flex flex-row md:space-x-4 w-full text-xs">
+                <div class="mb-0 space-y-2 w-full text-xs">
+						<label class="font-semibold text-gray-600 py-0">Введите название</label>
+						<input v-model="itemdata.name"  class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" type="text">
+                </div>
               </div>
+              <div class="md:flex flex-row md:space-x-4 w-full text-xs">
+                <div class="mb-0 space-y-2 w-full text-xs">
+					<label  class="font-semibold text-gray-600 py-0">Выберите поставщика: </label>
+					<input type="text" v-model="itemdata.defaultSupplierID" list="json-datalist-suppliers">
+					<datalist id="json-datalist-suppliers">
+						<option v-for="sup in suppliers" :key="sup.id" :value="sup.id">{{sup.name}}</option>
+					</datalist>
+                </div>
+              </div>
+				<label class="font-semibold text-gray-600 py-0">Составные компоненты</label>
+				<div class="inline-block min-w-full shadow md:shadow-xl md:pl-2 pt-0 rounded-lg overflow-hidden" >
+				
+				<div class="md:flex md:flex-row md:space-x-4 w-full text-xs">
+					<div class="w-full flex flex-col mb-0">
+						<label class="font-semibold text-gray-600 py-0">Выберите компонент:</label>
+						<input type="text" v-model="detail" list="json-datalist-items">
+						<datalist id="json-datalist-items">
+							<option v-for="item in items" :key="item.id" :value="item.id">{{item.name}}</option>
+						</datalist>
+					</div>
+				
+					<div class="w-full flex flex-col mb-0">
+						<label class="font-semibold text-gray-600 py-0">Количество</label>
+						<input v-model="qty" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" type="number" min="0" max="999999" maxlength="6" title="Введите количество">
+					</div>
+				</div> 			
+				</div>
+				<div class="scroll-table">
+				<button v-on:click.prevent="fAddNewRow" title="Добавить строку в таблицу">+</button>
+					<table>
+					<thead> <!-- Заголовок таблицы -->
+						<tr> 
+						<th style="text-align:left; max-width:10px">№</th>
+						<th style="text-align:left">itemID</th>
+						<th style="text-align:left">Количество</th>
+						<th style="text-align:center">Х</th>
+						</tr>
+					</thead>
+					</table>
+					<div class="scroll-table-body">
+					<table>
+					<tbody> 
+						<tr v-for="(entry, index) in itemdata.itemDetails"
+						:key="index" style="max-width:10px"> 
+						<td style="text-align:left"><b>{{index + 1}}</b></td> 
+						<td> {{entry['itemID']}} </td>
+						<td>{{entry['qty']}}</td>  
+						<td><button class="b20" v-on:click.prevent="fDeleteRow(index)" title="Удалить строку">-</button></td> 
+						</tr>
+					</tbody> 
+					</table>
+					</div>
+				</div>
+              <!--<p> ответ {{JSON.stringify(orderdata.orderDetails)}} </p>-->
               <div
                 class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse"
               >
@@ -73,26 +103,51 @@
 //import  useStatuses  from '../../composables/Statuses'
 import { reactive } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
-import useItem from "../../composables/Items";
-import Detail from "../items/Detail.vue";
+import useItems from "../../composables/Items";
+import useSuppliers from "../../composables/Suppliers";
+import { ref } from '@vue/reactivity';
+//import Detail from "../orders/Detail.vue";
 //import axios from 'axios'
-export default {
+
+//const { usersdata, getAllClientData } = useUser();
+let suppliers=ref([])
+let items=ref([])
+let itemdata = reactive({
+  name: "",
+  defaultSupplierID: "",
+  itemDetails: [],
+});
+export default {	
   name: "ItemForm",
-  components: {
-    Detail,
-  },
   props: {
     itemID: {
       required: true,
       type: String,
     },
   },
+	data: function(){
+		const { suppliersdata, getAllSuppliers } = useSuppliers();
+		const { itemsalldata, getAllItemsData } = useItems();
+		onMounted(getAllSuppliers());
+		suppliers = suppliersdata;
+		onMounted(getAllItemsData());
+		items = itemsalldata;
+		return{
+			suppliers,
+			items,
+      detail : null,
+			qty : 1,
+			//[{"id":34,"itemID":9,"qty":10,"comments":"string"},{"id":36,"itemID":11,"qty":10,"comments":"string"}]
+		}
+	},
   setup(props) {
-    const {item, getItemById, storeItem, updateItem } = useItem();
+    const { item, getItemById, storeItem, updateItem } = useItems();
+	
     if (props.itemID) {
-      onMounted(getItemById(props.itemID));
-      itemdata = item;
+		onMounted(getItemById(props.itemID));
+		itemdata = item;
     }
+
 
     const saveItem = async () => {
       props.itemID
@@ -101,144 +156,63 @@ export default {
     };
 
     return {
-      itemdata,
-      saveItem,
+		itemdata,
+		saveItem,
     };
-  },
+	},
+  methods: {
+    fAddNewRow: function () { // Добавить новую строку в таблицу
+		itemdata['value']['itemDetails'].push({"id":0,"itemID":this.detail,"qty":this.qty});
+    },
+    fDeleteRow: function (ind) { // Удалить строку с номером index из таблицы
+		itemdata['value']['itemDetails'].splice(ind, 1);
+    }
+  }
 };
+
 // eslint-disable-next-line no-unused-vars
-let itemdata = reactive({
-  'id': "",
-  'name': "",
-  'defaultSupplierID': "",
-  'orderdetails': [],
-});
 
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Создаем новый XMLHttpRequest.
-  var input = document.getElementById("ajax");
-  var request = new XMLHttpRequest();
-  var dataList = document.getElementById("json-datalist");
-
-  // Обрабатываем изменение состояния для запроса.
-  // eslint-disable-next-line no-unused-vars
-  request.onreadystatechange = function (response) {
-    if (request.readyState === 4) {
-      if (request.status === 200) {
-        // Парсируем JSON
-        var jsonOptions = JSON.parse(request.responseText);
-
-        // Перебираем через цикл массив JSON.
-        jsonOptions.forEach(function (item) {
-          // Создаем новый элемент <option>.
-          var option = document.createElement("option");
-          // Устанавливаем значение, используя элементы массива JSON.
-          let name = "Cтатус: " + item.name + " | ID: " + item.id;
-          option.name = item.id;
-          option.text = name;
-          // Добавляем элемент <option> к <datalist>.
-          dataList.appendChild(option);
-        });
-
-        // Обновляем текст заполнителя.
-        input.placeholder = "e.g. datalist";
-      } else {
-        // Возникла ошибка :(
-        input.placeholder = "Couldn'tload datalist options :(";
-      }
-    }
-  };
-  // Обновляем текст заполнителя.
-  input.placeholder = "Loading options...";
-
-  // Настраиваем и выполняем запрос.
-  request.open("GET", "http://localhost:8080/status/getStatuses", true);
-  request.send();
-
-  // Создаем новый XMLHttpRequest.
-  var inputClients = document.getElementById("ajax-clients");
-  var requestClients = new XMLHttpRequest();
-  var dataListClients = document.getElementById("json-datalist-clients");
-
-  // Обрабатываем изменение состояния для запроса.
-  // eslint-disable-next-line no-unused-vars
-  requestClients.onreadystatechange = function (response) {
-    if (requestClients.readyState === 4) {
-      if (requestClients.status === 200) {
-        // Парсируем JSON
-        var jsonOptionsClients = JSON.parse(requestClients.responseText);
-
-        // Перебираем через цикл массив JSON.
-        jsonOptionsClients.forEach(function (item) {
-          // Создаем новый элемент <option>.
-          var option = document.createElement("option");
-          // Устанавливаем значение, используя элементы массива JSON.
-          let name = "Клиент: " + item.name + " | ID: " + item.clientID;
-          option.name = item.clientID;
-          option.text = name;
-          // Добавляем элемент <option> к <datalist>.
-          dataListClients.appendChild(option);
-        });
-
-        // Обновляем текст заполнителя.
-        inputClients.placeholder = "e.g. datalist";
-      } else {
-        // Возникла ошибка :(
-        inputClients.placeholder = "Couldn'tload datalist options :(";
-      }
-    }
-  };
-  // Обновляем текст заполнителя.
-  inputClients.placeholder = "Loading options...";
-
-  // Настраиваем и выполняем запрос.
-  requestClients.open("GET", "http://localhost:8080/clients/getClients", true);
-  requestClients.send();
-
-  // Создаем новый XMLHttpRequest для листа итемов.
-  var inputItems = document.getElementById("ajax-item");
-  var requestItems = new XMLHttpRequest();
-  var dataListItems = document.getElementById("json-datalist-item");
-
-  // Обрабатываем изменение состояния для запроса.
-  // eslint-disable-next-line no-unused-vars
-  requestItems.onreadystatechange = function (response) {
-    if (requestItems.readyState === 4) {
-      if (requestItems.status === 200) {
-        // Парсируем JSON
-        var jsonOptionsItems = JSON.parse(requestItems.responseText);
-
-        // Перебираем через цикл массив JSON.
-        jsonOptionsItems.forEach(function (item) {
-          // Создаем новый элемент <option>.
-          var option = document.createElement("option");
-          // Устанавливаем значение, используя элементы массива JSON.
-          let name = item.name + " | ID: " + item.id;
-          option.name = item.id;
-          option.text = name;
-          // Добавляем элемент <option> к <datalist>.
-          dataListItems.appendChild(option);
-        });
-
-        // Обновляем текст заполнителя.
-        inputItems.placeholder = "e.g. datalist";
-      } else {
-        // Возникла ошибка :(
-        inputItems.placeholder = "Couldn'tload datalist options :(";
-      }
-    }
-  };
-  // Обновляем текст заполнителя.
-  inputItems.placeholder = "Loading options...";
-
-  // Настраиваем и выполняем запрос.
-  requestItems.open("GET", "http://localhost:8080/items/getAllItems", true);
-  requestItems.send();
-});
 </script>
 
 <style scoped>
+
+.scroll-table-body {
+	height: 150px;
+	overflow-x: auto;
+	margin-top: 0px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #eee;
+}
+.scroll-table table {
+	width:100%;
+	table-layout: fixed;
+	border: none;
+}
+
+.scroll-table tbody td {
+	text-align: left;
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	padding: 10px 15px;
+	font-size: 14px;
+	vertical-align: top;
+}
+.scroll-table tbody tr:nth-child(even){
+	background: #f3f3f3;
+}
+ 
+/* Стили для скролла */
+::-webkit-scrollbar {
+	width: 6px;
+} 
+::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+} 
+::-webkit-scrollbar-thumb {
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+}
+
 *,
 *:before,
 *:after {
@@ -302,7 +276,7 @@ input {
 
 table {
   /* Параметры таблицы */
-  width: 630px;
+  width: 430px;
   margin: auto;
   border: 2px solid #308090;
   border-radius: 3px;
@@ -312,7 +286,7 @@ table {
 th,
 td {
   /* Общие параметры заголовка и строк */
-  min-width: 30px;
+  min-width: 20px;
   padding: 10px 10px;
 }
 
@@ -342,7 +316,7 @@ td {
 
 .th60 {
   /* Параметры полей ввода */
-  width: 80px;
+  width: 40px;
   margin: 0 calc(50% - 40px);
 }
 
@@ -385,4 +359,5 @@ td {
 :focus:-ms-input-placeholder {
   color: transparent;
 }
+
 </style>

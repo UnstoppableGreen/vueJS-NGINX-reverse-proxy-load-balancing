@@ -9,13 +9,17 @@ import OrderEdit from './components/orderform/OrderEdit'
 import OrderInfo from './components/orderform/OrderInfo'
 
 import RequestsIndex from './components/RequestsIndex'
+import RequestEdit from './components/requestform/RequestEdit'
+import RequestCreate from './components/requestform/RequestCreate'
 
 import ShipmentsIndex from './components/ShipmentsIndex'
 import ShipmentInfo from './components/shipmentform/ShipmentInfo'
+import ShipmentCreate from './components/shipmentform/ShipmentCreate'
+import ShipmentEdit from './components/shipmentform/ShipmentEdit'
 
 import ItemsIndex from './components/ItemsIndex'
 import ItemEdit from './components/itemform/ItemEdit'
-
+import ItemCreate from './components/itemform/ItemCreate'
 const routes = [
 	{
 		path: '/clients',
@@ -66,6 +70,18 @@ const routes = [
         component: RequestsIndex,
     },
     {
+        path:'/requests/edit/:requestID',
+        name:'request.edit',
+        component:RequestEdit,
+        props:true 
+ 
+    },
+    {
+        path:'/requests/create',
+        name:'request.create',
+        component: RequestCreate
+    },
+    {
         path:'/shipments',
         name:'shipments.index',
         component: ShipmentsIndex
@@ -74,6 +90,17 @@ const routes = [
         path:'/shipments/info/:shipmentID',
         name:'shipment.info',
         component:ShipmentInfo,
+        props:true
+    },
+    {
+        path:'/shipments/create',
+        name:'shipment.create',
+        component: ShipmentCreate
+    },
+    {
+        path:'/shipments/edit/:shipmentID',
+        name:'shipment.edit',
+        component:ShipmentEdit,
         props:true
 
     },
@@ -89,6 +116,11 @@ const routes = [
         component:ItemEdit,
         props:true
 
+    },
+    {
+        path:'/items/create',
+        name:'items.create',
+        component: ItemCreate
     },
   
 ]

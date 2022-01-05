@@ -37,7 +37,7 @@ export default function useRequests(){
 	
 	//получение данных об одном клиенте
     const getRequestById = async (requestID) => {
-        let response = await API.get(`/ShipmentsAndDeliveries/getRequestById=${requestID}`) 
+        let response = await API.get(`/ShipmentsAndDeliveries/getRequestById?requestID=${requestID}`) 
         request.value = response.data;		
     }
     

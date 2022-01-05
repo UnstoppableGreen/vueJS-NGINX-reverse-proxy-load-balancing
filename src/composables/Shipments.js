@@ -56,7 +56,7 @@ export default function useShipments(){
 
 	//обновление информации о клиенте
     const updateShipment = async (data) => {
-		await API.post(`/ShipmentsAndDeliveries/updateShipment?${data}`, data['_value'])
+		await API.put(`/ShipmentsAndDeliveries/updateShipment?${data}`, data['_value'])
         await router.push({name:'shipments.index'})
     }
 
