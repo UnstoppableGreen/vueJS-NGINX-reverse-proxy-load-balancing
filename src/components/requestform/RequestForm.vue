@@ -73,7 +73,7 @@
                   </datalist>
                 </div>
               </div>
-              <div class="md:flex flex-row md:space-x-4 w-full text-xs">
+              <div v-if="requestID" class="md:flex flex-row md:space-x-4 w-full text-xs">
                 <div class="mb-3 space-y-2 w-full text-xs">
                   <label class="font-semibold text-gray-600 py-0"
                     >Выберите поставщика:
@@ -94,6 +94,7 @@
                   </datalist>
                 </div>
               </div>
+             
               <div v-if="!requestID" class="md:flex md:flex-row md:space-x-4 w-full text-xs">
 								<div class="w-full flex flex-col mb-3">
 									<label class="font-semibold text-gray-600 py-2">Ориентировочная дата доставки</label>
@@ -239,7 +240,7 @@ export default {
 let requestdata = reactive({
   orderID: "",
   statusID: "",
-  carrierID: "",
+  actualSupplierID: "",
   estimateDeliveryDate: "",
   deliveryDate: "",
 });

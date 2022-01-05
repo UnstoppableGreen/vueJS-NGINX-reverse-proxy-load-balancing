@@ -49,7 +49,7 @@ export default function useShipments(){
     
 	//добавление клиента
     const storeShipment = async (data) => {
-          await API.post(`/ShipmentsAndDeliveries/newShipment?${data}`,data)
+          await API.put(`/ShipmentsAndDeliveries/newShipment?${data}`,data)
           await router.push({name: 'shipments.index'})
           
     }

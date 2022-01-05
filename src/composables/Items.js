@@ -52,7 +52,7 @@ export default function useItem(){
     
 	//добавление клиента
     const storeItem = async (data) => {
-          await API.post(`/items/newItem?${data}`,data)
+          await API.put(`/items/newItem?${data}`,data)
           await router.push({name: 'items.index'})
           
     }

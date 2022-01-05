@@ -58,15 +58,15 @@ export default function useOrder(){
     
 	//добавление клиента
     const storeOrder = async (data) => {
-          await API.post(`orders/newOrder?${data}`,data)
-          await router.push({name: 'user.index'})
+          await API.put(`orders/newOrder?${data}`,data)
+          await router.push({name: 'order.index'})
           
     }
 
 	//обновление информации о клиенте
     const updateOrder = async (data) => {
 		await API.post(`orders/updateOrder?${data}`, data['_value'])
-        await router.push({name:'user.index'})
+        await router.push({name:'order.index'})
     }
 
 	//удаление заказа

@@ -37,7 +37,7 @@
           </td>
 		<td class=" py-5  bg-white text-sm">
             <p class=" md:text-base text-gray-900 whitespace-no-wrap">
-                {{requestsdata.estimateDelivryDate}}
+                {{requestsdata.estimateDeliveryDate}}
             </p>
         </td>
 		<td class=" py-5  bg-white text-sm">

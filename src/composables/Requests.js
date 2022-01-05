@@ -43,14 +43,14 @@ export default function useRequests(){
     
 	//добавление клиента
     const storeRequest = async (data) => {
-          await API.post(`/ShipmentsAndDeliveries/newShipment?${data}`,data)
+          await API.post(`/ShipmentsAndDeliveries/createRequests?${data}`,data)
           await router.push({name: 'requests.index'})
           
     }
 
 	//обновление информации о клиенте
     const updateRequest = async (data) => {
-		await API.post(`/ShipmentsAndDeliveries/updateShipment?${data}`, data['_value'])
+		await API.put(`/ShipmentsAndDeliveries/updateRequest?${data}`, data['_value'])
         await router.push({name:'requests.index'})
     }
 

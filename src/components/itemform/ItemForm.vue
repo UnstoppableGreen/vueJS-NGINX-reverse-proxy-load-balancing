@@ -162,10 +162,22 @@ export default {
 	},
   methods: {
     fAddNewRow: function () { // Добавить новую строку в таблицу
-		itemdata['value']['itemDetails'].push({"id":0,"itemID":this.detail,"qty":this.qty});
+    if (itemdata['itemDetails']!==undefined) {
+      itemdata['itemDetails'].push({"id":0,"itemID":this.detail,"qty":this.qty});
+     }
+    else {
+      itemdata['value']['itemDetails'].push({"id":0,"itemID":this.detail,"qty":this.qty});
+    }
+	
     },
     fDeleteRow: function (ind) { // Удалить строку с номером index из таблицы
-		itemdata['value']['itemDetails'].splice(ind, 1);
+    if (itemdata['itemDetails']!==undefined) {
+      itemdata['itemDetails'].splice(ind, 1);
+     }
+    else {
+      itemdata['value']['itemDetails'].splice(ind, 1);
+    }
+		
     }
   }
 };

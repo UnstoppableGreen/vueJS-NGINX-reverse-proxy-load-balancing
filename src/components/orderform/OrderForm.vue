@@ -173,7 +173,7 @@ export default {
 			items,
 			itemID : null,
 			qty : 1,
-			comments:"string"
+			comments:""
 			//[{"id":34,"itemID":9,"qty":10,"comments":"string"},{"id":36,"itemID":11,"qty":10,"comments":"string"}]
 		}
 	},
@@ -213,8 +213,14 @@ export default {
     else {orderdata['value']['orderDetails'].push({"id":0,"itemID":this.item,"qty":this.qty,"comments":this.comments});}
     },
     fDeleteRow: function (ind) { // Удалить строку с номером index из таблицы
-		orderdata['value']['orderDetails'].splice(ind, 1);
+    if (orderdata['orderDetails']!==undefined) {
+      orderdata['orderDetails'].splice(ind, 1);
+     }
+    else {
+      orderdata['value']['orderDetails'].splice(ind, 1);
     }
+    }
+    
   }
 };
 
