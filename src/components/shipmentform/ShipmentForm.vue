@@ -86,7 +86,7 @@
                   />
                   <datalist id="json-datalist-carriers">
                     <option
-                      v-for="carrier in carriers"
+                      v-for="carrier in allcarriers"
                       :key="carrier.id"
                       :value="carrier.id"
                     >
@@ -191,7 +191,7 @@ import useStatuses from "../../composables/Statuses";
 import { ref } from "@vue/reactivity";
 import useShipments from '../../composables/Shipments';
 
-let carriers = ref([]);
+let allcarriers = ref([]);
 let orders = ref([]);
 let shipmentstatuses = ref([]);
 export default {
@@ -205,18 +205,18 @@ export default {
   data: function () {
     const { allordersdata,getAllOrders } = useOrder();
     const { statuses, getStatuses } = useStatuses();
-    const { carriersdata,	getAllCarriers, } = useCarriers();
+    const { carriers,	getAllCarriers, } = useCarriers();
 
     onMounted(getAllOrders());
     orders = allordersdata;
     onMounted(getStatuses());
     shipmentstatuses = statuses;
     onMounted(getAllCarriers());
-    carriers = carriersdata;
+    allcarriers = carriers;
     return {
       orders,
       shipmentstatuses,
-      carriers,
+      allcarriers,
     };
   },
   setup(props) {

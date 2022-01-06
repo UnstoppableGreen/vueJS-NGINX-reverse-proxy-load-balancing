@@ -3,19 +3,19 @@ import  API  from '../api/API';
 import { ref } from '@vue/reactivity';
 
 export default function useCarriers(){
-    const carriersdata= ref([])
+    const carriers= ref([])
 	const data= ref([])
 	
     const getAllCarriers = async () => {
         let response = await API.get(`/ShipmentsAndDeliveries/getAllCarriers`)
 		data.value = response.data;
-        carriersdata.value=response.data;
-	return carriersdata;
+        carriers.value=response.data;
+	return carriers;
     }
     
     
       return {
-        carriersdata,
+        carriers,
 		getAllCarriers,
       }
   
