@@ -20,6 +20,15 @@ import ShipmentEdit from './components/shipmentform/ShipmentEdit'
 import ItemsIndex from './components/ItemsIndex'
 import ItemEdit from './components/itemform/ItemEdit'
 import ItemCreate from './components/itemform/ItemCreate'
+
+import SuppliersIndex from './components/SuppliersIndex'
+import SupplierEdit from './components/supplierform/SupplierEdit'
+import SupplierCreate from './components/supplierform/SupplierCreate'
+
+import CarriersIndex from './components/CarriersIndex'
+import CarrierEdit from './components/carrierform/CarrierEdit'
+import CarrierCreate from './components/carrierform/CarrierCreate'
+
 const routes = [
 	{
 		path: '/clients',
@@ -121,6 +130,42 @@ const routes = [
         path:'/items/create',
         name:'items.create',
         component: ItemCreate
+    },
+       //маршруты для поставщиков
+	{
+		path: '/suppliers',
+		name: 'suppliers.index',
+        component: SuppliersIndex,
+    },
+    {
+        path:'/suppliers/edit/:supplierID',
+        name:'supplier.edit',
+        component:SupplierEdit,
+        props:true
+
+    },
+    {
+        path:'/suppliers/create',
+        name:'supplier.create',
+        component: SupplierCreate
+    },
+    //маршруты для траспортных компаний
+	{
+		path: '/carriers',
+		name: 'carriers.index',
+        component: CarriersIndex,
+    },
+    {
+        path:'/carriers/edit/:carrierID',
+        name:'carrier.edit',
+        component:CarrierEdit,
+        props:true
+
+    },
+    {
+        path:'/carriers/create',
+        name:'carrier.create',
+        component: CarrierCreate
     },
   
 ]

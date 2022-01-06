@@ -21,60 +21,47 @@
                     <filter-user @setFilter="filterData" ></filter-user>
                 
                 </div>
-                <div class="inline-block min-w-full shadow md:shadow-xl md:pl-4 pt-6 rounded-lg overflow-hidden ">
-                    
-                  
+                <div class="inline-block min-w-full shadow md:shadow-xl md:pl-4 pt-6 rounded-lg overflow-hidden ">   
                     <tbody>
-                    
-                        
+					<!--НАСТРОЙКА ТРАНЗАКЦИИ (начало)-->
                         <transition-group name='list' >
-                             
-                                 <user  v-show="!isFilter" v-for="user in usersdata" :key="user.clientID+122" 
+                                 <user  v-show="!isFilter" v-for="user in usersdata" :key="user.clientID" 
                                         :userdata='user' @click="openModal(user)" ></user>
                              
                                  <user   v-show="isFilter" v-for="user in filterbyPage" :key="user.clientID" 
                                         :userdata='user'  @click="openModal(user)"   >
                                 </user>
-                             
-                        
                         </transition-group>
+					<!--НАСТРОЙКА ТРАНЗАКЦИИ (конец)-->
                     </tbody> 
-                    
-                    <div
-                        class="px-5 py-5 bg-white  flex flex-col xs:flex-row items-center xs:justify-between">
-                       
+                    <div class="px-5 py-5 bg-white  flex flex-col xs:flex-row items-center xs:justify-between">
+					<!--НАСТРОЙКА КНОПОК (начало)-->
                         <div class="flex items-center space-x-5">
-                                <a 
-                                    @click="retrieveList(page-1)"  class="flex items-center px-4 py-2 text-gray-800 cursor-pointer  rounded-md">
-                                   <span 
-                                        :class="{'text-gray-200':data.page==1}"  
-                                         class="transition duration-200 ease-in-out material-icons text-base">
-                                                arrow_back_ios
-                                        </span>
-                                </a>
-
-                                <a   
-                                    v-for="(singlePage,index) of pages" :key="index" @click="retrieveList(singlePage)" :class="{'border-t-2 border-blue-500':singlePage==data.page}" 
-                                    class="transition duration-500 ease-in-out border-t-2 hover:border-blue-300 px-4 py-2 text-gray-700  cursor-pointer ">
-                                     
-                                     {{singlePage}}
-                                </a>
-
-                                <a 
-                                    @click="retrieveList(page+1)" class="px-4 py-2 font-bold  cursor-pointer rounded-3xl "  >
-                                    
-                                    <span 
-                                        :class="{'text-gray-200':data.page==data.total_pages}"
-                                        class="transition duration-200 ease-in-out material-icons text-base font-bold"
-                                       >
-                                        arrow_forward_ios
-                                    </span>
-                                </a>
-                         
-                </div>
-                                        <span class="text-sm font-md mt-5 font-bold xs:text-sm text-gray-400">
-                                            Showing {{entries == 0 ? 1 : entries}} to  of {{totalEntries}} 
-                                        </span>
+						<a @click="retrieveList(data.page - 1)" class="px-4 py-2 font-bold cursor-pointer rounded-3xl">
+							<span :class="{ 'text-gray-200': data.page == 1 }" class="transition duration-200 ease-in-out material-icons text-base font-bold">
+							arrow_back_ios
+							</span>
+						</a>
+						<a v-for="(singlePage, index) of pages"
+							:key="index"
+							@click="retrieveList(singlePage)"
+							:class="{
+							'border-t-2 border-blue-500': singlePage == data.page,
+							}"
+							class="transition duration-500 ease-in-out border-t-2 hover:border-blue-300 px-4 py-2 text-gray-700 cursor-pointer"
+						>
+							{{ singlePage }}
+						</a>
+						<a @click="retrieveList(data.page + 1)" class="px-4 py-2 font-bold cursor-pointer rounded-3xl">
+							<span :class="{ 'text-gray-200': data.page == data.total_pages }" class="transition duration-200 ease-in-out material-icons text-base font-bold">
+							arrow_forward_ios
+							</span>
+						</a>
+						</div>
+						<!--<span class="text-sm font-md mt-5 font-bold xs:text-sm text-gray-400">
+							Showing {{entries == 0 ? 1 : entries}} to  of {{totalEntries}} 
+						</span>-->
+					<!--НАСТРОЙКА КНОПОК (конец)-->
                     </div>
                 </div>
             </div>
@@ -87,7 +74,7 @@
 import {   computed, onMounted,ref    } from '@vue/runtime-core'
 import useUser from '../../composables/Users'
 import User from '../user/User.vue'
-import paginateUserList from '../../composables/Paginate'
+import paginateUserList from '../../composables/PaginateUniversal'
 import FilterUser from '../../components/functionalities/FilterUser.vue'
 import Modal from '../functionalities/Modal.vue'
 export default {
@@ -106,22 +93,27 @@ export default {
         const {usersdata,data,getAllData,EntireUserList,getEntireUserList,deleteUser} = useUser() 
         
         //Pagination 
-        
         const {page,pages,entries,totalEntries,setPages,setParam} = paginateUserList(data)
-        const filterbyPage=computed(()=>{
-            return filteredData.value.slice(entries.value,entries.value+data.value.per_page)
-        })
+        const filterbyPage = computed(() => {
+			return filteredData.value.slice(
+			entries.value,
+			entries.value + data.value.per_page
+			);
+		});
          
         //Filter User 
        
         const isFilter=ref(false)
         const filteredData=ref([])
-        
-        const retrieveList = (page)=>{
-            const params=setParam(page)
-				getAllData(params)
-            }
-
+		//<!--НАСТРОЙКА СТРАНИЦ (начало)-->
+		const retrieveList = (page) => {
+			if ((page != 0)&&(page != data.value.total_pages + 1)) {
+				const params = setParam(page);
+				getAllData(params);
+			}
+		};  
+		//<!--НАСТРОЙКА СТРАНИЦ (конец)-->
+		
         const filterData=(data)=>{
             isFilter.value=true
             switch(data){

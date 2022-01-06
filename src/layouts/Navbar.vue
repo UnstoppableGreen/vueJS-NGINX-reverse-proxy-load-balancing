@@ -28,20 +28,33 @@
         </span>
     </router-link> 
 
-	<!--запросы к поставщикам-->
+	<!--отгрузки клиентам-->
 	<router-link to="/shipments" class="hover:shadow-md p-3   md:p-2 rounded-full duration-1000 ease-in-out transform hover:scale-125 delay-200  hover:bg-blue-300 hover:text-3xl font-bold text-center cursor-pointer ">
         <span class="material-icons-outlined">
             pending_actions 
         </span>
     </router-link>
 	
-	<!--поставщики-->
+	<!--запросы к поставщикам-->
 	<router-link to="/requests" class="hover:shadow-md p-3   md:p-2 rounded-full duration-1000 ease-in-out transform hover:scale-125 delay-200  hover:bg-blue-300 hover:text-3xl font-bold text-center cursor-pointer ">
 		<span class="material-icons-outlined">
             work
         </span>
     </router-link>
 
+    <!--поставщики-->
+	<router-link to="/suppliers" class="hover:shadow-md p-3   md:p-2 rounded-full duration-1000 ease-in-out transform hover:scale-125 delay-200  hover:bg-blue-300 hover:text-3xl font-bold text-center cursor-pointer ">
+		<span class="material-icons-outlined">
+            inventory_2
+        </span>
+    </router-link>
+
+        <!--поставщики-->
+	<router-link to="/carriers" class="hover:shadow-md p-3   md:p-2 rounded-full duration-1000 ease-in-out transform hover:scale-125 delay-200  hover:bg-blue-300 hover:text-3xl font-bold text-center cursor-pointer ">
+		<span class="material-icons-outlined">
+            luggage
+        </span>
+    </router-link>
 	
     <div class="md:p-5 p-5 delay-75 duration-200 ease-in-out transform hover:scale-125 cursor-pointer">
         <span class="material-icons font-md">

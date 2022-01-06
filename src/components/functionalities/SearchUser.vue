@@ -17,7 +17,7 @@
         </div>
 
     </div>
-    <div class="search-contain relative"><input @keydown="isSearch=true" @blur="isSearch=false" v-model="search" type="text" class="transition duration-200  ease-in-out bg-gray-200 h-10  pr-8 pl-5 rounded z-0 focus:bg-gray-100 focus:outline-none search-input" placeholder="Search User...">
+    <div class="search-contain relative"><input @keydown="isSearch=true" v-model="search" type="text" class="transition duration-200  ease-in-out bg-gray-200 h-10  pr-8 pl-5 rounded z-0 focus:bg-gray-100 focus:outline-none search-input" placeholder="Search User...">
         <span class="absolute md:text-2xl material-icons search-icon">search</span>
         <div v-show="isSearch" class="search-list  absolute bg-white text-sm shadow-lg">
             <transition-group name='list'>
@@ -26,6 +26,9 @@
                         <div class="px-5">
 							{{`${user.name}`}}
                         </div>
+						<router-link :to="{name:'user.edit', params: {clientID: user.clientID }} " class="text-gray-500  hover:text-blue-500  mx-2">
+							<i class="font-bold transition duration-200 ease-in-out material-icons-outlined md:text-md">manage_accounts</i>
+						</router-link>
                     </div>
 
                 </div>

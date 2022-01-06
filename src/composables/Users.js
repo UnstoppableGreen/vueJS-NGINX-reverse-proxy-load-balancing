@@ -44,7 +44,7 @@ export default function useUser(){
 	
     const getPageData = async(params)=>{
 		let response = await API.get('/clients/getClientsPage',{params:params})
-		return response.data
+		return response.data.data
         //let response = await API.get('/client/getClients',{params:params})
         //return response.data.data
     }

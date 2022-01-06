@@ -40,7 +40,7 @@ export default function useSuppliers(){
     }
     
 	//добавление клиента
-    const storeRequest = async (data) => {
+    const storeSupplier = async (data) => {
           await API.post(`/suppliers/createSupplier?${data}`,data)
           await router.push({name: 'suppliers.index'})
           
@@ -63,11 +63,12 @@ export default function useSuppliers(){
       return {
         data,
         suppliers,
+        supplier,
 		getAllSuppliers,
         EntireSuppliersList,
         getEntireSuppliersList,
         getSupplierById,
-        storeRequest,
+        storeSupplier,
         updateSupplier,
         deleteSupplier,
       }

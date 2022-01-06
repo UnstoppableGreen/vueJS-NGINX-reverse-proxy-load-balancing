@@ -40,7 +40,7 @@ export default function useCarriers(){
     }
 
     const storeCarrier = async (data) => {
-          await API.post(`/ShipmentsAndDeliveries/createSupplier?${data}`,data)
+          await API.post(`/ShipmentsAndDeliveries/createCarrier?${data}`,data)
           await router.push({name: 'carriers.index'})
           
     }
@@ -60,7 +60,8 @@ export default function useCarriers(){
       return {
         data,
         carriers,
-		getAllCarriers,
+        carrier,
+        getAllCarriers,
         EntireCarriersList,
         getEntireCarriersList,
         getCarrierById,
