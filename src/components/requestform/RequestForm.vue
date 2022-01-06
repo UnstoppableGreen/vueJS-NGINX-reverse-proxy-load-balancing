@@ -85,7 +85,7 @@
                   />
                   <datalist id="json-datalist-suppliers">
                     <option
-                      v-for="st in suppliers"
+                      v-for="st in allsuppliers"
                       :key="st.id"
                       :value="st.id"
                     >
@@ -187,7 +187,7 @@ import useSuppliers from "../../composables/Suppliers";
 import { ref } from "@vue/reactivity";
 import useRequests from '../../composables/Requests';
 
-let suppliers = ref([]);
+let allsuppliers = ref([]);
 let orders = ref([]);
 let requeststatuses = ref([]);
 export default {
@@ -201,18 +201,18 @@ export default {
   data: function () {
     const { allordersdata,getAllOrders } = useOrder();
     const { statuses, getStatuses } = useStatuses();
-    const { suppliersdata,	getAllSuppliers, } = useSuppliers();
+    const { suppliers,	getAllSuppliers, } = useSuppliers();
 
     onMounted(getAllOrders());
     orders = allordersdata;
     onMounted(getStatuses());
     requeststatuses = statuses;
     onMounted(getAllSuppliers());
-    suppliers = suppliersdata;
+    allsuppliers = suppliers;
     return {
       orders,
       requeststatuses,
-      suppliers,
+      allsuppliers,
     };
   },
   setup(props) {
