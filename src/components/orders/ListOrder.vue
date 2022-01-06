@@ -58,27 +58,37 @@
                 <order
                   v-show="!isFilter"
                   v-for="order in ordersdata"
-                  :key="order.id + 122"
+                  :key="order[0].id"
                   :ordersdata="order"
-                  @click="openModal(order)"
+                  @click="openModal(order[0])"
                 ></order>
 
                 <order
                   v-show="isFilter"
                   v-for="order in filterbyPage"
-                  :key="order.id"
+                  :key="order[0].id"
                   :ordersdata="order"
-                  @click="openModal(order)"
+                  @click="openModal(order[0])"
                 >
                 </order>
               </transition-group>
             </tbody>
-
             <div
               class="px-5 py-5 bg-white flex flex-col xs:flex-row items-center xs:justify-between"
             >
               <div class="flex items-center space-x-5">
-                <a
+				<a
+                  @click="retrieveList(data.page - 1)"
+                  class="px-4 py-2 font-bold cursor-pointer rounded-3xl"
+                >
+                  <span
+                    :class="{ 'text-gray-200': data.page == 1 }"
+                    class="transition duration-200 ease-in-out material-icons text-base font-bold"
+                  >
+                    arrow_back_ios
+                  </span>
+                </a>
+                <!--<a
                   @click="retrieveList(page - 1)"
                   class="flex items-center px-4 py-2 text-gray-800 cursor-pointer rounded-md"
                 >
@@ -88,7 +98,7 @@
                   >
                     arrow_back_ios
                   </span>
-                </a>
+                </a>-->
 
                 <a
                   v-for="(singlePage, index) of pages"
@@ -103,7 +113,7 @@
                 </a>
 
                 <a
-                  @click="retrieveList(page + 1)"
+                  @click="retrieveList(data.page + 1)"
                   class="px-4 py-2 font-bold cursor-pointer rounded-3xl"
                 >
                   <span
@@ -114,12 +124,12 @@
                   </span>
                 </a>
               </div>
-              <span
+              <!--<span
                 class="text-sm font-md mt-5 font-bold xs:text-sm text-gray-400"
               >
                 Showing {{ entries == 0 ? 1 : entries }} to of
                 {{ totalEntries }}
-              </span>
+              </span>-->
             </div>
           </div>
         </div>
@@ -142,7 +152,7 @@ export default {
     FilterOrder,
     Modal,
   },
-
+//<p>итог: {{JSON.stringify(filterbyPage)}}</p>
   setup() {
     //Get User data
 
@@ -167,7 +177,7 @@ export default {
       entries,
       totalEntries,
       setPages,
-      setParam,
+      setParam
     } = paginateOrdersList(data);
     const filterbyPage = computed(() => {
       return filteredData.value.slice(
@@ -181,9 +191,11 @@ export default {
     const isFilter = ref(false);
     const filteredData = ref([]);
 
-    const retrieveList = (page) => {
-      const params = setParam(page);
-      getAllData(params);
+	const retrieveList = (page) => {
+		if ((page != 0)&&(page != data.value.total_pages + 1)) {
+			const params = setParam(page);
+			getAllData(params);
+		}
     };
 
     const filterData = (data) => {
@@ -192,16 +204,16 @@ export default {
         case "asc":
           filteredData.value = Array.from(EntireOrdersList.value).sort(
             (a, b) => {
-              if (a.id < b.id) return -1;
-              return a.id > b.id ? 1 : 0;
+              if (a[1].name < b[1].name) return -1;
+              return a[1].name > b[1].name ? 1 : 0;
             }
           );
           break;
         case "des":
           filteredData.value = Array.from(EntireOrdersList.value).sort(
             (a, b) => {
-              if (a.id > b.id) return -1;
-              return a.id < b.id ? 1 : 0;
+              if (a[1].name > b[1].name) return -1;
+              return a[1].name < b[1].name ? 1 : 0;
             }
           );
           break;
@@ -242,6 +254,8 @@ export default {
       modalData,
       openModal,
       retrieveList,
+		/*retrieveList1,
+		retrieveList2,*/
     };
   },
 };

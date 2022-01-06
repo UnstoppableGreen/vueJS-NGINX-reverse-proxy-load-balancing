@@ -13,6 +13,7 @@ export default function useOrder(){
 	
     const getAllData = async (params) => {
 		let response = await API.get('/orders/getOrders',{params:params})
+		//ordersdata.value=null;
         data.value = response.data;
         ordersdata.value=response.data.data;
 		console.log(ordersdata.value);
@@ -25,7 +26,7 @@ export default function useOrder(){
     
     const getPageData = async(params)=>{
 		let response = await API.get('/orders/getOrders',{params:params})
-		return response.data
+		return response.data.data;
 
     }
     
