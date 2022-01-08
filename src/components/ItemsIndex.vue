@@ -1,5 +1,5 @@
 <template>
-<!--<search-user></search-user>-->
+<search-item></search-item> <!-- //0801-->
 <list-items></list-items>
 <navbar-items> </navbar-items>
 </template>
@@ -7,14 +7,14 @@
 <script>
 import ListItems from '../components/items/ListItems.vue'
 import NavbarItems from '../layouts/NavbarItems.vue'
-//import SearchUser from './functionalities/SearchUser.vue'
+import SearchItem from './functionalities/SearchItem.vue'//0801
 
 export default {
     name: 'ItemsIndex',
     components: {
         ListItems,
         NavbarItems,
-        //SearchUser,
+        SearchItem,//0801
 
     },
 

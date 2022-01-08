@@ -49,11 +49,11 @@
               </tr>                       
                         <transition-group name='list' >
                              
-                                 <supplier  v-show="!isFilter" v-for="supplier in suppliers" :key="supplier.id+122" 
-                                        :suppliers='supplier' @click="openModal(supplier)" ></supplier>
+                                 <supplier  v-show="!isFilter" v-for="supplier in suppliersdata" :key="supplier.id+122" 
+                                        :suppliersdata='supplier' @click="openModal(supplier)" ></supplier>
                              
                                  <supplier   v-show="isFilter" v-for="supplier in filterbyPage" :key="supplier.id" 
-                                        :suppliers='supplier'  @click="openModal(supplier)"   >
+                                        :suppliersdata='supplier'  @click="openModal(supplier)"   >
                                 </supplier>
                              
                         
@@ -122,8 +122,9 @@ export default {
        
         //Get User data 
         
-        const {suppliers,data,getAllSuppliers,EntireSuppliersList,getEntireSuppliersList,deleteSupplier} = useSuppliers() 
+        const {suppliersdata,data,getAllSuppliers,EntireSuppliersList,getEntireSuppliersList,deleteSupplier} = useSuppliers() 
         
+        console.log(JSON.stringify(suppliersdata));
         //Pagination 
         
         const {page,pages,entries,totalEntries,setPages,setParam} = PaginateUniversal(data)
@@ -180,7 +181,7 @@ export default {
         })
         
         return{
-            data,suppliers,deleteSupplier,
+            data,suppliersdata,deleteSupplier,
             totalEntries,pages,page,entries,
             filteredData,isFilter,filterbyPage,filterData,
             isOpenModal,modalData, openModal,

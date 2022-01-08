@@ -20,3 +20,5 @@ import { vueKeycloak } from '@baloise/vue-keycloak'
     //onLoad  : 'check-sso',
    }
  }).use(router).mount('#app')
+
+

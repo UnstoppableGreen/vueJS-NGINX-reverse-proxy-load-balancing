@@ -12,7 +12,7 @@
         </td>
 		<td class=" py-5  bg-white text-sm">
             <p class=" md:text-base text-gray-900 whitespace-no-wrap">
-                {{itemsdata.defaultSupplierID}}
+                {{supplier.name}} <!-- //0801-->
             </p>
          </td>    		  
          <td class="hidden md:table-cell text-center md:pl-1 md:py-5  bg-white text-sm">
@@ -30,7 +30,8 @@
 
 <script>
 import useItems from '../../composables/Items';
-
+import useSuppliers from '../../composables/Suppliers';
+import {onMounted} from '@vue/runtime-core'
 export default {
     name:'Item',
     props:{
@@ -39,12 +40,18 @@ export default {
             require:true
         }
     },
-    setup(){
+	//<!-- //0801-->
+    setup(props){
         const {deleteItem} = useItems()
+		const {supplier, getSupplierById,} = useSuppliers()
+		onMounted(async ()=>{
+			await getSupplierById(props.itemsdata.defaultSupplierID)
+        })
         return{
-            deleteItem
+            deleteItem, supplier
         }
     }
+	//<!-- //0801-->
     }
 </script>
 

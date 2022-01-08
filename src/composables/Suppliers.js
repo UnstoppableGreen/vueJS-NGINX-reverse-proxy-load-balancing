@@ -4,7 +4,7 @@ import { ref } from '@vue/reactivity';
 
 export default function useSuppliers(){
     const data= ref([])
-    const suppliers= ref([])
+    const suppliersdata= ref([])
     const supplier= ref([])
     const router = useRouter() //для операций UPDATE и STORE
     const EntireSuppliersList = ref([])
@@ -12,8 +12,8 @@ export default function useSuppliers(){
     const getAllSuppliers = async () => {
         let response = await API.get(`/suppliers/getAllSuppliers`)
 		data.value = response.data;
-        suppliers.value=response.data;
-	return suppliers;
+        suppliersdata.value=response.data;
+	return suppliersdata;
     }
     
     const getPageData = async(params)=>{
@@ -62,7 +62,7 @@ export default function useSuppliers(){
       
       return {
         data,
-        suppliers,
+        suppliersdata,
         supplier,
 		getAllSuppliers,
         EntireSuppliersList,
