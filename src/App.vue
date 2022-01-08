@@ -8,7 +8,7 @@ import Navbar from '../src/layouts/Navbar.vue'
 export default {
     components: {
         Navbar
-    }
+    },
 }
 </script>
 

@@ -42,14 +42,12 @@
 							</div>
 								<p class="text-xs text-red-500 text-right my-3">Обязательные поля для заполнения <abbr title="Required field">*</abbr></p>
 								<div class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
-									<button @click="this.$router.push('/')" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> Отмена </button>
+									<button @click="this.$router.push('/clients')" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> Отмена </button>
 									<button  type="submit" v-if='!clientID' class="transition duration-200  ease-in-out mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600">Создать</button>
 									<button v-else class="transition duration-200  ease-in-out mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600">Обновить</button>
 								</div>
 							</div>
 						</form>
-						<textarea wrap="soft" v-model="userdataString" placeholder=""></textarea>
-						<div>{{JSON.stringify(userdata)}}</div>
 					</div>
 				</div>
 			</div>

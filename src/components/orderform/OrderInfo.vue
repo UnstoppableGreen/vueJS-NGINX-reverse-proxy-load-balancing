@@ -1,5 +1,5 @@
 <template>
-  <div class="z-0 flex items-center justify-center mb-8 py-7 md:py-12 px-4 sm:px-6 lg:px-8 items-center">
+  <div style="margin:0 25% 0 25%; width:50%;" class="z-0 flex items-center justify-center mb-8 py-7 md:py-12 px-4 sm:px-6 lg:px-8 items-center">
     <div class="max-w-md w-full space-y-8 p-4 bg-gray-100 rounded-xl shadow-lg z-10">
       <div class="grid gap-8 grid-cols-1">
         <div class="flex flex-col">
@@ -27,6 +27,7 @@
               </div>
       </div>    
     </div>
+    <button @click="this.$router.push('/orders')" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> Назад </button>
     </div>
   </div>
 

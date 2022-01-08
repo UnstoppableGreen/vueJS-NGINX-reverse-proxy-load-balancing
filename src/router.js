@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import Home from './components/Home'
 import UserIndex from './components/UserIndex'
 import OrderIndex from './components/OrderIndex'
 import UserCreate from './components/userform/UserCreate'
@@ -30,6 +31,12 @@ import CarrierEdit from './components/carrierform/CarrierEdit'
 import CarrierCreate from './components/carrierform/CarrierCreate'
 
 const routes = [
+	{
+		path: '/home/',
+		name: 'home',
+        component: Home,
+    },
+
 	{
 		path: '/clients',
 		name: 'user.index',
@@ -167,6 +174,8 @@ const routes = [
         name:'carrier.create',
         component: CarrierCreate
     },
+
+    //this.$keycloak.logout({"redirectUri":"http://localhost:3000/logout.html"})
   
 ]
 

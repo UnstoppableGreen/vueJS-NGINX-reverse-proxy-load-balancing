@@ -53,9 +53,6 @@
 				<i class="transition duration-200 ease-in-out material-icons-round text-gray-500 hover:text-blue-500 md:text-md">delete</i>
             </a>
         </td> 
-        <td>    
-   
-        </td>
        
     </tr>
    

@@ -57,7 +57,6 @@
         >
       </a>
     </td>
-    <td></td>
   </tr>
 </template>
 

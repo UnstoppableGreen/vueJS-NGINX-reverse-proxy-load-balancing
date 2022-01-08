@@ -1,22 +1,5 @@
 <template>
 <div class="z-999 search-container flex justify-between md:ml-8 py-2">
-    <div class="flex justify-around  md:w-48 ">
-        <span class="hidden md:block material-icons mt-2">
-            policy
-        </span>
-
-        <span class="hidden md:block material-icons mt-2">
-            apps
-        </span>
-
-        <div class="flex">
-            <img class="w-7 h-7 md:w-9 md:h-9 rounded-full" src="https://scontent-hkg4-1.xx.fbcdn.net/v/t1.6435-9/179162852_653353195621082_5993237046885046954_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=a3FqULjMcagAX8cBaBR&_nc_ht=scontent-hkg4-1.xx&oh=71af391e6bc16f0286f8d65df64b2fdc&oe=61DA7F9D" alt="" />
-            <span class="material-icons mt-1 md:mt-2">
-                arrow_drop_down
-            </span>
-        </div>
-
-    </div>
     <div class="search-contain relative"><input @keydown="isSearch=true" v-model="search" type="text" class="transition duration-200  ease-in-out bg-gray-200 h-10  pr-8 pl-5 rounded z-0 focus:bg-gray-100 focus:outline-none search-input" placeholder="Search User...">
         <span class="absolute md:text-2xl material-icons search-icon">search</span>
         <div v-show="isSearch" class="search-list  absolute bg-white text-sm shadow-lg">
