@@ -1,31 +1,12 @@
-#FROM node:latest as build-stage
-#WORKDIR ./java_course_work_front/
-#COPY package*.json ./
-#RUN npm install
-#COPY ./ .
-#RUN npm run build
+from nginx:1.20
 
-#FROM nginx as production-stage
-#RUN mkdir /java_course_work_front
-#COPY --from=build-stage /java_course_work_front/dist /java_course_work_front
-#COPY nginx.conf /etc/nginx/nginx.conf
+RUN apt-get update -qq && apt-get -y install curl
 
+COPY consul-template /usr/bin/consul-template
+RUN mkdir -p /consul-template /consul-template/config.d /consul-template/templates && \
+    rm /etc/nginx/conf.d/*
 
-# base image
-FROM node:12.2.0-alpine
+ENV CONSUL consul:8500
+COPY ./dist /usr/share/nginx/html
 
-# set working directory
-WORKDIR ./java_course_work_front
-
-# add `/app/node_modules/.bin` to $PATH
-#ENV PATH /app/node_modules/.bin:$PATH
-
-# install and cache app dependencies
-COPY package.json /java_course_work_front/package.json
-COPY ./ .
-RUN npm install
-#RUN npm install @vue/cli@3.7.0 -g
-
-EXPOSE 8081
-# start app
-CMD ["npm", "run", "serve"]
+CMD /usr/sbin/nginx -c /etc/nginx/nginx.conf && consul-template -consul-addr=$CONSUL -template "/etc/consul-templates/default.conf.ctmpl:/etc/nginx/conf.d/app.conf:/usr/sbin/nginx -s reload"

@@ -51,10 +51,16 @@
         </span>
     </router-link>
 
-        <!--поставщики-->
+    <!--траспортные компании-->
 	<router-link to="/carriers" class="hover:shadow-md p-3   md:p-2 rounded-full duration-1000 ease-in-out transform hover:scale-125 delay-200  hover:bg-blue-300 hover:text-3xl font-bold text-center cursor-pointer ">
 		<span class="material-icons-outlined">
             luggage
+        </span>
+    </router-link>
+    <!--справочники-->
+	<router-link to="/references" class="hover:shadow-md p-3   md:p-2 rounded-full duration-1000 ease-in-out transform hover:scale-125 delay-200  hover:bg-blue-300 hover:text-3xl font-bold text-center cursor-pointer ">
+		<span class="material-icons-outlined">
+        workspaces
         </span>
     </router-link>
 	

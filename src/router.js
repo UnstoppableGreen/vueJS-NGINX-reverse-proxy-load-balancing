@@ -30,6 +30,8 @@ import CarriersIndex from './components/CarriersIndex'
 import CarrierEdit from './components/carrierform/CarrierEdit'
 import CarrierCreate from './components/carrierform/CarrierCreate'
 
+import ReferencesIndex from './components/timesheet-service/ReferencesIndex'
+
 import { useKeycloak } from '@baloise/vue-keycloak'
 
 //const {roles, keycloak, hasRoles, hasResourceRoles,} = useKeycloak();
@@ -277,6 +279,47 @@ const routes = [
             else {next(from)}
           }
     },
+    //маршруты для справочников
+    {
+        path:'/references',
+        name:'references.index',
+        component: ReferencesIndex,
+        /*beforeEnter: (to, from, next) => {
+            if (hasRoles(['admin'])) { next()}
+            else {next(from)}
+        }*/
+    },  
+        //medical organizations
+  /*  {
+    path:'/references/medical-organization',
+        name:'medical-organization.index',
+        component: MedicalOrganizationIndex,
+        beforeEnter: (to, from, next) => {
+            if (hasRoles(['viewReferences'])) { next()}
+            else {next(from)}
+        }
+    },    
+    {
+    path:'/references/medical-organization/create',
+        name:'medical-organization.create',
+        component: MedicalOrganizationCreate,
+        beforeEnter: (to, from, next) => {
+            if (hasRoles(['editReferences'])) { next()}
+            else {next(from)}
+          }
+    },
+    {
+        path:'/references/medical-organization/edit/:medicalOrganizationID',
+        name:'medical-organization.edit',
+        component:MedicalOrganizationEdit,
+        props:true,
+        beforeEnter: (to, from, next) => {
+            if (hasRoles(['editReferences'])) { next()}
+            else {next(from)}
+          }
+
+    },*/
+
 
     //this.$keycloak.logout({"redirectUri":"http://localhost:3000/logout.html"})
   
