@@ -58,8 +58,8 @@ export default {
   },
   methods: {
     fAddNewRow: function () { // Добавить новую строку в таблицу
-	this.tbData.push({"id":34,"itemID":9,"qty":10,"comments":"string"});
-      //this.tbData.push({ id: 0, itemID: this.itemID, qty: this.qty, comments: this.comments });
+	//this.tbData.push({"id":34,"itemID":9,"qty":10,"comments":"string"});
+      this.tbData.push({ id: 0, itemID: this.itemID, qty: this.qty, comments: this.comments });
     },
     fDeleteRow: function (index) { // Удалить строку с номером index из таблицы
       this.tbData.splice(index, 1);

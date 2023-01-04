@@ -30,8 +30,11 @@ import CarriersIndex from './components/CarriersIndex'
 import CarrierEdit from './components/carrierform/CarrierEdit'
 import CarrierCreate from './components/carrierform/CarrierCreate'
 
-import ReferencesIndex from './components/timesheet-service/ReferencesIndex'
+import HumanResourcesIndex from './components/HumanResourcesIndex'
+import ListWorker from './components/worker/ListWorker'
+import ListDivision from './components/divisions/ListDivision'
 
+import ListUser from './components/user/ListUser'
 import { useKeycloak } from '@baloise/vue-keycloak'
 
 //const {roles, keycloak, hasRoles, hasResourceRoles,} = useKeycloak();
@@ -279,16 +282,44 @@ const routes = [
             else {next(from)}
           }
     },
+
     //маршруты для справочников
     {
-        path:'/references',
-        name:'references.index',
-        component: ReferencesIndex,
+        path:'/human-resources',
+        name:'human-resources.index',
+        component: HumanResourcesIndex,
         /*beforeEnter: (to, from, next) => {
             if (hasRoles(['admin'])) { next()}
             else {next(from)}
         }*/
-    },  
+    },
+    {
+        path:'/human-resources/workers',
+        name:'ListWorker.index',
+        component: ListWorker,
+        /*beforeEnter: (to, from, next) => {
+            if (hasRoles(['admin'])) { next()}
+            else {next(from)}
+        }*/
+    },
+    {
+        path:'/human-resources/divisions',
+        name:'ListDivision.index',
+        component: ListDivision,
+        /*beforeEnter: (to, from, next) => {
+            if (hasRoles(['admin'])) { next()}
+            else {next(from)}
+        }*/
+    },
+    {
+        path:'/list-user',
+        name:'ListUser.index',
+        component: ListUser,
+        /*beforeEnter: (to, from, next) => {
+            if (hasRoles(['admin'])) { next()}
+            else {next(from)}
+        }*/
+    },    
         //medical organizations
   /*  {
     path:'/references/medical-organization',

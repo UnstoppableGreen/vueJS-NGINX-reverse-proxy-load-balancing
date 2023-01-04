@@ -17,7 +17,10 @@ import { vueKeycloak } from '@baloise/vue-keycloak'
      realm : 'myrealm',
      clientId : 'app-auth',
     //onLoad  : 'check-sso',
-   }
+   },
  }).use(router).mount('#app')
-
+ 
+ app.config.compilerOptions.isCustomElement = (tag) => {
+  return tag.startsWith('float-menu')
+}
 

@@ -3,6 +3,7 @@
     :position="'top left'"
     :dimension="50"
     :menu-data="items"
+    menu-style="accordion"
     :on-selected="handleSelection"
   >
     Menu
@@ -43,19 +44,56 @@ export default {
     return {
       handleSelection, showMedOrg,
       items: [
-        { name: "New",
+        { name: "Создать справочники",
         subMenu: {
             name: "create-refence",
-            items: [{ name: "Создать мед. организацию" }, { name: "Создать должность" }, { name: "Создать тип нетрудоспособности" },
+            items: [{ name: "Создать мед. организацию" }, { name: "Создать должность" }, { name: "Создать отдел" }, { name: "Создать тип нетрудоспособности" },
             { name: "Создать отметку для листа" }, { name: "Создать режим работы" }],
-          }, },
+          },
+         
+        },
+        {divider: true},
         {
-          name: "View",
+          name: "Посмотреть справочники",
           subMenu: {
-            name: "edit-items",
-            items: [{ name: "Показать мед. организации" }, { name: "Показать должности" }],
+            name: "view-references",
+            items: [{ name: "Показать мед. организации" }, { name: "Показать должности" }, { name: "Показать отделы" }, { name: "Показать типы нетрудоспособности" },
+            { name: "Показать отметки для листа" }, { name: "Показать режимы работы" }],
           },
         },
+        {divider: true},
+        {
+          name: "Больничные листы",
+          subMenu: {
+            name: "sickLeaves",
+            items: [{ name: "Создать больничный лист" }, { name: "Посмотреть больничные листы" }],
+          },
+        },
+        {divider: true},
+        {
+          name: "Командировки",
+          subMenu: {
+            name: "sickLeaves",
+            items: [{ name: "Создать командировку" }, { name: "Посмотреть командировки" }],
+          },
+        },
+        {divider: true},
+        {
+          name: "Листы учета рабочего времени",
+          subMenu: {
+            name: "sickLeaves",
+            items: [{ name: "Создать лист учета рабочего времени" }, { name: "Посмотреть листы учета рабочего времени" }],
+          },
+        },
+        {divider: true},
+        {
+          name: "Работники",
+          subMenu: {
+            name: "sickLeaves",
+            items: [{ name: "Создать работника" }, { name: "Посмотреть работников" }],
+          },
+        },
+        {divider: true},
         {
           name: "Open Recent"
         },
