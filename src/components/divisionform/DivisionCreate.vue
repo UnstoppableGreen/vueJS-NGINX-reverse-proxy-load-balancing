@@ -7,7 +7,6 @@ import DivisionForm from '../divisionform/DivisionForm.vue'
 export default {
   name:'DivisionCreate',
   components: { DivisionForm },
-
 }
 </script>
 

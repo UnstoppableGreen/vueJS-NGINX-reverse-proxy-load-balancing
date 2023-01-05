@@ -47,14 +47,16 @@ export default function useDivision(){
 	//добавление 
     const storeDivision = async (data) => {
           await timesheetServiceAPI.post(`/divisions/insertDivision?${data}`,data)
-          await router.push({name: 'human-resource.index'})
+		window.confirm('Отдел создан.')
+          await router.push({name: 'human-resources.index'})
+
           
     }
 
 	//обновление информации 
     const updateDivision = async (data) => {
 		await timesheetServiceAPI.post(`/divisions/updateDivision?${data}`, data['_value'])
-        await router.push({name:'human-resource.index'})
+        await router.push({name:'human-resources.index'})
     }
     
 	//удаление 
@@ -62,7 +64,9 @@ export default function useDivision(){
         let confirm=window.confirm('Вы действительно хотите удалить пользователя с id: '+divisionID+'?')
         if(confirm) {    
             await timesheetServiceAPI.post(`/divisions/deleteDivision?divisionID=${divisionID}`)
+			await router.push({name:'human-resources.index'})
         }
+		
    }
     
       return {

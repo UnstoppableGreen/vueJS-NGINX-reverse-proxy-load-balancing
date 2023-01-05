@@ -11,7 +11,7 @@
             </p>
         </td>
     <td class="hidden md:table-cell text-center md:pl-1 md:py-5  bg-white text-sm">
-			<router-link :to="{name:'division.edit', params: {divisionID: divisionsdata.id }} " class="text-gray-500  hover:text-blue-500  mx-2">
+			<router-link :to="{name:'divisions.edit', params: {divisionID: divisionsdata.id }} " class="text-gray-500  hover:text-blue-500  mx-2">
 				<i class="font-bold transition duration-200 ease-in-out material-icons-outlined md:text-md">edit</i>
 			</router-link>
             <a @click="deleteDivision(divisionsdata.id)" class="text-gray-500 cursor-pointer ml-2">

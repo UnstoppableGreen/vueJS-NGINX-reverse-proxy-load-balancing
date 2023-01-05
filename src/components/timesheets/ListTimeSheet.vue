@@ -16,10 +16,9 @@
         <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-6 overflow-x-auto">
           <div class="flex justify-between">
             <div>
-              <p class="text-3xl font-bold">Сотрудники</p>
-              <p class="text-gray-400 mt-2 mb-5">{{ data.total }} сотрудников</p>
+              <p class="text-3xl font-bold">Учет рабочего времени</p>
             </div>
-            <!--<filter-worker @setFilter="filterData"></filter-worker>-->
+            <filter-order @setFilter="filterData"></filter-order>
           </div>
           <div
             class="inline-block min-w-full shadow md:shadow-xl md:pl-4 pt-6 rounded-lg overflow-hidden"
@@ -31,61 +30,50 @@
                     ID 
                   </p>
                 </td>
-
                 <td class="py-5 bg-white text-sm">
                   <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    ФИО
+                    Сотрудник
                   </p>
                 </td>
                 <td class="py-5 bg-white text-sm">
                   <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    Подразделение
+                    Метка
                   </p>
                 </td>
                 <td class="py-5 bg-white text-sm">
                   <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    Должность
+                    Дата входа
                   </p>
                 </td>
 				<td class="py-5 bg-white text-sm">
                   <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    Режим работы
+                    Дата выхода
                   </p>
                 </td>
-                <td class="py-5 bg-white text-sm">
+				<td class="py-5 bg-white text-sm">
                   <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    Контакты
-                  </p>
-                </td>
-                <td class="py-5 bg-white text-sm">
-                  <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    Адрес
-                  </p>
-                </td>
-                <td class="py-5 bg-white text-sm">
-                  <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    Дата
+                    Продолжительность, ч
                   </p>
                 </td>
               </tr>
 
               <transition-group name="list">
-                <worker
+                <time-sheet
                   v-show="!isFilter"
-                  v-for="worker in workersdata"
-                  :key="worker.id"
-                  :workersdata="worker"
-                  @click="openModal(worker)"
-                ></worker>
+                  v-for="timesheet in timesheetsdata"
+                  :key="timesheet.id"
+                  :timesheetsdata="timesheet"
+                  @click="openModal(timesheet)"
+                ></time-sheet>
 
-                <worker
+                <time-sheet
                   v-show="isFilter"
-                  v-for="worker in filterbyPage"
-                  :key="worker.id"
-                  :ordersdata="worker"
-                  @click="openModal(worker)"
+                  v-for="timesheet in filterbyPage"
+                  :key="timesheet.id"
+                  :timesheetsdata="timesheet"
+                  @click="openModal(timesheet)"
                 >
-                </worker>
+                </time-sheet>
               </transition-group>
             </tbody>
             <div
@@ -155,15 +143,15 @@
 
 <script>
 import { computed, onMounted, ref } from "@vue/runtime-core";
-import useWorkers from "../../composables/Workers";
-import Worker from "../worker/Worker.vue";
+import useTimeSheets from "../../composables/TimeSheets";
+import TimeSheet from "../timesheets/TimeSheet.vue";
 import paginateOrdersList from "../../composables/PaginateUniversal";
 //import FilterOrder from "../../components/functionalities/FilterOrder.vue";
 import Modal from "../functionalities/Modal.vue";
 export default {
-  name: "ListWorker",
+  name: "ListTimeSheet",
   components: {
-    Worker,
+    TimeSheet,
    // FilterWorker,
     Modal,
   },
@@ -172,17 +160,14 @@ export default {
     //Get User data
 
     const {
-      workersdata,
+      timesheetsdata,
       data,
       getAllData,
-      EntireWorkerList,
-      getEntireWorkerList,
-      deleteWorker,
-    } = useWorkers();
-    let worker = ref([]);
-    for (worker in workersdata.value) {
-      console.log("сотрудник " + worker.id);
-    }
+      EntireTimeSheetList,
+      getEntireTimeSheetList,
+      deleteTimeSheet,
+    } = useTimeSheets();
+
 
     //Pagination
 
@@ -217,7 +202,7 @@ export default {
       isFilter.value = true;
       switch (data) {
         case "asc":
-          filteredData.value = Array.from(EntireWorkerList.value).sort(
+          filteredData.value = Array.from(EntireTimeSheetList.value).sort(
             (a, b) => {
               if (a[1].name < b[1].name) return -1;
               return a[1].name > b[1].name ? 1 : 0;
@@ -225,7 +210,7 @@ export default {
           );
           break;
         case "des":
-          filteredData.value = Array.from(EntireWorkerList.value).sort(
+          filteredData.value = Array.from(EntireTimeSheetList.value).sort(
             (a, b) => {
               if (a[1].name > b[1].name) return -1;
               return a[1].name < b[1].name ? 1 : 0;
@@ -250,13 +235,13 @@ export default {
     onMounted(async () => {
       await getAllData({ page: page.value });
       setPages(data);
-      getEntireWorkerList();
+      getEntireTimeSheetList();
     });
 
     return {
       data,
-      workersdata,
-      deleteWorker,
+      timesheetsdata,
+      deleteTimeSheet,
       totalEntries,
       pages,
       page,

@@ -33,6 +33,8 @@ import CarrierCreate from './components/carrierform/CarrierCreate'
 import HumanResourcesIndex from './components/HumanResourcesIndex'
 import ListWorker from './components/worker/ListWorker'
 import ListDivision from './components/divisions/ListDivision'
+import DivisionEdit from './components/divisionform/DivisionEdit'
+import TimesheetEdit from './components/timesheetform/TimesheetEdit'
 
 import ListUser from './components/user/ListUser'
 import { useKeycloak } from '@baloise/vue-keycloak'
@@ -288,6 +290,7 @@ const routes = [
         path:'/human-resources',
         name:'human-resources.index',
         component: HumanResourcesIndex,
+		
         /*beforeEnter: (to, from, next) => {
             if (hasRoles(['admin'])) { next()}
             else {next(from)}
@@ -320,6 +323,26 @@ const routes = [
             else {next(from)}
         }*/
     },    
+	{
+		path: '/divisions/edit/:divisionID',
+		name: 'divisions.edit',
+        component: DivisionEdit,
+		props:true,
+        /*beforeEnter: (to, from, next) => {
+            if (hasRoles(['watchAll'])) { next()}
+            else {next(from)}
+          }*/
+    },
+    {
+		path: '/timesheets/edit/:timesheetID',
+		name: 'divisions.edit',
+        component: TimesheetEdit,
+		props:true,
+        /*beforeEnter: (to, from, next) => {
+            if (hasRoles(['watchAll'])) { next()}
+            else {next(from)}
+          }*/
+    },
         //medical organizations
   /*  {
     path:'/references/medical-organization',

@@ -2,43 +2,32 @@
   <tr>
     <td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ workersdata.id }}
-      </p>
-    </td>
-
-    <td class="py-5 bg-white text-sm">
-      <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ workersdata.name }}
+        {{ timesheetsdata.id }}
       </p>
     </td>
     <td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ workersdata.division.name }}
+        {{ timesheetsdata.workers.id + " " + timesheetsdata.workers.name  }}
       </p>
     </td>
     <td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ workersdata.profession.name }}
+        {{ timesheetsdata.marksTimesheet.mark  }}
       </p>
     </td>
     <td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ workersdata.operatingMode.name }}
+        {{ timesheetsdata.entryDate }}
       </p>
     </td>
     <td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ workersdata.contacts }}
+        {{ timesheetsdata.exitDate }}
       </p>
     </td>
-    <td class="py-5 bg-white text-sm">
+	<td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ workersdata.address }}
-      </p>
-    </td>
-    <td class="py-5 bg-white text-sm">
-      <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ workersdata.date }}
+        {{ timesheetsdata.duration }}
       </p>
     </td>
     <td
@@ -76,20 +65,20 @@
 </template>
 
 <script>
-import useWorkers from "../../composables/Workers";
+import useTimeSheets from "../../composables/TimeSheets";
 
 export default {
-  name: "Worker",
+  name: "TimeSheet",
   props: {
-    workersdata: {
+    timesheetsdata: {
       type: Object,
       require: true,
     },
   },
   setup() {
-    const { deleteWorker } = useWorkers();
+    const { deleteTimeSheet } = useTimeSheets();
     return {
-      deleteWorker,
+      deleteTimeSheet,
     };
   },
 };

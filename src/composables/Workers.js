@@ -30,7 +30,7 @@ export default function useWorkers(){
         let res = await getPageData({page:pageNo});
         if (res.length > 0) {
             EntireWorkerList.value= EntireWorkerList.value.concat(res)
-          res.concat(await EntireWorkerList(pageNo+1));
+          res.concat(await getEntireWorkerList(pageNo+1));
          
         } else { 
             return 
@@ -47,14 +47,14 @@ export default function useWorkers(){
 	//добавление 
     const storeWorker = async (data) => {
           await timesheetServiceAPI.post(`/workers/insertWorker?${data}`,data)
-          await router.push({name: 'human-resource.index'})
+          await router.push({name: 'human-resources.index'})
           
     }
 
 	//обновление информации 
     const updateWorker = async (data) => {
 		await timesheetServiceAPI.post(`/workers/updateWorker?${data}`, data['_value'])
-        await router.push({name:'human-resource.index'})
+        await router.push({name:'human-resources.index'})
     }
     
 	//удаление 

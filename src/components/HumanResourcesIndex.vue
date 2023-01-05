@@ -13,7 +13,12 @@
   </div>
   <Suspense v-if=createDivision>
     <template #default>
-      <division-create />
+	<div>
+		<form align="right" class="mt-5">
+		<button @click="this.showDivisions=!this.showDivisions;this.createDivision=!this.createDivision;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
+		</form>
+		<division-create> </division-create>
+	</div>
     </template>
     <template #fallback>
       <p>Loading...</p>
@@ -30,6 +35,22 @@
       <p>Loading...</p>
     </template>
   </Suspense>
+  <Suspense v-if=createTimesheet>
+    <template #default>
+	<div>
+		<form align="right" class="mt-5">
+		<button @click="this.showTimeSheets=!this.showTimeSheets;this.createTimesheet=!this.createTimesheet;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
+		</form>
+		<timesheet-create> </timesheet-create>
+	</div>
+    </template>
+    <template #fallback>
+      <p>Loading...</p>
+    </template>
+  </Suspense>
+  <div v-if=showTimeSheets>
+      <list-TimeSheet />
+  </div>
 </template>
 
 <script>
@@ -53,25 +74,33 @@ export default {
     ListUser: defineAsyncComponent(() =>
       import('../components/user/ListUser.vue')
     ),
+    TimesheetCreate: defineAsyncComponent(() =>
+      import('../components/timesheetform/TimesheetCreate.vue')
+    ),  
+    ListTimeSheet: defineAsyncComponent(() =>
+      import('../components/timesheets/ListTimeSheet.vue'),
+    ),
     
-  },
-  setup() {
-
   },
   data() {
     let showDivisions=false;
     let createDivision=false;
     let showWorkers=false;
     let showUsers=false;
+    let createTimesheet=false;
+    let showTimeSheets=false;
+	
     const handleSelection = (selectedItem) => {
       console.log(selectedItem);
       if (selectedItem=="Показать отделы") {this.showDivisions=!this.showDivisions;}
       if (selectedItem=="Создать отдел") {this.createDivision=!this.createDivision;}
       if (selectedItem=="Показать работников") {this.showWorkers=!this.showWorkers;}
       if (selectedItem=="Open Recent") {this.showUsers=!this.showUsers;}
+      if (selectedItem=="Создать лист учета рабочего времени") {this.createTimesheet=!this.createTimesheet;}
+      if (selectedItem=="Показать листы учета рабочего времени") {this.showTimeSheets=!this.showTimeSheets;}
     };
     return {
-      handleSelection, showDivisions, createDivision,showWorkers,showUsers,
+      handleSelection, showDivisions, createDivision,showWorkers,showUsers,createTimesheet, showTimeSheets,
       items: [
         { name: "Создать справочники",
         subMenu: {

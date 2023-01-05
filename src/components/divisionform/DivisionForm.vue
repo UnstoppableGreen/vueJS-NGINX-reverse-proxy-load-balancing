@@ -19,7 +19,6 @@
 						</div>
 								<p class="text-xs text-red-500 text-right my-3">Обязательные поля для заполнения <abbr title="Required field">*</abbr></p>
 								<div class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
-									<button @click="this.$router.push('/human-resources')" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> Отмена </button>
 									<button  type="submit" v-if='!divisionID' class="transition duration-200  ease-in-out mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600">Создать</button>
 									<button v-else class="transition duration-200  ease-in-out mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600">Обновить</button>
 								</div>
@@ -44,6 +43,7 @@ export default {
 		},
 	},
 	setup(props){
+		console.log(props.divisionID)
 		let divisiondata=reactive({
 			'name':'',
 		})
