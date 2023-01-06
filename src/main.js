@@ -20,4 +20,6 @@ import { vueKeycloak } from '@baloise/vue-keycloak'
    }
  }).use(router).mount('#app')
 
-
+ app.config.compilerOptions.isCustomElement = (tag) => {
+  return tag.startsWith('float-')
+}
