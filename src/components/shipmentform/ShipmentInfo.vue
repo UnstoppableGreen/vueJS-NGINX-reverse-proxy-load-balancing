@@ -31,9 +31,11 @@
         <h1  class=" text-lg mr-auto">
               Детали отгрузки
         </h1>  
-              <div>
-                <Tree id="my-tree-id" ref="my-tree-ref" :custom-options="myCustomOptions" :custom-styles="myCustomStyles" :nodes="shipmentdata['orderDetails']"></Tree>
-              </div>
+        <ul>
+          <li v-for="orderdetail in shipmentdata.orderDetails" :key="orderdetail.id">
+                {{ "ID изделия: " + orderdetail.itemID + ", " + "количество: " + orderdetail.qty + ", " + "комментарий: " + orderdetail.comments +";" }}
+          </li>
+       </ul>
       </div>
       <button @click="this.$router.push('/shipments')" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> Назад </button>    
     </div>
@@ -46,12 +48,10 @@
 import { reactive } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 import useShipments from "../../composables/Shipments";
-import Tree from 'vuejs-tree';
 
 export default {
 	name: 'ShipmentInfo',
 	components: {
-		'Tree': Tree
 	},
 	props: {
 		shipmentID: {
@@ -72,7 +72,37 @@ export default {
 	},
 	data: function() {
 		return {
-			treeDisplayData: shipmentdata['orderDetails']
+			//treeDisplayData: shipmentdata['orderDetails'],
+      treeDisplayData: [
+    {
+      text: 'Root 1',
+      state: { checked: false, selected: false, expanded: false },
+      nodes: [
+        {
+          text: 'Child 1',
+          state: { checked: false, selected: false, expanded: false },
+          nodes: [
+            {
+              text: 'Grandchild 1',
+              state: { checked: false, selected: false, expanded: false }
+            },
+            {
+              text: 'Grandchild 2',
+              state: { checked: false, selected: false, expanded: false }
+            }
+          ]
+        },
+        {
+          text: 'Child 2',
+          state: { checked: false, selected: false, expanded: false }
+        }
+      ]
+    },
+    {
+      text: 'Root 2',
+      state: { checked: false, selected: false, expanded: false }
+    }
+  ]
 		}
 	},
 };

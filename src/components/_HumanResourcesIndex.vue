@@ -25,7 +25,7 @@
     <template #default>
 	<div>
 		<form align="right" >
-		<button style="margin: 5em 45em auto auto"  @click="visibledata.showDivisions=!visibledata.showDivisions;visibledata.createDivision=!visibledata.createDivision;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
+		<button style="margin: 5em 45em auto auto "  @click="visibledata.showDivisions=!visibledata.showDivisions;visibledata.createDivision=!visibledata.createDivision;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
 		</form>
 		<division-create> </division-create>
 	</div>
@@ -38,7 +38,7 @@
   <Suspense v-if=visibledata.showWorkers>
     <template #default>
 	<div>
-		<button style="margin: 5em auto auto 10em" @click="visibledata.showWorkers=!visibledata.showWorkers;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
+		<button align="right" @click="visibledata.showWorkers=!visibledata.showWorkers;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
 		<list-worker />
 	</div>
     </template>
@@ -50,7 +50,7 @@
     <template #default>
 	<div>
 		<form align="right" >
-		<button style="margin: 5em auto auto 10em" @click="visibledata.showWorkers=!visibledata.showWorkers;visibledata.createWorker=!visibledata.createWorker;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
+		<button @click="visibledata.showWorkers=!visibledata.showWorkers;visibledata.createWorker=!visibledata.createWorker;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
 		</form>
 		<worker-create> </worker-create>
 	</div>
@@ -64,7 +64,7 @@
   <Suspense v-if=visibledata.showTimeSheets>
     <template #default>
 	<div>
-		<button style="margin: 5em auto auto 10em" @click="visibledata.showTimeSheets=!visibledata.showTimeSheets;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
+		<button @click="visibledata.showTimeSheets=!visibledata.showTimeSheets;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
 		<list-TimeSheet />
 	</div>
     </template>
@@ -76,7 +76,7 @@
     <template #default>
 	<div>
 		<form align="right" >
-		<button style="margin: 5em 45em auto auto" @click="visibledata.showTimeSheets=!visibledata.showTimeSheets;visibledata.createTimesheet=!visibledata.createTimesheet;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
+		<button @click="visibledata.showTimeSheets=!visibledata.showTimeSheets;visibledata.createTimesheet=!visibledata.createTimesheet;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
 		</form>
 		<timesheet-create> </timesheet-create>
 	</div>
@@ -90,7 +90,7 @@
   <Suspense v-if=visibledata.showMedicalOrganizations>
     <template #default>
 	<div>
-		<button style="margin: 5em auto auto 10em" @click="visibledata.showMedicalOrganizations=!visibledata.showMedicalOrganizations;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
+		<button @click="visibledata.showMedicalOrganizations=!visibledata.showMedicalOrganizations;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
 		<list-medicalOrganization />
 	</div>
     </template>
@@ -102,7 +102,7 @@
     <template #default>
 	<div>
 		<form align="right" >
-		<button style="margin: 5em auto auto 10em" @click="visibledata.showMedicalOrganizations=!visibledata.showMedicalOrganizations;visibledata.createMedicalOrganization=!visibledata.createMedicalOrganization;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
+		<button @click="visibledata.showMedicalOrganizations=!visibledata.showMedicalOrganizations;visibledata.createMedicalOrganization=!visibledata.createMedicalOrganization;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
 		</form>
 		<medical-organization-create> </medical-organization-create>
 	</div>
@@ -115,7 +115,7 @@
   <Suspense v-if=visibledata.showProfessions>
     <template #default>
 	<div>
-		<button style="margin: 5em auto auto 10em" @click="visibledata.showProfessions=!visibledata.showProfessions;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
+		<button @click="visibledata.showProfessions=!visibledata.showProfessions;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
 		<list-profession />
 	</div>
     </template>
@@ -127,7 +127,7 @@
     <template #default>
 	<div>
 		<form align="right" >
-		<button style="margin: 5em 45em auto auto" @click="visibledata.showProfessions=!visibledata.showProfessions;visibledata.createProfession=!visibledata.createProfession;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
+		<button @click="visibledata.showProfessions=!visibledata.showProfessions;visibledata.createProfession=!visibledata.createProfession;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
 		</form>
 		<profession-create> </profession-create>
 	</div>
@@ -141,7 +141,7 @@
   <Suspense v-if=visibledata.showVacations>
     <template #default>
 	<div>
-		<button style="margin: 5em auto auto 10em" @click="visibledata.showVacations=!visibledata.showVacations;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
+		<button @click="visibledata.showVacations=!visibledata.showVacations;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
 		<list-vacation />
 	</div>
     </template>
@@ -153,7 +153,7 @@
     <template #default>
 	<div>
 		<form align="right" >
-		<button style="margin: 5em 45em auto auto" @click="visibledata.showVacations=!visibledata.showVacations;visibledata.createVacation=!visibledata.createVacation;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
+		<button @click="visibledata.showVacations=!visibledata.showVacations;visibledata.createVacation=!visibledata.createVacation;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
 		</form>
 		<vacation-create> </vacation-create>
 	</div>
@@ -163,31 +163,7 @@
     </template>
   </Suspense>
 
-  <!------------------------КОМАНДИРОВКИ ------------------------------------>
-  <Suspense v-if=visibledata.showBusinessTrips>
-    <template #default>
-	<div>
-		<button style="margin: 5em auto auto 10em" @click="visibledata.showBusinessTrips=!visibledata.showBusinessTrips;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
-		<list-business-trip />
-	</div>
-    </template>
-    <template #fallback>
-      <p>Loading...</p>
-    </template>
-  </Suspense>
-  <Suspense v-if=visibledata.createBusinessTrip>
-    <template #default>
-	<div>
-		<form align="right" >
-		<button style="margin: 5em 45em auto auto" @click="visibledata.showBusinessTrips=!visibledata.showBusinessTrips;visibledata.createBusinessTrip=!visibledata.createBusinessTrip;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
-		</form>
-		<business-trip-create> </business-trip-create>
-	</div>
-    </template>
-    <template #fallback>
-      <p>Loading...</p>
-    </template>
-  </Suspense>
+  
 </template>
 
 <script>
@@ -238,12 +214,6 @@ export default {
     ListVacation: defineAsyncComponent(() =>
       import('../components/vacations/ListVacation.vue'),
     ),
-	BusinessTripCreate: defineAsyncComponent(() =>
-      import('../components/businesstripform/BusinessTripCreate.vue')
-    ),  
-    ListBusinessTrip: defineAsyncComponent(() =>
-      import('../components/businesstrips/ListBusinessTrip.vue'),
-    ),
     
   },
   data() {
@@ -260,8 +230,6 @@ export default {
 			'createProfession':false,
 			'showVacations':false,
 			'createVacation':false,
-			'showBusinessTrips':false,
-			'createBusinessTrip':false,
 		})
 	
 	const visibleComponent = (name) => {
@@ -281,7 +249,6 @@ export default {
 		if (selectedItem=="Показать листы учета рабочего времени") {this.visibleComponent('showTimeSheets');}
 		if (selectedItem=="Показать должности") {this.visibleComponent('showProfessions');}
 		if (selectedItem=="Показать отпуска") {this.visibleComponent('showVacations');}
-		if (selectedItem=="Показать командировки") {this.visibleComponent('showBusinessTrips');}
 
 		if (selectedItem=="Создать отдел") {this.visibleComponent('createDivision');}
 		if (selectedItem=="Создать лист учета рабочего времени") {this.visibleComponent('createTimesheet');}
@@ -289,7 +256,7 @@ export default {
 		if (selectedItem=="Создать должность") {this.visibleComponent('createProfession');}
 		if (selectedItem=="Создать работника") {this.visibleComponent('createWorker');}
 		if (selectedItem=="Создать запись об отпуске") {this.visibleComponent('createVacation');}
-		if (selectedItem=="Создать командировку") {this.visibleComponent('createBusinessTrip');}
+
     };
     return {
       handleSelection, visibledata, visibleComponent, 
@@ -323,7 +290,7 @@ export default {
         {
           name: "Командировки",
           subMenu: {
-            name: "BusinessTrip",
+            name: "sickLeaves",
             items: [{ name: "Создать командировку" }, { name: "Показать командировки" }],
           },
         },
@@ -331,7 +298,7 @@ export default {
         {
           name: "Листы учета рабочего времени",
           subMenu: {
-            name: "timesheet",
+            name: "sickLeaves",
             items: [{ name: "Создать лист учета рабочего времени" }, { name: "Показать листы учета рабочего времени" }],
           },
         },
@@ -339,15 +306,15 @@ export default {
         {
           name: "Работники",
           subMenu: {
-            name: "worker",
+            name: "sickLeaves",
             items: [{ name: "Создать работника" }, { name: "Показать работников" }],
           },
         },
 		{divider: true},
         {
-          name: "Отпуска",
+          name: "Отпукска",
           subMenu: {
-            name: "vacation",
+            name: "sickLeaves",
             items: [{ name: "Создать запись об отпуске" }, { name: "Показать отпуска" }],
           },
         },

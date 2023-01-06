@@ -2,32 +2,42 @@
   <tr>
     <td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ vacationsdata.id }}
+        {{ businessTripsdata.id }}
       </p>
     </td>
     <td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ vacationsdata.worker.id + " " + vacationsdata.worker.name  }}
+        {{ businessTripsdata.worker.id + " " + businessTripsdata.worker.name  }}
       </p>
     </td>
     <td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ vacationsdata.beginDate }}
+        {{ businessTripsdata.beginDate }}
       </p>
     </td>
     <td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ vacationsdata.endDate }}
+        {{ businessTripsdata.endDate }}
       </p>
     </td>
 	<td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ vacationsdata.numberCommand }}
+        {{ businessTripsdata.numberCommand }}
       </p>
     </td>
 	<td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ vacationsdata.commandDate }}
+        {{ businessTripsdata.dateCommand }}
+      </p>
+    </td>
+	<td class="py-5 bg-white text-sm">
+      <p class="md:text-base text-gray-900 whitespace-no-wrap">
+        {{ businessTripsdata.destination }}
+      </p>
+    </td>
+	<td class="py-5 bg-white text-sm">
+      <p class="md:text-base text-gray-900 whitespace-no-wrap">
+        {{ businessTripsdata.tripPurpose }}
       </p>
     </td>
     <td
@@ -42,24 +52,8 @@
           >zoom_in</i
         >
       </router-link>-->
-
-      
-     <!-- <button style="margin: 5em 45em auto auto "  @click="this.editDivision=!this.editDivision;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
-          <i class="font-bold transition duration-200 ease-in-out material-icons-outlined md:text-md">
-            edit
-          </i>
-      </button>
-      <Suspense v-if="this.editDivision">
-        <template #default>
-          sdkj;nkfsdjnsdfsdl'fknsdlfkn
-          <vacation-edit  :vacationID='vacationsdata.id'/>
-          </template> 
-          <template #fallback>
-            <p>Loading...</p>
-          </template>
-      </Suspense>-->
       <router-link
-        :to="{ name: 'vacations.edit', params: { vacationID: vacationsdata.id } }"
+        :to="{ name: 'businesstrips.edit', params: { businessTripID: businessTripsdata.id } }"
         class="text-gray-500 hover:text-blue-500 mx-2"
       >
         <i
@@ -68,7 +62,7 @@
         >
       </router-link>
       <a
-        @click="deleteVacation(vacationsdata.id)"
+        @click="deleteBusinessTrip(businessTripsdata.id)"
         class="text-gray-500 cursor-pointer ml-2"
       >
         <i
@@ -81,27 +75,20 @@
 </template>
 
 <script>
-import useVacations from "../../composables/Vacations";
-//import { defineAsyncComponent } from 'vue'
+import useBusinessTrips from "../../composables/BusinessTrips";
+
 export default {
-  name: "Vacation",
-  components: {
-   // VacationEdit: defineAsyncComponent(() =>
-   //   import('../vacationform/VacationEdit.vue'),
-   // ),
-  },
+  name: "BusinessTrip",
   props: {
-    vacationsdata: {
+    businessTripsdata: {
       type: Object,
       require: true,
     },
   },
-
   setup() {
-    const { deleteVacation } = useVacations();
-    let editDivision=false;
+    const { deleteBusinessTrip } = useBusinessTrips();
     return {
-      deleteVacation, editDivision,
+      deleteBusinessTrip,
     };
   },
 };

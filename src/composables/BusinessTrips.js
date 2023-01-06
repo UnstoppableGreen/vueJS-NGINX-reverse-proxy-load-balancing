@@ -10,7 +10,7 @@ export default function useBusinessTrips(){
     const EntireBusinessTripList = ref([])
 	
     const getAllData = async (params) => {
-		let response = await timesheetServiceAPI.get('/businesstrips/getBusinessTripsPage',{params:params})
+		let response = await timesheetServiceAPI.get('/businesstrips/getBusinessTripPage',{params:params})
         data.value = response.data;
         businessTripsdata.value=response.data.data;
     }
@@ -21,7 +21,7 @@ export default function useBusinessTrips(){
     }
 	
     const getPageData = async(params)=>{
-		let response = await timesheetServiceAPI.get('/businesstrips/getBusinessTripsPage',{params:params})
+		let response = await timesheetServiceAPI.get('/businesstrips/getBusinessTripPage',{params:params})
 		return response.data.data
     }
     
@@ -46,15 +46,16 @@ export default function useBusinessTrips(){
     
 	//добавление 
     const storeBusinessTrip = async (data) => {
-          await timesheetServiceAPI.post(`/businesstrips/insertBusinessTrip?${data}`,data)
-          await router.push({name: 'human-resources.index'})
+		await timesheetServiceAPI.post(`/businesstrips/insertBusinessTrip?${data}`,data)
+		window.confirm('Командировка успешно создана.')
+		//await router.push({name: 'human-resources.index'})
           
     }
 
 	//обновление информации 
     const updateBusinessTrip = async (data) => {
 		await timesheetServiceAPI.post(`/businesstrips/updateBusinessTrip?${data}`, data['_value'])
-        await router.push({name:'human-resources.index'})
+		await router.push({name:'human-resources.index'})
     }
     
 	//удаление 

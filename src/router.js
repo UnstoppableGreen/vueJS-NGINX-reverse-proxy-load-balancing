@@ -37,6 +37,7 @@ import ListDivision from './components/divisions/ListDivision'
 import DivisionEdit from './components/divisionform/DivisionEdit'
 import TimesheetEdit from './components/timesheetform/TimesheetEdit'
 import VacationEdit from './components/vacationform/VacationEdit'
+import BusinessTripEdit from './components/businesstripform/BusinessTripEdit'
 
 import ListMedicalOrganization from './components/medicalorganizations/ListMedicalOrganization'
 import MedicalOrganizationEdit from './components/medicalorganizationform/MedicalOrganizationEdit'
@@ -405,6 +406,16 @@ const routes = [
 		path: '/professions/edit/:professionID',
 		name: 'professions.edit',
         component: ProfessionEdit,
+		props:true,
+        /*beforeEnter: (to, from, next) => {
+            if (hasRoles(['watchAll'])) { next()}
+            else {next(from)}
+          }*/
+    },
+	{
+		path: '/businesstrips/edit/:businessTripID',
+		name: 'businesstrips.edit',
+        component: BusinessTripEdit,
 		props:true,
         /*beforeEnter: (to, from, next) => {
             if (hasRoles(['watchAll'])) { next()}
