@@ -9,15 +9,20 @@ export default function useProfessions(){
     const router = useRouter() //для операций UPDATE и STORE
     const EntireProfessions = ref([])
 	
-    const getAllSuppliers = async () => {
-        let response = await timesheetServiceAPI.get(`/references/professions/getAllProfessions`)
+    /*const getAllProfessions = async () => {
+        let response = await timesheetServiceAPI.get(`/references/getProfessions`)
 		data.value = response.data;
         professionsdata.value=response.data;
 	return professionsdata;
+    }*/
+	const getAllProfessions = async (params) => {
+		let response = await timesheetServiceAPI.get('/references/getProfessionsPage',{params:params})
+        data.value = response.data;
+        professionsdata.value=response.data.data;
     }
     
     const getPageData = async(params)=>{
-		let response = await timesheetServiceAPI.get('/references/professions/getProfessions',{params:params})
+		let response = await timesheetServiceAPI.get('/references/getProfessionsPage',{params:params})
 		return response.data
 
     }
@@ -26,7 +31,7 @@ export default function useProfessions(){
         let res = await getPageData({page:pageNo});
         if (res.length > 0) {
             EntireProfessions.value= EntireProfessions.value.concat(res)
-          res.concat(await EntireProfessions(pageNo+1));
+          res.concat(await getEntireProfessionsList(pageNo+1));
          
         } else { 
             return 
@@ -34,29 +39,30 @@ export default function useProfessions(){
         return res
       }
 
-    const getProfessionById = async (supplierID) => {
-        let response = await API.get(`/references/professions/getProfessionById?professionID=${professionID}`) 
+    const getProfessionById = async (professionID) => {
+        let response = await timesheetServiceAPI.get(`/references/getProfessionById?professionID=${professionID}`) 
         profession.value = response.data;		
     }
     
 	//добавление клиента
     const storeProfession = async (data) => {
-          await timesheetServiceAPI.post(`/references/professions/createProfession?${data}`,data)
-          //await router.push({name: 'suppliers.index'})
+		await timesheetServiceAPI.post(`/references/insertProfession?${data}`,data)
+		window.confirm('Должность успешно создана.')
+          //await router.push({name: 'professions.index'})
           
     }
 
 	//обновление информации о клиенте
     const updateProfession = async (data) => {
-		await API.put(`/references/professions/updateProfession?${data}`, data['_value'])
-        //await router.push({name:'suppliers.index'})
+		await timesheetServiceAPI.post(`/references/updateProfession?${data}`, data['_value'])
+        await router.push({name:'human-resources.index'})		
     }
 
 	//удаление заказа
     const deleteProfession = async (professionID) => {
         let confirm=window.confirm('Отметить должность ID: '+professionID+' статусом "удалён"?')
         if(confirm) {    
-            await timesheetServiceAPI.post(`/references/professions/deleteProfession?professionID=${professionID}`)
+            await timesheetServiceAPI.post(`/references/deleteProfession?professionID=${professionID}`)
         }
    }
       

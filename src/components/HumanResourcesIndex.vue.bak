@@ -10,22 +10,15 @@
   </float-menu>
   
   <!------------------------ ОТДЕЛЫ ------------------------------------>
-  <Suspense v-if=visibledata.showDivisions>
-    <template #default>
-	<div>
-		<button @click="visibledata.showDivisions=!visibledata.showDivisions;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
-		<list-division />
-	</div>
-    </template>
-    <template #fallback>
-      <p>Loading...</p>
-    </template>
-  </Suspense>
+  
+  <div v-if=visibledata.showDivisions>
+      <list-division />
+  </div>
   <Suspense v-if=visibledata.createDivision>
     <template #default>
 	<div>
 		<form align="right" >
-		<button @click="visibledata.showDivisions=!visibledata.showDivisions;visibledata.createDivision=!visibledata.createDivision;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
+		<button @click="this.showDivisions=!this.showDivisions;this.createDivision=!this.createDivision;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
 		</form>
 		<division-create> </division-create>
 	</div>
@@ -35,22 +28,14 @@
     </template>
   </Suspense>
   <!------------------------РАБОЧИЕ ------------------------------------>
-  <Suspense v-if=visibledata.showWorkers>
-    <template #default>
-	<div>
-		<button align="right" @click="visibledata.showWorkers=!visibledata.showWorkers;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
-		<list-worker />
-	</div>
-    </template>
-    <template #fallback>
-      <p>Loading...</p>
-    </template>
-  </Suspense>
-  <Suspense v-if=visibledata.createWorker>
+  <div v-if=visibledata.showWorkers>
+      <list-worker />
+  </div>
+    <Suspense v-if=visibledata.createWorker>
     <template #default>
 	<div>
 		<form align="right" >
-		<button @click="visibledata.showWorkers=!visibledata.showWorkers;visibledata.createWorker=!visibledata.createWorker;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
+		<button @click="this.showWorkers=!this.showWorkers;this.createWorker=!this.createWorker;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
 		</form>
 		<worker-create> </worker-create>
 	</div>
@@ -59,19 +44,17 @@
       <p>Loading...</p>
     </template>
   </Suspense>
-  
-  <!------------------------УЧЕТ РАБОЧЕГО ВРЕМЕНИ ------------------------------------>
-  <Suspense v-if=visibledata.showTimeSheets>
+  <!------------------------USERS ------------------------------------>
+  <Suspense v-if=visibledata.showUsers>
     <template #default>
-	<div>
-		<button @click="visibledata.showTimeSheets=!visibledata.showTimeSheets;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
-		<list-TimeSheet />
-	</div>
+      <list-user />
     </template>
     <template #fallback>
       <p>Loading...</p>
     </template>
   </Suspense>
+  
+  <!------------------------УЧЕТ РАБОЧЕГО ВРЕМЕНИ ------------------------------------>
   <Suspense v-if=visibledata.createTimesheet>
     <template #default>
 	<div>
@@ -85,19 +68,13 @@
       <p>Loading...</p>
     </template>
   </Suspense>
-
+  <div v-if=visibledata.showTimeSheets>
+      <list-TimeSheet />
+  </div>
   <!------------------------МЕДИЦИНСКИЕ ОРГАНИЗАЦИИ ------------------------------------>
-  <Suspense v-if=visibledata.showMedicalOrganizations>
-    <template #default>
-	<div>
-		<button @click="visibledata.showMedicalOrganizations=!visibledata.showMedicalOrganizations;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
+	<div v-if=visibledata.showMedicalOrganizations>
 		<list-medicalOrganization />
 	</div>
-    </template>
-    <template #fallback>
-      <p>Loading...</p>
-    </template>
-	</Suspense>
 	<Suspense v-if=visibledata.createMedicalOrganization>
     <template #default>
 	<div>
@@ -112,17 +89,9 @@
     </template>
 	</Suspense>
 	<!------------------------ДОЛЖНОСТИ ------------------------------------>
-  <Suspense v-if=visibledata.showProfessions>
-    <template #default>
-	<div>
-		<button @click="visibledata.showProfessions=!visibledata.showProfessions;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
-		<list-profession />
-	</div>
-    </template>
-    <template #fallback>
-      <p>Loading...</p>
-    </template>
-  </Suspense>
+	<div v-if=visibledata.showProfessions>
+      <list-profession />
+  </div>
   <Suspense v-if=visibledata.createProfession>
     <template #default>
 	<div>
@@ -137,32 +106,23 @@
     </template>
   </Suspense>
   
-  <!------------------------ОТПУСКА ------------------------------------>
-  <Suspense v-if=visibledata.showVacations>
-    <template #default>
-	<div>
-		<button @click="visibledata.showVacations=!visibledata.showVacations;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
-		<list-vacation />
-	</div>
-    </template>
-    <template #fallback>
-      <p>Loading...</p>
-    </template>
-  </Suspense>
+  
   <Suspense v-if=visibledata.createVacation>
     <template #default>
 	<div>
 		<form align="right" >
 		<button @click="visibledata.showVacations=!visibledata.showVacations;visibledata.createVacation=!visibledata.createVacation;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
 		</form>
-		<vacation-create> </vacation-create>
+		<timesheet-create> </timesheet-create>
 	</div>
     </template>
     <template #fallback>
       <p>Loading...</p>
     </template>
   </Suspense>
-
+  <div v-if=visibledata.showVacations>
+      <list-TimeSheet />
+  </div>
   
 </template>
 
@@ -185,8 +145,11 @@ export default {
     ListWorker: defineAsyncComponent(() =>
       import('../components/worker/ListWorker.vue')
     ),
-    WorkerCreate: defineAsyncComponent(() =>
+	WorkerCreate: defineAsyncComponent(() =>
       import('../components/workerform/WorkerCreate.vue')
+    ),
+    ListUser: defineAsyncComponent(() =>
+      import('../components/user/ListUser.vue')
     ),
     TimesheetCreate: defineAsyncComponent(() =>
       import('../components/timesheetform/TimesheetCreate.vue')
@@ -195,10 +158,10 @@ export default {
       import('../components/timesheets/ListTimeSheet.vue'),
     ),
 	
-    ListMedicalOrganization: defineAsyncComponent(() =>
+	ListMedicalOrganization: defineAsyncComponent(() =>
       import('../components/medicalorganizations/ListMedicalOrganization.vue'),
     ),
-    MedicalOrganizationCreate: defineAsyncComponent(() =>
+	MedicalOrganizationCreate: defineAsyncComponent(() =>
       import('../components/medicalorganizationform/MedicalOrganizationCreate.vue')
     ),
 	
@@ -212,7 +175,7 @@ export default {
       import('../components/vacationform/VacationCreate.vue')
     ),  
     ListVacation: defineAsyncComponent(() =>
-      import('../components/vacations/ListVacation.vue'),
+      import('../components/vacations/VacatioSheet.vue'),
     ),
     
   },
@@ -222,6 +185,8 @@ export default {
 			'createDivision':false,
 			'showWorkers':false,
 			'createWorker':false,
+			'showUsers':false,
+			'createUser':false,
 			'showTimeSheets':false,
 			'createTimesheet':false,
 			'showMedicalOrganizations':false,
@@ -248,15 +213,14 @@ export default {
 		if (selectedItem=="Показать работников") {this.visibleComponent('showWorkers');}
 		if (selectedItem=="Показать листы учета рабочего времени") {this.visibleComponent('showTimeSheets');}
 		if (selectedItem=="Показать должности") {this.visibleComponent('showProfessions');}
-		if (selectedItem=="Показать отпуска") {this.visibleComponent('showVacations');}
 
 		if (selectedItem=="Создать отдел") {this.visibleComponent('createDivision');}
 		if (selectedItem=="Создать лист учета рабочего времени") {this.visibleComponent('createTimesheet');}
 		if (selectedItem=="Создать мед. организацию") {this.visibleComponent('createMedicalOrganization');}
 		if (selectedItem=="Создать должность") {this.visibleComponent('createProfession');}
 		if (selectedItem=="Создать работника") {this.visibleComponent('createWorker');}
-		if (selectedItem=="Создать запись об отпуске") {this.visibleComponent('createVacation');}
 
+		if (selectedItem=="Open Recent") {this.visibleComponent('showUsers');}
     };
     return {
       handleSelection, visibledata, visibleComponent, 

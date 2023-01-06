@@ -16,7 +16,7 @@
         <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-6 overflow-x-auto">
           <div class="flex justify-between">
             <div>
-              <p class="text-3xl font-bold">Учет рабочего времени</p>
+              <p class="text-3xl font-bold">Отпуска</p>
             </div>
             <!--<filter-order @setFilter="filterData"></filter-order>-->
           </div>
@@ -37,43 +37,43 @@
                 </td>
                 <td class="py-5 bg-white text-sm">
                   <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    Метка
+                    Дата начала
                   </p>
                 </td>
                 <td class="py-5 bg-white text-sm">
                   <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    Дата входа
+                    Дата окончания
                   </p>
                 </td>
 				<td class="py-5 bg-white text-sm">
                   <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    Дата выхода
+                    Номер приказа
                   </p>
                 </td>
 				<td class="py-5 bg-white text-sm">
                   <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    Продолжительность, ч
+                    Дата приказа
                   </p>
                 </td>
               </tr>
 
               <transition-group name="list">
-                <time-sheet
+                <vacation
                   v-show="!isFilter"
-                  v-for="timesheet in timesheetsdata"
-                  :key="timesheet.id"
-                  :timesheetsdata="timesheet"
-                  @click="openModal(timesheet)"
-                ></time-sheet>
+                  v-for="vacation in vacationsdata"
+                  :key="vacation.id"
+                  :vacationsdata="vacation"
+                  @click="openModal(vacation)"
+                ></vacation>
 
-                <time-sheet
+                <vacation
                   v-show="isFilter"
-                  v-for="timesheet in filterbyPage"
-                  :key="timesheet.id"
-                  :timesheetsdata="timesheet"
-                  @click="openModal(timesheet)"
+                  v-for="vacation in filterbyPage"
+                  :key="vacation.id"
+                  :vacationsdata="vacation"
+                  @click="openModal(vacation)"
                 >
-                </time-sheet>
+                </vacation>
               </transition-group>
             </tbody>
             <div
@@ -143,15 +143,15 @@
 
 <script>
 import { computed, onMounted, ref } from "@vue/runtime-core";
-import useTimeSheets from "../../composables/TimeSheets";
-import TimeSheet from "../timesheets/TimeSheet.vue";
+import useVacations from "../../composables/Vacations";
 import paginateOrdersList from "../../composables/PaginateUniversal";
+import Vacation from "../vacations/Vacation";
 //import FilterOrder from "../../components/functionalities/FilterOrder.vue";
 import Modal from "../functionalities/Modal.vue";
 export default {
-  name: "ListTimeSheet",
+  name: "ListVacation",
   components: {
-    TimeSheet,
+    Vacation,
    // FilterWorker,
     Modal,
   },
@@ -160,13 +160,13 @@ export default {
     //Get User data
 
     const {
-      timesheetsdata,
+      vacationsdata,
       data,
       getAllData,
-      EntireTimeSheetList,
-      getEntireTimeSheetList,
-      deleteTimeSheet,
-    } = useTimeSheets();
+      EntireVacationList,
+      getEntireVacationList,
+      deletevacation,
+    } = useVacations();
 
 
     //Pagination
@@ -202,7 +202,7 @@ export default {
       isFilter.value = true;
       switch (data) {
         case "asc":
-          filteredData.value = Array.from(EntireTimeSheetList.value).sort(
+          filteredData.value = Array.from(EntireVacationList.value).sort(
             (a, b) => {
               if (a[1].name < b[1].name) return -1;
               return a[1].name > b[1].name ? 1 : 0;
@@ -210,7 +210,7 @@ export default {
           );
           break;
         case "des":
-          filteredData.value = Array.from(EntireTimeSheetList.value).sort(
+          filteredData.value = Array.from(EntireVacationList.value).sort(
             (a, b) => {
               if (a[1].name > b[1].name) return -1;
               return a[1].name < b[1].name ? 1 : 0;
@@ -235,13 +235,13 @@ export default {
     onMounted(async () => {
       await getAllData({ page: page.value });
       setPages(data);
-      getEntireTimeSheetList();
+      getEntireVacationList();
     });
 
     return {
       data,
-      timesheetsdata,
-      deleteTimeSheet,
+      vacationsdata,
+      deletevacation,
       totalEntries,
       pages,
       page,

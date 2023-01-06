@@ -21,37 +21,16 @@
       <div class="grid gap-8 grid-cols-1">
         <div class="flex flex-col">
           <div class="flex flex-col sm:flex-row items-center">
-            <h2 v-if="!timesheetID" class="font-semibold text-lg mr-auto">
-              Создать запись учета рабочего времени
+            <h2 v-if="!vacationID" class="font-semibold text-lg mr-auto">
+              Создать запись об отпуске
             </h2>
             <h2 v-else class="font-semibold text-lg mr-auto">
-              Изменить запись учета рабочего времени
+              Изменить запись об отпуске
             </h2>
             <div class="w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0"></div>
           </div>
-          <form @submit.prevent="saveTimesheet" class="mt-5">
+          <form @submit.prevent="saveVacation" class="mt-5">
             <div class="form">
-              <div class="md:flex flex-row md:space-x-4 w-full text-xs">
-                <div class="mb-3 space-y-2 w-full text-xs">
-                  <label class="font-semibold text-gray-600 py-0"
-                    >Выберите метку:
-                  </label>
-                  <input
-                    type="text"
-                    v-model="timesheetdata.marksTimesheet.id"
-                    list="json-datalist-marks"
-                  />
-                  <datalist id="json-datalist-marks">
-                    <option
-                      v-for="mark in marks"
-                      :key="mark.mark"
-                      :value="mark.id"
-                    >
-                      {{ mark.mark}}
-                    </option>
-                  </datalist>
-                </div>
-              </div>
               <div class="md:flex flex-row md:space-x-4 w-full text-xs">
                 <div class="mb-3 space-y-2 w-full text-xs">
                   <label class="font-semibold text-gray-600 py-0"
@@ -59,7 +38,7 @@
                   </label>
                   <input
                     type="text"
-                    v-model="timesheetdata.workers.id"
+                    v-model="vacationdata.workers.id"
                     list="json-datalist-workers"
                   />
                   <datalist id="json-datalist-workers">
@@ -74,31 +53,31 @@
                 </div>
               </div>
              
-              <div v-if="!timesheetID" class="md:flex md:flex-row md:space-x-4 w-full text-xs">
-								<div class="w-full flex flex-col mb-3">
-									<label class="font-semibold text-gray-600 py-2">Дата-время входа</label>
-									<input v-model="timesheetdata.entryDate"  type="datetime-local" placeholder="2021-01-01" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" name="integration[street_address]" id="integration_street_address">
-								</div>
-							</div>
-              <div v-if="timesheetID" class="md:flex md:flex-row md:space-x-4 w-full text-xs">
-								<div class="w-full flex flex-col mb-3">
-									<label class="font-semibold text-gray-600 py-2">Дата-время входа</label>
-									<input disabled v-model="timesheetdata.entryDate"  type="datetime-local" placeholder="2021-01-01" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" name="integration[street_address]" id="integration_street_address">
-								</div>
-							</div>
+			<div class="md:flex md:flex-row md:space-x-4 w-full text-xs">
+				<div class="w-full flex flex-col mb-3">
+					<label class="font-semibold text-gray-600 py-2">Дата начала</label>
+					<input v-model="vacationdata.beginDate"  type="date" placeholder="2021-01-01" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" name="integration[street_address]" id="integration_street_address">
+				</div>
+			</div>
+			<div  class="md:flex md:flex-row md:space-x-4 w-full text-xs">
+				<div class="w-full flex flex-col mb-3">
+					<label class="font-semibold text-gray-600 py-2">Дата окончания</label>
+					<input disabled v-model="vacationdata.endDate"  type="date" placeholder="2021-01-01" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" name="integration[street_address]" id="integration_street_address">
+				</div>
+			</div>
 
-              <div v-if="!timesheetID" class="md:flex md:flex-row md:space-x-4 w-full text-xs">
-								<div class="w-full flex flex-col mb-3">
-									<label class="font-semibold text-gray-600 py-2">Дата-время выхода</label>
-									<input v-model="timesheetdata.exitDate"  type="datetime-local" placeholder="2021-01-01" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" name="integration[street_address]" id="integration_street_address">
-								</div>
-							</div>
-              <div v-if="timesheetID" class="md:flex md:flex-row md:space-x-4 w-full text-xs">
-								<div class="w-full flex flex-col mb-3">
-									<label class="font-semibold text-gray-600 py-2">Дата-время выхода</label>
-									<input disabled v-model="timesheetdata.exitDate"  type="datetime-local" placeholder="2021-01-01" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" name="integration[street_address]" id="integration_street_address">
-								</div>
-							</div>
+			<div class="md:flex md:flex-row md:space-x-4 w-full text-xs">
+				<div class="w-full flex flex-col mb-3">
+					<label class="font-semibold text-gray-600 py-2">Номер приказа</label>
+					<input v-model="vacationdata.numberCommand"  placeholder="№" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" type="text" name="integration[street_address]" id="integration_street_address">
+				</div>
+			</div>
+			<div class="md:flex md:flex-row md:space-x-4 w-full text-xs">
+				<div class="w-full flex flex-col mb-3">
+					<<label class="font-semibold text-gray-600 py-2">Дата приказа</label>
+					<input disabled v-model="vacationdata.commandDate"  type="date" placeholder="2021-01-01" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" name="integration[street_address]" id="integration_street_address">
+				</div>
+			</div>
               <!--<p> ответ {{JSON.stringify(orderdata.orderDetails)}} </p>-->
               <div
                 class="
@@ -110,7 +89,7 @@
               >
                 <button
                   type="submit"
-                  v-if="!timesheetID"
+                  v-if="!vacationID"
                   class="
                     transition
                     duration-200
@@ -166,70 +145,65 @@
 <script>
 import { reactive } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
-import useTimeSheets from "../../composables/TimeSheets";
+import useVacations from "../../composables/useVacations";
 import useWorkers from "../../composables/Workers";
-import useMarks from "../../composables/MarksTimesheet";
 import { ref } from "@vue/reactivity";
 
 let marks = ref([]);
-let timesheets = ref([]);
+let vacations = ref([]);
 let workers = ref([]);
 export default {
-  name: "TimesheetForm",
+  name: "VacationForm",
   props: {
-    timesheetID: {
-      timesheetID: true,
+    vacationID: {
+      vacationID: true,
       type: String,
     },
   },
   data: function () {
-    const { marksdata,getMarksTimesheet } = useMarks();
-    const { timesheetsdata, getAllTimeSheetData } = useTimeSheets();
+    const { vacationsdata, getAllVacationData } = useVacations();
     const { workersdata,	getAllWorkerData, } = useWorkers();
 
-    onMounted(getMarksTimesheet());
-    marks = marksdata;
-    onMounted(getAllTimeSheetData());
-    timesheets = timesheetsdata;
+    onMounted(getAllVacationData());
+    vacations = vacationsdata;
     onMounted(getAllWorkerData());
     workers = workersdata;
     return {
-      marks,
-      timesheets,
+      vacations,
       workers,
     };
   },
   setup(props) {
-    const { timesheet, getTimeSheetById, storeTimeSheet, updateTimeSheet } = useTimeSheets();
-	let timesheetdata=reactive({})
-    if (props.timesheetID) {
-      onMounted(getTimeSheetById(props.timesheetID));
-      timesheetdata = timesheet;
+    const { vacation, getVacationById, storeVacation, updateVacation } = useVacations();
+	let vacationdata=reactive({})
+    if (props.vacationID) {
+      onMounted(getVacationById(props.vacationID));
+      vacationdata = vacation;
     } else 
 	{
-		timesheetdata=reactive({
-			'marksTimesheet':{'id':'',},
+		vacationdata=reactive({
+			'endDate':'',
+			'beginDate':'',
 			'workers':{'id':'',},
-			'entryDate':'',
-			'exitDate':'',
-			'duration':'',
+			'commandDate':'',
+			'numberCommand':'',
 			'id':'',
 		})
 	}
 
-    const saveTimesheet = async () => {
-      timesheetdata['entryDate'] =  timesheetdata['entryDate'].replace('T', ' ');
-      timesheetdata['exitDate'] =  timesheetdata['exitDate'].replace('T', ' ');
-      timesheetdata['duration']=0;
-      console.log(timesheetdata);
-      props.timesheetID
-        ? await updateTimeSheet({ ...timesheetdata })
-        : await storeTimeSheet({ ...timesheetdata });
+    const saveVacation = async () => {
+      vacationdata['entryDate'] =  vacationdata['entryDate'].replace('T', ' ');
+      vacationdata['exitDate'] =  vacationdata['exitDate'].replace('T', ' ');
+      vacationdata['duration']=0;
+      console.log(vacationdata);
+      props.vacationID
+        ? await updateVacation({ ...vacationdata })
+        : await storeVacation({ ...vacationdata });
     };
 
     return {
-      timesheetdata,
-      saveTimesheet,
+      vacationdata,
+      saveVacation,
     };
   },
 };

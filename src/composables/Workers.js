@@ -47,7 +47,7 @@ export default function useWorkers(){
 	//добавление 
     const storeWorker = async (data) => {
           await timesheetServiceAPI.post(`/workers/insertWorker?${data}`,data)
-          await router.push({name: 'human-resources.index'})
+          window.confirm('Работник успешно создан.')
           
     }
 

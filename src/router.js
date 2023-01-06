@@ -32,9 +32,17 @@ import CarrierCreate from './components/carrierform/CarrierCreate'
 
 import HumanResourcesIndex from './components/HumanResourcesIndex'
 import ListWorker from './components/worker/ListWorker'
+import WorkerEdit from './components/workerform/WorkerEdit'
 import ListDivision from './components/divisions/ListDivision'
 import DivisionEdit from './components/divisionform/DivisionEdit'
 import TimesheetEdit from './components/timesheetform/TimesheetEdit'
+import VacationEdit from './components/vacationform/VacationEdit'
+
+import ListMedicalOrganization from './components/medicalorganizations/ListMedicalOrganization'
+import MedicalOrganizationEdit from './components/medicalorganizationform/MedicalOrganizationEdit'
+
+import ListProfession from './components/professions/ListProfession'
+import ProfessionEdit from './components/professionform/ProfessionEdit'
 
 import ListUser from './components/user/ListUser'
 import { useKeycloak } from '@baloise/vue-keycloak'
@@ -305,6 +313,16 @@ const routes = [
             else {next(from)}
         }*/
     },
+	{
+		path: '/workers/edit/:workerID',
+		name: 'workers.edit',
+        component: WorkerEdit,
+		props:true,
+        /*beforeEnter: (to, from, next) => {
+            if (hasRoles(['watchAll'])) { next()}
+            else {next(from)}
+          }*/
+    },
     {
         path:'/human-resources/divisions',
         name:'ListDivision.index',
@@ -335,7 +353,7 @@ const routes = [
     },
     {
 		path: '/timesheets/edit/:timesheetID',
-		name: 'divisions.edit',
+		name: 'timesheets.edit',
         component: TimesheetEdit,
 		props:true,
         /*beforeEnter: (to, from, next) => {
@@ -343,7 +361,56 @@ const routes = [
             else {next(from)}
           }*/
     },
+    {
+		path: '/vacations/edit/:vacationID',
+		name: 'vacations.edit',
+        component: VacationEdit,
+		props:true,
+        /*beforeEnter: (to, from, next) => {
+            if (hasRoles(['watchAll'])) { next()}
+            else {next(from)}
+          }*/
+    },
         //medical organizations
+	{
+        path:'/human-resources/medicalorganizations',
+        name:'ListMedicalOrganization.index',
+        component: ListMedicalOrganization,
+        /*beforeEnter: (to, from, next) => {
+            if (hasRoles(['admin'])) { next()}
+            else {next(from)}
+        }*/
+    },
+	{
+		path: '/medicalorganizations/edit/:medicalOrganizationID',
+		name: 'medicalOrganizations.edit',
+        component: MedicalOrganizationEdit,
+		props:true,
+        /*beforeEnter: (to, from, next) => {
+            if (hasRoles(['watchAll'])) { next()}
+            else {next(from)}
+          }*/
+    },
+	
+	{
+        path:'/human-resources/professions',
+        name:'ListProfession.index',
+        component: ListProfession,
+        /*beforeEnter: (to, from, next) => {
+            if (hasRoles(['admin'])) { next()}
+            else {next(from)}
+        }*/
+    },
+	{
+		path: '/professions/edit/:professionID',
+		name: 'professions.edit',
+        component: ProfessionEdit,
+		props:true,
+        /*beforeEnter: (to, from, next) => {
+            if (hasRoles(['watchAll'])) { next()}
+            else {next(from)}
+          }*/
+    },
   /*  {
     path:'/references/medical-organization',
         name:'medical-organization.index',

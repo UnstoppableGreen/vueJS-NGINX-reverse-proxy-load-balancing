@@ -2,43 +2,32 @@
   <tr>
     <td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ workersdata.id }}
-      </p>
-    </td>
-
-    <td class="py-5 bg-white text-sm">
-      <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ workersdata.name }}
+        {{ vacationsdata.id }}
       </p>
     </td>
     <td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ workersdata.division.name }}
+        {{ vacationsdata.worker.id + " " + vacationsdata.worker.name  }}
       </p>
     </td>
     <td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ workersdata.profession.name }}
+        {{ vacationsdata.beginDate }}
       </p>
     </td>
     <td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ workersdata.operatingMode.name }}
+        {{ vacationsdata.endDate }}
       </p>
     </td>
-    <td class="py-5 bg-white text-sm">
+	<td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ workersdata.contacts }}
+        {{ vacationsdata.numberCommand }}
       </p>
     </td>
-    <td class="py-5 bg-white text-sm">
+	<td class="py-5 bg-white text-sm">
       <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ workersdata.address }}
-      </p>
-    </td>
-    <td class="py-5 bg-white text-sm">
-      <p class="md:text-base text-gray-900 whitespace-no-wrap">
-        {{ workersdata.date }}
+        {{ vacationsdata.commandDate }}
       </p>
     </td>
     <td
@@ -54,7 +43,7 @@
         >
       </router-link>-->
       <router-link
-        :to="{ name: 'workers.edit', params: { workerID: workersdata.id } }"
+        :to="{ name: 'vacations.edit', params: { vacationID: vacationsdata.id } }"
         class="text-gray-500 hover:text-blue-500 mx-2"
       >
         <i
@@ -63,7 +52,7 @@
         >
       </router-link>
       <a
-        @click="deleteWorker(workersdata.id)"
+        @click="deleteVacation(vacationsdata.id)"
         class="text-gray-500 cursor-pointer ml-2"
       >
         <i
@@ -76,20 +65,20 @@
 </template>
 
 <script>
-import useWorkers from "../../composables/Workers";
+import useVacations from "../../composables/Vacations";
 
 export default {
-  name: "Worker",
+  name: "Vacation",
   props: {
-    workersdata: {
+    vacationsdata: {
       type: Object,
       require: true,
     },
   },
   setup() {
-    const { deleteWorker } = useWorkers();
+    const { deleteVacation } = useVacations();
     return {
-      deleteWorker,
+      deleteVacation,
     };
   },
 };

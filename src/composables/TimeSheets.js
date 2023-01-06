@@ -44,10 +44,11 @@ export default function useTimeSheets(){
         timesheet.value = response.data;		
     }
     
-	//добавление 
+	//добавление POST
     const storeTimeSheet = async (data) => {
-          await timesheetServiceAPI.post(`/timesheets/insertTimesheet?${data}`,data)
-          await router.push({name: 'human-resources.index'})
+		await timesheetServiceAPI.post(`/timesheets/insertTimesheet?${data}`,data)
+		window.confirm('Запись успешно создана.')
+		await router.push({name: 'human-resources.index'})
           
     }
 

@@ -16,93 +16,100 @@
         <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-6 overflow-x-auto">
           <div class="flex justify-between">
             <div>
-              <p class="text-3xl font-bold">Учет рабочего времени</p>
+              <p class="text-3xl font-bold">Медицинские организации</p>
+              <p class="text-gray-400 mt-2 mb-5">{{ data.total }} организаций</p>
             </div>
-            <!--<filter-order @setFilter="filterData"></filter-order>-->
+            <!--<filter-medicalOrganization @setFilter="filterData"></filter-medicalOrganization>-->
           </div>
           <div
-            class="inline-block min-w-full shadow md:shadow-xl md:pl-4 pt-6 rounded-lg overflow-hidden"
+            class="
+              inline-block
+              min-w-full
+              shadow
+              md:shadow-xl md:pl-4
+              pt-6
+              rounded-lg
+              overflow-hidden
+            "
           >
             <tbody>
-              <tr>
-                <td class="py-5 bg-white text-sm">
+				<tr>
+				<td class="py-5 bg-white text-sm">
                   <p class="md:text-base text-gray-900 whitespace-no-wrap">
                     ID 
                   </p>
                 </td>
-                <td class="py-5 bg-white text-sm">
-                  <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    Сотрудник
-                  </p>
-                </td>
-                <td class="py-5 bg-white text-sm">
-                  <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    Метка
-                  </p>
-                </td>
-                <td class="py-5 bg-white text-sm">
-                  <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    Дата входа
-                  </p>
-                </td>
-				<td class="py-5 bg-white text-sm">
-                  <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    Дата выхода
-                  </p>
-                </td>
-				<td class="py-5 bg-white text-sm">
-                  <p class="md:text-base text-gray-900 whitespace-no-wrap">
-                    Продолжительность, ч
-                  </p>
-                </td>
-              </tr>
 
+                <td class="py-5 bg-white text-sm">
+                  <p class="md:text-base text-gray-900 whitespace-no-wrap">
+                    Наименование
+                  </p>
+                </td>
+				
+				<td class="py-5 bg-white text-sm">
+                  <p class="md:text-base text-gray-900 whitespace-no-wrap">
+                    Контакт
+                  </p>
+                </td>
+				
+				<td class="py-5 bg-white text-sm">
+                  <p class="md:text-base text-gray-900 whitespace-no-wrap">
+                    Адрес
+                  </p>
+                </td>
+				</tr>
+              <!--НАСТРОЙКА ТРАНЗАКЦИИ (начало)-->
               <transition-group name="list">
-                <time-sheet
+                <medical-organization
                   v-show="!isFilter"
-                  v-for="timesheet in timesheetsdata"
-                  :key="timesheet.id"
-                  :timesheetsdata="timesheet"
-                  @click="openModal(timesheet)"
-                ></time-sheet>
+                  v-for="medicalOrganization in medicalOrganizationsdata"
+                  :key="medicalOrganization.id"
+                  :medicalOrganizationsdata="medicalOrganization"
+                  @click="openModal(medicalOrganization)"
+                ></medical-organization>
 
-                <time-sheet
+                <medical-organization
                   v-show="isFilter"
-                  v-for="timesheet in filterbyPage"
-                  :key="timesheet.id"
-                  :timesheetsdata="timesheet"
-                  @click="openModal(timesheet)"
+                  v-for="medicalOrganization in medicalOrganizationsdata"
+                  :key="medicalOrganization.id"
+                  :medicalOrganizationsdata="medicalOrganization"
+                  @click="openModal(medicalOrganization)"
                 >
-                </time-sheet>
+                </medical-organization>
               </transition-group>
+              <!--НАСТРОЙКА ТРАНЗАКЦИИ (конец)-->
             </tbody>
             <div
-              class="px-5 py-5 bg-white flex flex-col xs:flex-row items-center xs:justify-between"
+              class="
+                px-5
+                py-5
+                bg-white
+                flex flex-col
+                xs:flex-row
+                items-center
+                xs:justify-between
+              "
             >
+              <!--НАСТРОЙКА КНОПОК (начало)-->
               <div class="flex items-center space-x-5">
-				<a
+                <a
                   @click="retrieveList(data.page - 1)"
                   class="px-4 py-2 font-bold cursor-pointer rounded-3xl"
                 >
                   <span
                     :class="{ 'text-gray-200': data.page == 1 }"
-                    class="transition duration-200 ease-in-out material-icons text-base font-bold"
+                    class="
+                      transition
+                      duration-200
+                      ease-in-out
+                      material-icons
+                      text-base
+                      font-bold
+                    "
                   >
                     arrow_back_ios
                   </span>
                 </a>
-                <!--<a
-                  @click="retrieveList(page - 1)"
-                  class="flex items-center px-4 py-2 text-gray-800 cursor-pointer rounded-md"
-                >
-                  <span
-                    :class="{ 'text-gray-200': data.page == 1 }"
-                    class="transition duration-200 ease-in-out material-icons text-base"
-                  >
-                    arrow_back_ios
-                  </span>
-                </a>-->
-
                 <a
                   v-for="(singlePage, index) of pages"
                   :key="index"
@@ -110,29 +117,43 @@
                   :class="{
                     'border-t-2 border-blue-500': singlePage == data.page,
                   }"
-                  class="transition duration-500 ease-in-out border-t-2 hover:border-blue-300 px-4 py-2 text-gray-700 cursor-pointer"
+                  class="
+                    transition
+                    duration-500
+                    ease-in-out
+                    border-t-2
+                    hover:border-blue-300
+                    px-4
+                    py-2
+                    text-gray-700
+                    cursor-pointer
+                  "
                 >
                   {{ singlePage }}
                 </a>
-
                 <a
                   @click="retrieveList(data.page + 1)"
                   class="px-4 py-2 font-bold cursor-pointer rounded-3xl"
                 >
                   <span
                     :class="{ 'text-gray-200': data.page == data.total_pages }"
-                    class="transition duration-200 ease-in-out material-icons text-base font-bold"
+                    class="
+                      transition
+                      duration-200
+                      ease-in-out
+                      material-icons
+                      text-base
+                      font-bold
+                    "
                   >
                     arrow_forward_ios
                   </span>
                 </a>
               </div>
-              <!--<span
-                class="text-sm font-md mt-5 font-bold xs:text-sm text-gray-400"
-              >
-                Showing {{ entries == 0 ? 1 : entries }} to of
-                {{ totalEntries }}
-              </span>-->
+              <!--<span class="text-sm font-md mt-5 font-bold xs:text-sm text-gray-400">
+							Showing {{entries == 0 ? 1 : entries}} to  of {{totalEntries}} 
+						</span>-->
+              <!--НАСТРОЙКА КНОПОК (конец)-->
             </div>
           </div>
         </div>
@@ -143,42 +164,34 @@
 
 <script>
 import { computed, onMounted, ref } from "@vue/runtime-core";
-import useTimeSheets from "../../composables/TimeSheets";
-import TimeSheet from "../timesheets/TimeSheet.vue";
-import paginateOrdersList from "../../composables/PaginateUniversal";
-//import FilterOrder from "../../components/functionalities/FilterOrder.vue";
+import useMedicalOrganization from "../../composables/MedicalOrganization";
+import MedicalOrganization from "../medicalorganizations/MedicalOrganization.vue";
+import paginateMedicalOrganizationList from "../../composables/PaginateUniversal";
+//import FilterMedicalOrganization from "../../components/functionalities/FilterMedicalOrganization.vue";
 import Modal from "../functionalities/Modal.vue";
 export default {
-  name: "ListTimeSheet",
+  name: "ListMedicalOrganization",
   components: {
-    TimeSheet,
-   // FilterWorker,
+    MedicalOrganization,
+    //FilterMedicalOrganization,
     Modal,
   },
-//<p>итог: {{JSON.stringify(filterbyPage)}}</p>
+
   setup() {
-    //Get User data
+    //Get data
 
     const {
-      timesheetsdata,
+      medicalOrganizationsdata,
       data,
       getAllData,
-      EntireTimeSheetList,
-      getEntireTimeSheetList,
-      deleteTimeSheet,
-    } = useTimeSheets();
-
+      EntireMedicalOrganizationList,
+      getEntireMedicalOrganizationList,
+      deleteMedicalOrganization,
+    } = useMedicalOrganization();
 
     //Pagination
-
-    const {
-      page,
-      pages,
-      entries,
-      totalEntries,
-      setPages,
-      setParam
-    } = paginateOrdersList(data);
+    const { page, pages, entries, totalEntries, setPages, setParam } =
+      paginateMedicalOrganizationList(data);
     const filterbyPage = computed(() => {
       return filteredData.value.slice(
         entries.value,
@@ -186,36 +199,33 @@ export default {
       );
     });
 
-    //Filter User
+    //Filter 
 
     const isFilter = ref(false);
     const filteredData = ref([]);
-
-	const retrieveList = (page) => {
-		if ((page != 0)&&(page != data.value.total_pages + 1)) {
-			const params = setParam(page);
-			getAllData(params);
-		}
+    //<!--НАСТРОЙКА СТРАНИЦ (начало)-->
+    const retrieveList = (page) => {
+      if (page != 0 && page != data.value.total_pages + 1) {
+        const params = setParam(page);
+        getAllData(params);
+      }
     };
+    //<!--НАСТРОЙКА СТРАНИЦ (конец)-->
 
     const filterData = (data) => {
       isFilter.value = true;
       switch (data) {
         case "asc":
-          filteredData.value = Array.from(EntireTimeSheetList.value).sort(
-            (a, b) => {
-              if (a[1].name < b[1].name) return -1;
-              return a[1].name > b[1].name ? 1 : 0;
-            }
-          );
+          filteredData.value = Array.from(EntireMedicalOrganizationList.value).sort((a, b) => {
+            if (a.name < b.name) return -1;
+            return a.name > b.name ? 1 : 0;
+          });
           break;
         case "des":
-          filteredData.value = Array.from(EntireTimeSheetList.value).sort(
-            (a, b) => {
-              if (a[1].name > b[1].name) return -1;
-              return a[1].name < b[1].name ? 1 : 0;
-            }
-          );
+          filteredData.value = Array.from(EntireMedicalOrganizationList.value).sort((a, b) => {
+            if (a.name > b.name) return -1;
+            return a.name < b.name ? 1 : 0;
+          });
           break;
         default:
           isFilter.value = false;
@@ -235,13 +245,13 @@ export default {
     onMounted(async () => {
       await getAllData({ page: page.value });
       setPages(data);
-      getEntireTimeSheetList();
+      getEntireMedicalOrganizationList();
     });
 
     return {
       data,
-      timesheetsdata,
-      deleteTimeSheet,
+      medicalOrganizationsdata,
+      deleteMedicalOrganization,
       totalEntries,
       pages,
       page,
@@ -254,8 +264,6 @@ export default {
       modalData,
       openModal,
       retrieveList,
-		/*retrieveList1,
-		retrieveList2,*/
     };
   },
 };
