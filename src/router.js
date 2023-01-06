@@ -41,6 +41,7 @@ import BusinessTripEdit from './components/businesstripform/BusinessTripEdit'
 
 import ListMedicalOrganization from './components/medicalorganizations/ListMedicalOrganization'
 import MedicalOrganizationEdit from './components/medicalorganizationform/MedicalOrganizationEdit'
+import SickLeaveEdit from './components/sickleaveform/SickLeaveEdit'
 
 import ListProfession from './components/professions/ListProfession'
 import ProfessionEdit from './components/professionform/ProfessionEdit'
@@ -416,6 +417,16 @@ const routes = [
 		path: '/businesstrips/edit/:businessTripID',
 		name: 'businesstrips.edit',
         component: BusinessTripEdit,
+		props:true,
+        /*beforeEnter: (to, from, next) => {
+            if (hasRoles(['watchAll'])) { next()}
+            else {next(from)}
+          }*/
+    },
+	{
+		path: '/sickleaves/edit/:sickLeaveID',
+		name: 'sickleaves.edit',
+        component: SickLeaveEdit,
 		props:true,
         /*beforeEnter: (to, from, next) => {
             if (hasRoles(['watchAll'])) { next()}

@@ -1,6 +1,6 @@
 <template>
   <float-menu
-    :position="'top left'"
+    :position="'left'"
     :dimension="50"
     :menu-data="items"
     menu-style="accordion"
@@ -50,7 +50,7 @@
     <template #default>
 	<div>
 		<form align="right" >
-		<button style="margin: 5em auto auto 10em" @click="visibledata.showWorkers=!visibledata.showWorkers;visibledata.createWorker=!visibledata.createWorker;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
+		<button style="margin: 5em 45em auto auto" @click="visibledata.showWorkers=!visibledata.showWorkers;visibledata.createWorker=!visibledata.createWorker;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
 		</form>
 		<worker-create> </worker-create>
 	</div>
@@ -102,7 +102,7 @@
     <template #default>
 	<div>
 		<form align="right" >
-		<button style="margin: 5em auto auto 10em" @click="visibledata.showMedicalOrganizations=!visibledata.showMedicalOrganizations;visibledata.createMedicalOrganization=!visibledata.createMedicalOrganization;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
+		<button style="margin: 5em 45em auto auto" @click="visibledata.showMedicalOrganizations=!visibledata.showMedicalOrganizations;visibledata.createMedicalOrganization=!visibledata.createMedicalOrganization;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
 		</form>
 		<medical-organization-create> </medical-organization-create>
 	</div>
@@ -188,6 +188,32 @@
       <p>Loading...</p>
     </template>
   </Suspense>
+  
+  <!------------------------БОЛЬНИЧНЫЕ ЛИСТЫ ------------------------------------>
+  <Suspense v-if=visibledata.showSickLeaves>
+    <template #default>
+	<div>
+		<button style="margin: 5em auto auto 10em" @click="visibledata.showSickLeaves=!visibledata.showSickLeaves;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
+		<list-sick-leave />
+	</div>
+    </template>
+    <template #fallback>
+      <p>Loading...</p>
+    </template>
+  </Suspense>
+  <Suspense v-if=visibledata.createSickLeave>
+    <template #default>
+	<div>
+		<form align="right" >
+		<button style="margin: 5em 45em auto auto" @click="visibledata.showSickLeaves=!visibledata.showSickLeaves;visibledata.createSickLeave=!visibledata.createSickLeave;" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"> X </button>
+		</form>
+		<sick-leave-create> </sick-leave-create>
+	</div>
+    </template>
+    <template #fallback>
+      <p>Loading...</p>
+    </template>
+  </Suspense>
 </template>
 
 <script>
@@ -244,6 +270,12 @@ export default {
     ListBusinessTrip: defineAsyncComponent(() =>
       import('../components/businesstrips/ListBusinessTrip.vue'),
     ),
+	SickLeaveCreate: defineAsyncComponent(() =>
+      import('../components/sickleaveform/SickLeaveCreate.vue')
+    ),  
+    ListSickLeave: defineAsyncComponent(() =>
+      import('../components/sickleaves/ListSickLeave.vue'),
+    ),
     
   },
   data() {
@@ -262,6 +294,8 @@ export default {
 			'createVacation':false,
 			'showBusinessTrips':false,
 			'createBusinessTrip':false,
+			'showSickLeaves':false,
+			'createSickLeave':false,
 		})
 	
 	const visibleComponent = (name) => {
@@ -282,6 +316,7 @@ export default {
 		if (selectedItem=="Показать должности") {this.visibleComponent('showProfessions');}
 		if (selectedItem=="Показать отпуска") {this.visibleComponent('showVacations');}
 		if (selectedItem=="Показать командировки") {this.visibleComponent('showBusinessTrips');}
+		if (selectedItem=="Показать больничные листы") {this.visibleComponent('showSickLeaves');}
 
 		if (selectedItem=="Создать отдел") {this.visibleComponent('createDivision');}
 		if (selectedItem=="Создать лист учета рабочего времени") {this.visibleComponent('createTimesheet');}
@@ -290,6 +325,7 @@ export default {
 		if (selectedItem=="Создать работника") {this.visibleComponent('createWorker');}
 		if (selectedItem=="Создать запись об отпуске") {this.visibleComponent('createVacation');}
 		if (selectedItem=="Создать командировку") {this.visibleComponent('createBusinessTrip');}
+		if (selectedItem=="Создать больничный лист") {this.visibleComponent('createSickLeave');}
     };
     return {
       handleSelection, visibledata, visibleComponent, 
@@ -297,8 +333,7 @@ export default {
         { name: "Создать справочники",
         subMenu: {
             name: "create-refence",
-            items: [{ name: "Создать мед. организацию" }, { name: "Создать должность" }, { name: "Создать отдел" }, { name: "Создать тип нетрудоспособности" },
-            { name: "Создать отметку для листа" }, { name: "Создать режим работы" }],
+            items: [{ name: "Создать мед. организацию" }, { name: "Создать должность" }, { name: "Создать отдел" },],
           },
          
         },
@@ -307,8 +342,7 @@ export default {
           name: "Посмотреть справочники",
           subMenu: {
             name: "view-references",
-            items: [{ name: "Показать мед. организации" }, { name: "Показать должности" }, { name: "Показать отделы" }, { name: "Показать типы нетрудоспособности" },
-            { name: "Показать отметки для листа" }, { name: "Показать режимы работы" }],
+            items: [{ name: "Показать мед. организации" }, { name: "Показать должности" }, { name: "Показать отделы" },],
           },
         },
         {divider: true},
@@ -351,13 +385,6 @@ export default {
             items: [{ name: "Создать запись об отпуске" }, { name: "Показать отпуска" }],
           },
         },
-        {divider: true},
-        {
-          name: "Open Recent"
-        },
-        {
-          name: "Save",
-        }
       ],
     };
   },
