@@ -10,7 +10,7 @@
                 {{divisionsdata.name}}
             </p>
         </td>
-    <td class="hidden md:table-cell text-center md:pl-1 md:py-5  bg-white text-sm">
+    <td v-if="checkRole('changeReferences')" class="hidden md:table-cell text-center md:pl-1 md:py-5  bg-white text-sm">
 			<router-link :to="{name:'divisions.edit', params: {divisionID: divisionsdata.id }} " class="text-gray-500  hover:text-blue-500  mx-2">
 				<i class="font-bold transition duration-200 ease-in-out material-icons-outlined md:text-md">edit</i>
 			</router-link>
@@ -23,7 +23,9 @@
 
 <script>
 import useDivision from "../../composables/Divisions";
+import { useKeycloak } from "@baloise/vue-keycloak";
 
+const { hasRoles } = useKeycloak();
 export default {
   name: "Division",
   props: {
@@ -38,6 +40,17 @@ export default {
       deleteDivision,
     };
   },
+  methods: {
+    checkRole: function (role) {
+      console.log("роль " + role);
+      console.log("есть право? " + hasRoles([role]));
+      if (hasRoles([role])) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+}
 };
 </script>
 

@@ -1,2 +1,2 @@
-npm run build && docker build . -t nginx-vue:dev
+npm run build && docker build . -t green/nginx-vue:dev
 @pause

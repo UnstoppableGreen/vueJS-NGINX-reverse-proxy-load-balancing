@@ -46,7 +46,6 @@ import SickLeaveEdit from './components/sickleaveform/SickLeaveEdit'
 import ListProfession from './components/professions/ListProfession'
 import ProfessionEdit from './components/professionform/ProfessionEdit'
 
-import ListUser from './components/user/ListUser'
 import { useKeycloak } from '@baloise/vue-keycloak'
 
 //const {roles, keycloak, hasRoles, hasResourceRoles,} = useKeycloak();
@@ -301,7 +300,7 @@ const routes = [
         name:'human-resources.index',
         component: HumanResourcesIndex,
 		
-        /*beforeEnter: (to, from, next) => {
+       /* beforeEnter: (to, from, next) => {
             if (hasRoles(['admin'])) { next()}
             else {next(from)}
         }*/
@@ -310,158 +309,120 @@ const routes = [
         path:'/human-resources/workers',
         name:'ListWorker.index',
         component: ListWorker,
-        /*beforeEnter: (to, from, next) => {
-            if (hasRoles(['admin'])) { next()}
+        beforeEnter: (to, from, next) => {
+            if (hasRoles(['watchWorker'])) { next()}
             else {next(from)}
-        }*/
+        }
     },
 	{
 		path: '/workers/edit/:workerID',
 		name: 'workers.edit',
         component: WorkerEdit,
 		props:true,
-        /*beforeEnter: (to, from, next) => {
-            if (hasRoles(['watchAll'])) { next()}
+        beforeEnter: (to, from, next) => {
+            if (hasRoles(['changeWorker'])) { next()}
             else {next(from)}
-          }*/
+          }
     },
     {
         path:'/human-resources/divisions',
         name:'ListDivision.index',
         component: ListDivision,
-        /*beforeEnter: (to, from, next) => {
-            if (hasRoles(['admin'])) { next()}
+        beforeEnter: (to, from, next) => {
+            if (hasRoles(['watchReferences'])) { next()}
             else {next(from)}
-        }*/
-    },
-    {
-        path:'/list-user',
-        name:'ListUser.index',
-        component: ListUser,
-        /*beforeEnter: (to, from, next) => {
-            if (hasRoles(['admin'])) { next()}
-            else {next(from)}
-        }*/
-    },    
+        }
+    },   
 	{
 		path: '/divisions/edit/:divisionID',
 		name: 'divisions.edit',
         component: DivisionEdit,
 		props:true,
-        /*beforeEnter: (to, from, next) => {
-            if (hasRoles(['watchAll'])) { next()}
+        beforeEnter: (to, from, next) => {
+            if (hasRoles(['changeDivision'])) { next()}
             else {next(from)}
-          }*/
+          }
     },
     {
 		path: '/timesheets/edit/:timesheetID',
 		name: 'timesheets.edit',
         component: TimesheetEdit,
 		props:true,
-        /*beforeEnter: (to, from, next) => {
-            if (hasRoles(['watchAll'])) { next()}
+        beforeEnter: (to, from, next) => {
+            if (hasRoles(['changeTimesheet'])) { next()}
             else {next(from)}
-          }*/
+          }
     },
     {
 		path: '/vacations/edit/:vacationID',
 		name: 'vacations.edit',
         component: VacationEdit,
 		props:true,
-        /*beforeEnter: (to, from, next) => {
-            if (hasRoles(['watchAll'])) { next()}
+        beforeEnter: (to, from, next) => {
+            if (hasRoles(['watchVacation'])) { next()}
             else {next(from)}
-          }*/
+          }
     },
         //medical organizations
 	{
         path:'/human-resources/medicalorganizations',
         name:'ListMedicalOrganization.index',
         component: ListMedicalOrganization,
-        /*beforeEnter: (to, from, next) => {
-            if (hasRoles(['admin'])) { next()}
+        beforeEnter: (to, from, next) => {
+            if (hasRoles(['watchReferences'])) { next()}
             else {next(from)}
-        }*/
+        }
     },
 	{
 		path: '/medicalorganizations/edit/:medicalOrganizationID',
 		name: 'medicalOrganizations.edit',
         component: MedicalOrganizationEdit,
 		props:true,
-        /*beforeEnter: (to, from, next) => {
-            if (hasRoles(['watchAll'])) { next()}
+        beforeEnter: (to, from, next) => {
+            if (hasRoles(['changeReferences'])) { next()}
             else {next(from)}
-          }*/
+          }
     },
 	
 	{
         path:'/human-resources/professions',
         name:'ListProfession.index',
         component: ListProfession,
-        /*beforeEnter: (to, from, next) => {
-            if (hasRoles(['admin'])) { next()}
+        beforeEnter: (to, from, next) => {
+            if (hasRoles(['watchReferences'])) { next()}
             else {next(from)}
-        }*/
+        }
     },
 	{
 		path: '/professions/edit/:professionID',
 		name: 'professions.edit',
         component: ProfessionEdit,
 		props:true,
-        /*beforeEnter: (to, from, next) => {
-            if (hasRoles(['watchAll'])) { next()}
+        beforeEnter: (to, from, next) => {
+            if (hasRoles(['changeReferences'])) { next()}
             else {next(from)}
-          }*/
+          }
     },
 	{
 		path: '/businesstrips/edit/:businessTripID',
 		name: 'businesstrips.edit',
         component: BusinessTripEdit,
 		props:true,
-        /*beforeEnter: (to, from, next) => {
-            if (hasRoles(['watchAll'])) { next()}
+        beforeEnter: (to, from, next) => {
+            if (hasRoles(['changeBusinessTrip'])) { next()}
             else {next(from)}
-          }*/
+          }
     },
 	{
 		path: '/sickleaves/edit/:sickLeaveID',
 		name: 'sickleaves.edit',
         component: SickLeaveEdit,
 		props:true,
-        /*beforeEnter: (to, from, next) => {
-            if (hasRoles(['watchAll'])) { next()}
-            else {next(from)}
-          }*/
-    },
-  /*  {
-    path:'/references/medical-organization',
-        name:'medical-organization.index',
-        component: MedicalOrganizationIndex,
         beforeEnter: (to, from, next) => {
-            if (hasRoles(['viewReferences'])) { next()}
-            else {next(from)}
-        }
-    },    
-    {
-    path:'/references/medical-organization/create',
-        name:'medical-organization.create',
-        component: MedicalOrganizationCreate,
-        beforeEnter: (to, from, next) => {
-            if (hasRoles(['editReferences'])) { next()}
+            if (hasRoles(['changeSickLeave'])) { next()}
             else {next(from)}
           }
     },
-    {
-        path:'/references/medical-organization/edit/:medicalOrganizationID',
-        name:'medical-organization.edit',
-        component:MedicalOrganizationEdit,
-        props:true,
-        beforeEnter: (to, from, next) => {
-            if (hasRoles(['editReferences'])) { next()}
-            else {next(from)}
-          }
-
-    },*/
 
 
     //this.$keycloak.logout({"redirectUri":"http://localhost:3000/logout.html"})

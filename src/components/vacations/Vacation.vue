@@ -30,7 +30,7 @@
         {{ vacationsdata.commandDate }}
       </p>
     </td>
-    <td
+    <td v-if="checkRole('changeVacation')"
       class="hidden md:table-cell text-center md:pl-1 md:py-5 bg-white text-sm"
     >
       <!--<router-link
@@ -83,6 +83,9 @@
 <script>
 import useVacations from "../../composables/Vacations";
 //import { defineAsyncComponent } from 'vue'
+import { useKeycloak } from "@baloise/vue-keycloak";
+
+const { hasRoles } = useKeycloak();
 export default {
   name: "Vacation",
   components: {
@@ -104,6 +107,17 @@ export default {
       deleteVacation, editDivision,
     };
   },
+  methods: {
+    checkRole: function (role) {
+      console.log("роль " + role);
+      console.log("есть право? " + hasRoles([role]));
+      if (hasRoles([role])) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+}
 };
 </script>
 

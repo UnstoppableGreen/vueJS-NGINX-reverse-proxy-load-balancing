@@ -30,7 +30,7 @@
         {{ timesheetsdata.duration }}
       </p>
     </td>
-    <td
+    <td v-if="checkRole('changeTimesheet')"
       class="hidden md:table-cell text-center md:pl-1 md:py-5 bg-white text-sm"
     >
       <!--<router-link
@@ -66,7 +66,9 @@
 
 <script>
 import useTimeSheets from "../../composables/TimeSheets";
+import { useKeycloak } from "@baloise/vue-keycloak";
 
+const { hasRoles } = useKeycloak();
 export default {
   name: "TimeSheet",
   props: {
@@ -81,6 +83,17 @@ export default {
       deleteTimeSheet,
     };
   },
+  methods: {
+    checkRole: function (role) {
+      console.log("роль " + role);
+      console.log("есть право? " + hasRoles([role]));
+      if (hasRoles([role])) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+}
 };
 </script>
 

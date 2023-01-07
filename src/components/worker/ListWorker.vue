@@ -160,6 +160,7 @@ import Worker from "../worker/Worker.vue";
 import paginateOrdersList from "../../composables/PaginateUniversal";
 //import FilterOrder from "../../components/functionalities/FilterOrder.vue";
 import Modal from "../functionalities/Modal.vue";
+
 export default {
   name: "ListWorker",
   components: {
@@ -253,6 +254,7 @@ export default {
       getEntireWorkerList();
     });
 
+    
     return {
       data,
       workersdata,
@@ -274,6 +276,7 @@ export default {
     };
   },
 };
+
 </script>
 
 <style scoped>
