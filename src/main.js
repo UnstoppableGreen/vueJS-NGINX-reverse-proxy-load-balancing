@@ -13,7 +13,7 @@ import { vueKeycloak } from '@baloise/vue-keycloak'
      onLoad: 'login-required', 
    },
    config: {
-     url : 'http://192.168.0.103:8180/auth',
+     url : process.env.VUE_APP_KEYCLOAK +'/auth',
      realm : 'myrealm',
      clientId : 'app-auth',
     //onLoad  : 'check-sso',

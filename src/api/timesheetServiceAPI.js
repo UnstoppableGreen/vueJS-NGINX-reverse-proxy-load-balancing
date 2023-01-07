@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getToken } from '@baloise/vue-keycloak'
 
 const timesheetServiceAPI = axios.create({
-	baseURL:'http://192.168.0.103:8081/timesheet-service'
+	baseURL:process.env.VUE_APP_TIMESHEET_SERVICE+'/timesheet-service'
 })
 
 timesheetServiceAPI.interceptors.request.use(

@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getToken } from '@baloise/vue-keycloak'
 
 const API = axios.create({
-	baseURL:'http://192.168.0.103:8081/main-service'
+	baseURL:process.env.VUE_APP_MAIN_SERVICE+'/main-service'
 })
 
 API.interceptors.request.use(
