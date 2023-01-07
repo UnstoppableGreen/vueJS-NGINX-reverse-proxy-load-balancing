@@ -23,9 +23,7 @@
     "vue-axios": "^3.4.0",
     "vue-dock-menu": "^1.1.0",
     "vue-dynamic-select": "^1.0.16",
-    "vue-float-menu": "^1.9.1",
     "vue-json-component": "^0.4.1",
-    "vue-json-tree-view": "^2.1.6",
     "vue-router": "^4.0.12",
     "vue-stripe-menu": "^2.1.1",
     "vuejs-tree": "^3.0.1"

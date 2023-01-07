@@ -1010,7 +1010,6 @@
 
 <script>
 import { reactive } from "@vue/reactivity";
-import "vue-float-menu/dist/vue-float-menu.css";
 import { defineAsyncComponent } from "vue";
 
 import { useKeycloak } from "@baloise/vue-keycloak";
