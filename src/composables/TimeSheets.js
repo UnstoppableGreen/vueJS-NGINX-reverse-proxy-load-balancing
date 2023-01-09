@@ -9,11 +9,41 @@ export default function useTimeSheets(){
     const router = useRouter()
     const EntireTimeSheetList = ref([])
 	
+	const EntireTimesheetReportList = ref([])
+	
+	//для отчетов	
+	const getTimesheetReports = async (params) => {
+		let response = await timesheetServiceAPI.get('/timesheets/getTimesheetsByWorkerId',{params:params})
+        data.value = response.data;
+        timesheetsdata.value=response.data.data;
+    }
+	const getPageReportsData = async(params)=>{
+		let response = await timesheetServiceAPI.get('/timesheets/getTimesheetsByWorkerId',{params:params})
+		return response.data.data
+    }
+    
+    //Получить все данные из разбитого на страницы Api с помощью рекурсии    
+    const getEntireTimesheetReportList = async (pageNo=1, workerID)=>{
+        let res = await getPageReportsData({page:pageNo, workerID:workerID});
+
+        /*if (res.length > 0) {
+            EntireTimesheetReportList.value= EntireTimesheetReportList.value.concat(res)
+          res.concat(await getEntireTimesheetReportList(pageNo+1, workerID));
+         
+        } else { 
+            return 
+        }*/
+        return res
+      }
+	
+	
+	// для таймшитов
     const getAllData = async (params) => {
 		let response = await timesheetServiceAPI.get('/timesheets/getTimesheetsByPage',{params:params})
         data.value = response.data;
         timesheetsdata.value=response.data.data;
     }
+	
     const getAllTimeSheetData = async () => {
 		let response = await timesheetServiceAPI.get('/timesheets/getTimesheets')
         data.value = response.data;
@@ -77,7 +107,11 @@ export default function useTimeSheets(){
             deleteTimeSheet,
             updateTimeSheet,
             storeTimeSheet,
-            getEntireTimeSheetList
+            getEntireTimeSheetList,
+			
+			EntireTimesheetReportList,
+			getTimesheetReports,
+			getEntireTimesheetReportList
       }
   
  }

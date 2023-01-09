@@ -339,6 +339,18 @@
                     >
                       Показать листы учета рабочего времени
                     </div>
+					<div
+                      class="
+                        block
+                        px-4
+                        py-2
+                        text-sm text-grey-100
+                        hover:bg-indigo-200 hover:text-grey-100
+                      "
+                      @click="visibleComponent('showTimesheetReport')"
+                    >
+                      Показать отчет
+                    </div>
                   </div>
                 </div>
                 <div v-if="checkRole('watchWorker')">
@@ -649,6 +661,37 @@
           </button>
         </form>
         <timesheet-create> </timesheet-create>
+      </div>
+    </template>
+    <template #fallback>
+      <p>Loading...</p>
+    </template>
+  </Suspense>
+  <Suspense v-if="visibledata.showTimesheetReport">
+    <template #default>
+      <div>
+        <button
+          style="margin: 5em auto auto 10em"
+          @click="visibledata.showTimesheetReport = !visibledata.showTimesheetReport"
+          class="
+            mb-2
+            md:mb-0
+            bg-white
+            px-5
+            py-2
+            text-sm
+            shadow-sm
+            font-medium
+            tracking-wider
+            border
+            text-gray-600
+            rounded-full
+            hover:shadow-lg hover:bg-gray-100
+          "
+        >
+          X
+        </button>
+        <list-timesheet-report />
       </div>
     </template>
     <template #fallback>
@@ -1070,26 +1113,30 @@ export default {
     ListSickLeave: defineAsyncComponent(() =>
       import("../components/sickleaves/ListSickLeave.vue")
     ),
+	ListTimesheetReport: defineAsyncComponent(() =>
+      import("../components/timesheetreports/ListTimesheetReport.vue")
+    ),
   },
 
   data: function () {
     let visibledata = reactive({
-      showDivisions: false,
-      createDivision: false,
-      showWorkers: false,
-      createWorker: false,
-      showTimesheets: false,
-      createTimesheet: false,
-      showMedicalOrganizations: false,
-      createMedicalOrganization: false,
-      showProfessions: false,
-      createProfession: false,
-      showVacations: false,
-      createVacation: false,
-      showBusinessTrips: false,
-      createBusinessTrip: false,
-      showSickLeaves: false,
-      createSickLeave: false,
+		showDivisions: false,
+		createDivision: false,
+		showWorkers: false,
+		createWorker: false,
+		showTimesheets: false,
+		createTimesheet: false,
+		showMedicalOrganizations: false,
+		createMedicalOrganization: false,
+		showProfessions: false,
+		createProfession: false,
+		showVacations: false,
+		createVacation: false,
+		showBusinessTrips: false,
+		createBusinessTrip: false,
+		showSickLeaves: false,
+		createSickLeave: false,
+		showTimesheetReport: false,
     });
 
     let visiblemenu = reactive({
