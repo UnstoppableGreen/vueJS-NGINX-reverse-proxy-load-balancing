@@ -23,8 +23,8 @@ export default function useTimeSheets(){
     }
     
     //Получить все данные из разбитого на страницы Api с помощью рекурсии    
-    const getEntireTimesheetReportList = async (pageNo=1, workerID)=>{
-        let res = await getPageReportsData({page:pageNo, workerID:workerID});
+    const getEntireTimesheetReportList = async (workerID, beginDate, endDate)=>{
+        let res = await getPageReportsData({workerID:workerID, beginDate:beginDate, endDate:endDate});
 
         /*if (res.length > 0) {
             EntireTimesheetReportList.value= EntireTimesheetReportList.value.concat(res)
